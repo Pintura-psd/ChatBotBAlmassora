@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ChatBot</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>ChatBotB</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>AlmassoraBChatBot</name>
