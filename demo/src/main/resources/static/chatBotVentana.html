@@ -88,6 +88,37 @@
             // Desplaza al final del chat
             const chatMensajes = document.getElementById('chatMensajes');
             chatMensajes.scrollTop = chatMensajes.scrollHeight;
+
+            fetch('/api/preguntarespuesta/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(texto) // enviamos el mensaje como JSON
+            })
+                .then(response => response.text()) // recibimos el string del backend
+                .then(respuesta => {
+                    const respuestaBocadillo = `
+            <div class="text-start mb-2">
+                <span class="badge bg-secondary">${respuesta}</span>
+            </div>
+        `;
+                    $('#chatMensajes').append(respuestaBocadillo);
+
+                    // Desplaza al final del chat
+                    chatMensajes.scrollTop = chatMensajes.scrollHeight;
+                })
+                .catch(error => {
+                    console.error('Error al enviar mensaje:', error);
+                    const errorBocadillo = `
+            <div class="text-start mb-2">
+                <span class="badge bg-danger">Error al enviar mensaje</span>
+            </div>
+        `;
+                    $('#chatMensajes').append(errorBocadillo);
+
+                });
+
         }
 
         // Eventos para enviar mensajes

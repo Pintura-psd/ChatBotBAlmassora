@@ -1,6 +1,5 @@
 package com.ChatBot.demo.model;
 
-import jakarta.persistence.Id;
 import lombok.*;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,8 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Setter
 public class PreguntaRespuesta {
-@Id
-    private String id;
+
     private String respuesta;
     private String pregunta;
 }
