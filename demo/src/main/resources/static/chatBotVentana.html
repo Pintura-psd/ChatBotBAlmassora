@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatBot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        #ventanaChat{
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 300px;
+            height: 380px;
+            display: none;
+            z-index: 2000;
+        }
+
+        #chatMensajes{
+            height: 250px;
+            overflow-y: auto;
+        }
+
+        #chatToggle{
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2001;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+        }
+
+    </style>
+
+</head>
+<body class="bg-light">
+
+<!-- Botón flotante -->
+<button id="chatToggle" class="btn btn-primary shadow">
+    <strong>Chat</strong>
+</button>
+
+<!-- Ventana flotante -->
+<div id="ventanaChat" class="shadow p-3 mb-5 bg-white rounded">
+    <div class="card-header bg-primary text-white rounded text-centre">
+        Chat
+    </div>
+
+    <div id="chatMensajes" class="card-body">
+        <!-- Aquí van los mensajes-->
+    </div>
+
+    <div id="footerChat" class="card-footer">
+        <div id="introMensaje" class="input-group">
+            <input id="chatInput" type="text" class="form-control" placeholder="Escribe...">
+            <button id="sendBtn" class="btn btn-primary">Enviar</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Abrir y cerrar ventana del chat
+        $('#chatToggle').click(function() {
+            $('#ventanaChat').toggle();
+        });
+
+        // Función para enviar mensajes
+        function enviarMensajes() {
+            const texto = $('#chatInput').val().trim();
+            if (!texto) return;
+
+            // Añade el mensaje al chat
+            const bocadillo = `
+                <div class="text-end mb-2">
+                    <span class="badge bg-primary">${texto}</span>
+                </div>
+            `;
+
+            $('#chatMensajes').append(bocadillo);
+
+            // Limpia el input
+            $('#chatInput').val('');
+
+            // Desplaza al final del chat
+            const chatMensajes = document.getElementById('chatMensajes');
+            chatMensajes.scrollTop = chatMensajes.scrollHeight;
+        }
+
+        // Eventos para enviar mensajes
+        $('#sendBtn').click(enviarMensajes);
+
+        $('#chatInput').keypress(function(e) {
+            if (e.key === 'Enter') {
+                enviarMensajes();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
