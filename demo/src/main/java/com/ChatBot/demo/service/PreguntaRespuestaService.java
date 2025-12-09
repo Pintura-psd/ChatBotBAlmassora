@@ -10,25 +10,48 @@ import java.util.List;
 @Service
 public class PreguntaRespuestaService {
     private final PreguntaRepository preguntaRespuestaRepository;
+    private List<PreguntaRespuesta> preguntaRespuestas = new ArrayList<>();
+
     public PreguntaRespuestaService(PreguntaRepository prRepo) {
         this.preguntaRespuestaRepository = prRepo;
-
+        preguntaRespuestas =prRepo.findAll();
     }
 
     //Crear el objeto pregunta respuesta
     public PreguntaRespuesta crearPreguntaRespuesta(PreguntaRespuesta preguntaRespuesta){
         return preguntaRespuestaRepository.save(preguntaRespuesta);
     }
+    public void crearPreguntaRespuesta(String preguntaRespuesta){
+        PreguntaRespuesta pregunta = new PreguntaRespuesta(preguntaRespuesta);
+        preguntaRespuestaRepository.save(pregunta);
+    }
 
-    public List<PreguntaRespuesta> getPreguntaRespuestas(){
-        List<PreguntaRespuesta> listaPreguntas = new ArrayList<>();
-        listaPreguntas=preguntaRespuestaRepository.findAll();
-        List<PreguntaRespuesta> listaLimpia = listaPreguntas.stream().filter(PreguntaRespuesta::hasRespuesta).toList();
-        return listaPreguntas;
+    public List<PreguntaRespuesta> getPreguntaSinRespuesta(){
+        List<PreguntaRespuesta> listaLimpia = preguntaRespuestas.stream().filter(PreguntaRespuesta::hasRespuesta).toList();
+        return listaLimpia;
+    }
+
+    public boolean preguntaExiste(String texto){
+        for (PreguntaRespuesta preguntaRespuesta : preguntaRespuestas) {
+            if (preguntaRespuesta.getPregunta().equals(texto.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String solicitarRespuesta(String mensaje) {
-
-        return "Espabila";
+        if (preguntaExiste(mensaje)) {
+            for (PreguntaRespuesta preguntaRespuesta : preguntaRespuestas) {
+                if (preguntaRespuesta.getPregunta().equals(mensaje.toLowerCase())) {
+                    if (preguntaRespuesta.hasRespuesta()) {
+                        return preguntaRespuesta.getRespuesta();
+                    }
+                }
+            }
+        }else{
+            crearPreguntaRespuesta(mensaje);
+        }
+        return "No tenemos respuesta para esa pregunta";
     }
 }

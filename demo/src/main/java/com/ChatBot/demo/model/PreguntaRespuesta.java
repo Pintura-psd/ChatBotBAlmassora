@@ -1,9 +1,6 @@
 package com.ChatBot.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -15,14 +12,26 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@Table(name="pregunta_respuesta")
 public class PreguntaRespuesta {
+    public PreguntaRespuesta(String respuesta) {
+        this.respuesta = respuesta;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name= "respuesta")
     private String respuesta;
+
+    @Column(name= "pregunta", nullable = false)
     private String pregunta;
 
     public boolean hasRespuesta(){
         return respuesta != null;
     }
+    public boolean hasPregunta(String pregunta){
+        return pregunta != null && pregunta.equals(this.pregunta);
+    }
+
 }
