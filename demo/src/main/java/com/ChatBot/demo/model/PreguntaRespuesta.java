@@ -14,8 +14,8 @@ import lombok.*;
 @Entity
 @Table(name="pregunta_respuesta")
 public class PreguntaRespuesta {
-    public PreguntaRespuesta(String respuesta) {
-        this.respuesta = respuesta;
+    public PreguntaRespuesta(String pregunta) {
+        this.pregunta = pregunta;
     }
 
     @Id
