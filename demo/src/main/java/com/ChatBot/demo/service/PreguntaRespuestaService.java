@@ -27,13 +27,12 @@ public class PreguntaRespuestaService {
     }
 
     public List<PreguntaRespuesta> getPreguntaSinRespuesta(){
-        List<PreguntaRespuesta> listaLimpia = preguntaRespuestas.stream().filter(PreguntaRespuesta::hasRespuesta).toList();
-        return listaLimpia;
+        return preguntaRespuestas.stream().filter(preguntaRespuesta -> !preguntaRespuesta.hasRespuesta()).toList();
     }
 
     public boolean preguntaExiste(String texto){
         for (PreguntaRespuesta preguntaRespuesta : preguntaRespuestas) {
-            if (preguntaRespuesta.getPregunta().equals(texto.toLowerCase())) {
+            if (preguntaRespuesta.getPregunta().equals(texto)) {
                 return true;
             }
         }
@@ -43,7 +42,7 @@ public class PreguntaRespuestaService {
     public String solicitarRespuesta(String mensaje) {
         if (preguntaExiste(mensaje)) {
             for (PreguntaRespuesta preguntaRespuesta : preguntaRespuestas) {
-                if (preguntaRespuesta.getPregunta().equals(mensaje.toLowerCase())) {
+                if (preguntaRespuesta.getPregunta().equals(mensaje)) {
                     if (preguntaRespuesta.hasRespuesta()) {
                         return preguntaRespuesta.getRespuesta();
                     }

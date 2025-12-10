@@ -24,7 +24,7 @@ public class PreguntaRespuesta {
     @Column(name= "respuesta")
     private String respuesta;
 
-    @Column(name= "pregunta", nullable = false)
+    @Column(name= "pregunta", nullable = false, unique = true)
     private String pregunta;
 
     public boolean hasRespuesta(){
