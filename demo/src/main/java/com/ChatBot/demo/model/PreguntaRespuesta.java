@@ -1,5 +1,6 @@
 package com.ChatBot.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,10 +22,12 @@ public class PreguntaRespuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name= "respuesta")
+    @JsonProperty("response")
+    @Column(name= "respuesta",columnDefinition = "TEXT")
     private String respuesta;
 
-    @Column(name= "pregunta", nullable = false, unique = true)
+    @JsonProperty("prompt")
+    @Column(name= "pregunta", nullable = false, unique = true,columnDefinition = "TEXT")
     private String pregunta;
 
     public boolean hasRespuesta(){
