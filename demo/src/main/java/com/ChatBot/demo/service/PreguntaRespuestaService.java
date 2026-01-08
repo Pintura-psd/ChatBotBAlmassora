@@ -37,7 +37,7 @@ public class PreguntaRespuestaService {
     }
 
     public List<PreguntaRespuesta> getPreguntaSinRespuesta(){
-        return preguntaRespuestas.stream().filter(preguntaRespuesta -> !preguntaRespuesta.hasRespuesta()).toList();
+        return preguntaRespuestaRepository.findAll().stream().filter(preguntaRespuesta -> !preguntaRespuesta.hasRespuesta()).toList();
     }
 
 
@@ -68,19 +68,18 @@ public class PreguntaRespuestaService {
        }
 
     }
-    public void cargarJsonEnBD(String rutaArchivo) {
-        ObjectMapper mapper = new ObjectMapper();
-        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                if (linea.trim().isEmpty()) continue;
-                PreguntaRespuesta pr = mapper.readValue(linea, PreguntaRespuesta.class);
-
-                // Guardar en BD
-                preguntaRespuestaRepository.save(pr);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public void cargarJsonEnBD(String rutaArchivo) {
+//        ObjectMapper mapper = new ObjectMapper();
+//        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+//            String linea;
+//            while ((linea = br.readLine()) != null) {
+//                if (linea.trim().isEmpty()) continue;
+//                PreguntaRespuesta pr = mapper.readValue(linea, PreguntaRespuesta.class);
+//                // Guardar en BD
+//                preguntaRespuestaRepository.save(pr);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

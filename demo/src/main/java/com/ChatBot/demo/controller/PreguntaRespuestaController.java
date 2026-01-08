@@ -34,19 +34,18 @@ public class PreguntaRespuestaController {
         // Si no encuentra la pregunta, devuelve mensaje por defecto
     }
 
-
-    @GetMapping("/cargar")
-    public String cargar() {
-        try {
-            // Cambia aquí a la ruta absoluta de tu archivo
-            String rutaArchivo = "/home/hecencelb/Escritorio/ChatbotAlmazora/preguntas_chatbot.json";
-            pregResp.cargarJsonEnBD(rutaArchivo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Error cargando JSON: " + e.getMessage();
-        }
-        return "JSON cargado correctamente";
-    }
+//    @GetMapping("/cargar")
+//    public String cargar() {
+//        try {
+//            // Cambia aquí a la ruta absoluta de tu archivo
+//            String rutaArchivo = "/home/hecencelb/Escritorio/ChatbotAlmazora/preguntas_chatbot.json";
+//            pregResp.cargarJsonEnBD(rutaArchivo);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "Error cargando JSON: " + e.getMessage();
+//        }
+//        return "JSON cargado correctamente";
+//    }
 
 
 

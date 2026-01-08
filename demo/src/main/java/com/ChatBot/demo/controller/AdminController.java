@@ -1,16 +1,29 @@
 package com.ChatBot.demo.controller;
 
+import com.ChatBot.demo.model.PreguntaRespuesta;
+import com.ChatBot.demo.service.PreguntaRespuestaService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
 public class AdminController {
-    @GetMapping("/admin")
-    public String index(){
-        return "listaPreguntas.html";
+    private final PreguntaRespuestaService preguntaRespuestaService;
+
+    public AdminController(PreguntaRespuestaService preguntaRespuestaService) {
+        this.preguntaRespuestaService = preguntaRespuestaService;
     }
+
+    @GetMapping("/admin")
+    public String index(Model model){
+        List<PreguntaRespuesta> preguntas =preguntaRespuestaService.getPreguntaSinRespuesta();
+        model.addAttribute("preguntas",preguntas);
+        return "listaPreguntas";
+    }
+
+
 
 }
