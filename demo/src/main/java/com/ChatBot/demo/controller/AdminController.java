@@ -18,11 +18,11 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String index(Model model){
-        List<PreguntaRespuesta> preguntas =preguntaRespuestaService.getPreguntaSinRespuesta();
-        model.addAttribute("preguntas",preguntas);
-        return "listaPreguntas";
+    public List<PreguntaRespuesta> index(){
+        return preguntaRespuestaService.getPreguntaSinRespuesta();
     }
+
+    @PostMapping
 
 
 
