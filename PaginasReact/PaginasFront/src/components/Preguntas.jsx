@@ -27,7 +27,9 @@ const Preguntas = ({ questions }) => {
                 <tr key={p.id}>
                     <td className="fw-semibold align-top">
                         <label htmlFor={"respuesta-" + p.id}>{p.pregunta}</label>
-                        <form className="mt-2" onSubmit={(e) => e.preventDefault()}>
+                        <form
+                            className="mt-2"
+                            onSubmit={(e) => e.preventDefault()}>
                 <textarea
                     value={p.respuesta}
                     onSubmit={(e) =>
@@ -36,7 +38,9 @@ const Preguntas = ({ questions }) => {
                     rows={3}
                     placeholder="Escribe tu respuesta"
                 ></textarea>
-                            <button onClick={() => enviar(p)}>Enviar</button>
+                            <button type="submit" className="btn btn-success">
+                                Enviar
+                            </button>
                         </form>
                     </td>
                 </tr>

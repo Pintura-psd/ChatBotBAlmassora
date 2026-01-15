@@ -1,6 +1,8 @@
 package com.ChatBot.demo.service;
 
+import com.ChatBot.demo.model.Estadisticas;
 import com.ChatBot.demo.model.PreguntaRespuesta;
+import com.ChatBot.demo.repository.EstadisticasRepository;
 import com.ChatBot.demo.repository.PreguntaRepository;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,10 +23,12 @@ public class PreguntaRespuestaService {
     private final PreguntaRepository preguntaRespuestaRepository;
     private List<PreguntaRespuesta> preguntaRespuestas = new ArrayList<>();
     private final RestTemplate restTemplate = new RestTemplate();
+    private final EstadisticasService estadisticasService;
 
-    public PreguntaRespuestaService(PreguntaRepository prRepo) {
+    public PreguntaRespuestaService(PreguntaRepository prRepo,EstadisticasService estadisticasService1) {
         this.preguntaRespuestaRepository = prRepo;
         preguntaRespuestas =prRepo.findAll();
+        this.estadisticasService = estadisticasService1;
     }
 
     //Crear el objeto pregunta respuesta
@@ -42,6 +46,7 @@ public class PreguntaRespuestaService {
 
 
     public String solicitarRespuesta(String mensaje) {
+        Boolean tieneRespuesta = false;
        try{
            HttpHeaders headers = new HttpHeaders();
            headers.setContentType(MediaType.APPLICATION_JSON);
@@ -59,8 +64,10 @@ public class PreguntaRespuestaService {
            String respuesta = responseBody.get("answer").toString();
            if(respuesta.equals("No consta en el dataset.")){
                crearPreguntaRespuesta(mensaje);
+           }else{
+               tieneRespuesta = true;
            }
-
+            estadisticasService.anyadirEstadisticas(tieneRespuesta);
            return respuesta;
 
        }catch (Exception e){

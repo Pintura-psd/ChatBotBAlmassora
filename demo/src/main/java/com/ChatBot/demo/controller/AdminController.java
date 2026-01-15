@@ -22,7 +22,6 @@ public class AdminController {
         return preguntaRespuestaService.getPreguntaSinRespuesta();
     }
 
-    @PostMapping
 
 
 
