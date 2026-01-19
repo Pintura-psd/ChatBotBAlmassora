@@ -21,5 +21,10 @@ public class AdminController {
         return preguntaRespuestaService.getPreguntaSinRespuesta();
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> main
 
 }
