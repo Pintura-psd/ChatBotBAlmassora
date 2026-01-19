@@ -8,10 +8,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import tools.jackson.databind.ObjectMapper;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
+//import tools.jackson.databind.ObjectMapper;
+//import java.io.BufferedReader;
+//import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +66,10 @@ public class PreguntaRespuestaService {
          return e.toString();
        }
 
+    }
+
+    public PreguntaRespuesta actualizarRespuesta(PreguntaRespuesta preguntaRespuesta){
+        return preguntaRespuestaRepository.save(preguntaRespuesta);
     }
 //    public void cargarJsonEnBD(String rutaArchivo) {
 //        ObjectMapper mapper = new ObjectMapper();

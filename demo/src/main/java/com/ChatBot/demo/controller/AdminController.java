@@ -3,13 +3,12 @@ package com.ChatBot.demo.controller;
 import com.ChatBot.demo.model.PreguntaRespuesta;
 import com.ChatBot.demo.service.PreguntaRespuestaService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@Controller
+@RestController
 public class AdminController {
     private final PreguntaRespuestaService preguntaRespuestaService;
 
@@ -21,9 +20,6 @@ public class AdminController {
     public List<PreguntaRespuesta> index(){
         return preguntaRespuestaService.getPreguntaSinRespuesta();
     }
-
-    @PostMapping
-
 
 
 }

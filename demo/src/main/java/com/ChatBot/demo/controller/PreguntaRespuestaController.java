@@ -3,7 +3,6 @@ package com.ChatBot.demo.controller;
 import com.ChatBot.demo.model.PreguntaRespuesta;
 import com.ChatBot.demo.service.PreguntaRespuestaService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.core.io.ClassPathResource;
 
 import java.util.List;
 
@@ -32,6 +31,11 @@ public class PreguntaRespuestaController {
         mensaje = mensaje.replaceAll("^\"|\"$", "");
        return pregResp.solicitarRespuesta(mensaje);
         // Si no encuentra la pregunta, devuelve mensaje por defecto
+    }
+
+    @PatchMapping
+    public PreguntaRespuesta actualizarRespuesta(@RequestBody PreguntaRespuesta preguntaRespuesta) {
+        return pregResp.actualizarRespuesta(preguntaRespuesta);
     }
 
 //    @GetMapping("/cargar")
