@@ -34,9 +34,10 @@ public class PreguntaRespuestaService {
     public PreguntaRespuesta crearPreguntaRespuesta(PreguntaRespuesta preguntaRespuesta){
         return preguntaRespuestaRepository.save(preguntaRespuesta);
     }
-    public void crearPreguntaRespuesta(String preguntaRespuesta){
-        PreguntaRespuesta pregunta = new PreguntaRespuesta(preguntaRespuesta);
-        preguntaRespuestaRepository.save(pregunta);
+    public void crearPreguntaSinRespuesta(String pregunta,String respuesta,Boolean tieneRespuesta,long tiempoRespuesta){
+        PreguntaRespuesta p = new PreguntaRespuesta(respuesta,pregunta,tiempoRespuesta,tieneRespuesta);
+
+        preguntaRespuestaRepository.save(p);
     }
 
     public List<PreguntaRespuesta> getPreguntaSinRespuesta(){
@@ -46,6 +47,7 @@ public class PreguntaRespuestaService {
 
     public String solicitarRespuesta(String mensaje) {
         Boolean tieneRespuesta = false;
+        long inicioPregunta = System.currentTimeMillis();
        try{
            HttpHeaders headers = new HttpHeaders();
            headers.setContentType(MediaType.APPLICATION_JSON);
@@ -58,13 +60,16 @@ public class PreguntaRespuestaService {
 
            ResponseEntity<Map> response = restTemplate.postForEntity("https://chatbot.valenciainformada.com/api/chat", request, Map.class);
 
+           long tiempoRespuesta = System.currentTimeMillis() - inicioPregunta;
+
            Map<String, Object> responseBody = response.getBody();
 
            String respuesta = responseBody.get("answer").toString();
            if(respuesta.equals("No consta en el dataset.")){
-               crearPreguntaRespuesta(mensaje);
+               crearPreguntaSinRespuesta(mensaje,"",tieneRespuesta,tiempoRespuesta);
            }else{
                tieneRespuesta = true;
+               crearPreguntaSinRespuesta(mensaje,respuesta,tieneRespuesta,tiempoRespuesta);
            }
             estadisticasService.anyadirEstadisticas(tieneRespuesta);
            return respuesta;
@@ -72,12 +77,12 @@ public class PreguntaRespuestaService {
        }catch (Exception e){
          return e.toString();
        }
-
     }
 
     public PreguntaRespuesta actualizarRespuesta(PreguntaRespuesta preguntaRespuesta){
         return preguntaRespuestaRepository.save(preguntaRespuesta);
     }
+
 //    public void cargarJsonEnBD(String rutaArchivo) {
 //        ObjectMapper mapper = new ObjectMapper();
 //        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {

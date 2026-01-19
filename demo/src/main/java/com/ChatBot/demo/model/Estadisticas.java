@@ -25,4 +25,5 @@ public class Estadisticas {
     @Column(name = "preguntasSinRespuesta")
     private int preguntasSinRespuesta;
 
+
 }
