@@ -54,11 +54,9 @@ public class PreguntaRespuesta {
     private Boolean tieneRespuesta;
 
     public boolean hasRespuesta(){
-        return respuesta != null;
+       return tieneRespuesta;
     }
-    public boolean hasPregunta(String pregunta){
-        return pregunta != null && pregunta.equals(this.pregunta);
-    }
+
 
 
 

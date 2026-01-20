@@ -41,7 +41,7 @@ public class PreguntaRespuestaService {
     }
 
     public List<PreguntaRespuesta> getPreguntaSinRespuesta(){
-        return preguntaRespuestaRepository.findAll().stream().filter(preguntaRespuesta -> !preguntaRespuesta.hasRespuesta()).toList();
+    return preguntaRespuestaRepository.findAll().stream().filter(p->!p.hasRespuesta()).toList();
     }
 
 

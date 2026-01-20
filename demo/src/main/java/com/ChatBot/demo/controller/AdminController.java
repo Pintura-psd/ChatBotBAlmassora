@@ -18,7 +18,10 @@ public class AdminController {
 
     @GetMapping("/admin")
     public List<PreguntaRespuesta> index(){
-        return preguntaRespuestaService.getPreguntaSinRespuesta();
+
+        List<PreguntaRespuesta> preguntaSinRespuesta = preguntaRespuestaService.getPreguntaSinRespuesta();
+        System.out.println(preguntaSinRespuesta);
+        return preguntaSinRespuesta;
     }
 
 
