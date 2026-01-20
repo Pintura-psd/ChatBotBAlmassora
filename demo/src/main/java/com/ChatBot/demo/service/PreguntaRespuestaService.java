@@ -35,7 +35,7 @@ public class PreguntaRespuestaService {
         return preguntaRespuestaRepository.save(preguntaRespuesta);
     }
     public void crearPreguntaSinRespuesta(String pregunta,String respuesta,Boolean tieneRespuesta,long tiempoRespuesta){
-        PreguntaRespuesta p = new PreguntaRespuesta(respuesta,pregunta,tiempoRespuesta,tieneRespuesta);
+        PreguntaRespuesta p = new PreguntaRespuesta(pregunta,respuesta,tiempoRespuesta,tieneRespuesta);
 
         preguntaRespuestaRepository.save(p);
     }
