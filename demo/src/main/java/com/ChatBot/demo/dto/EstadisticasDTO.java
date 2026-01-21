@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class EstadisticasDTO {
-    private int totalPreguntas;
+    private int totalPreguntas ;
     private int preguntasBien;
     private int preguntasSinRespuesta;
     private List<PreguntaFrecuenciaDTO> top5Preguntas;
