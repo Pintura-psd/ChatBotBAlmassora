@@ -1,8 +1,7 @@
 package com.ChatBot.demo.controller;
 
-import com.ChatBot.demo.model.PreguntaRespuesta;
+import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.service.PreguntaRespuestaService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +16,9 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public List<PreguntaRespuesta> index(){
+    public List<QA> index(){
 
-        List<PreguntaRespuesta> preguntaSinRespuesta = preguntaRespuestaService.getPreguntaSinRespuesta();
+        List<QA> preguntaSinRespuesta = preguntaRespuestaService.getPreguntaSinRespuesta();
         System.out.println(preguntaSinRespuesta);
         return preguntaSinRespuesta;
     }

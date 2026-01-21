@@ -1,6 +1,6 @@
 package com.ChatBot.demo.service;
 
-import com.ChatBot.demo.model.PreguntaRespuesta;
+import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.PreguntaRepository;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,27 +15,27 @@ import java.util.Map;
 @Service
 public class PreguntaRespuestaService {
     private final PreguntaRepository preguntaRespuestaRepository;
-    private List<PreguntaRespuesta> preguntaRespuestas = new ArrayList<>();
+    private List<QA> QAS = new ArrayList<>();
     private final RestTemplate restTemplate = new RestTemplate();
     private final EstadisticasService estadisticasService;
 
     public PreguntaRespuestaService(PreguntaRepository prRepo,EstadisticasService estadisticasService1) {
         this.preguntaRespuestaRepository = prRepo;
-        preguntaRespuestas =prRepo.findAll();
+        QAS =prRepo.findAll();
         this.estadisticasService = estadisticasService1;
     }
 
     //Crear el objeto pregunta respuesta
-    public PreguntaRespuesta crearPreguntaRespuesta(PreguntaRespuesta preguntaRespuesta){
-        return preguntaRespuestaRepository.save(preguntaRespuesta);
+    public QA crearPreguntaRespuesta(QA QA){
+        return preguntaRespuestaRepository.save(QA);
     }
     public void crearPreguntaSinRespuesta(String pregunta,String respuesta,long tiempoRespuesta){
-        PreguntaRespuesta p = new PreguntaRespuesta(pregunta,respuesta,tiempoRespuesta);
+        QA p = new QA(pregunta,respuesta,tiempoRespuesta);
 
         preguntaRespuestaRepository.save(p);
     }
 
-    public List<PreguntaRespuesta> getPreguntaSinRespuesta(){
+    public List<QA> getPreguntaSinRespuesta(){
     return preguntaRespuestaRepository.findAll().stream().filter(p->!p.hasRespuesta()).toList();
     }
 
@@ -71,8 +71,8 @@ public class PreguntaRespuestaService {
        }
     }
 
-    public PreguntaRespuesta actualizarRespuesta(PreguntaRespuesta preguntaRespuesta){
-        return preguntaRespuestaRepository.save(preguntaRespuesta);
+    public QA actualizarRespuesta(QA QA){
+        return preguntaRespuestaRepository.save(QA);
     }
 
 //    public void cargarJsonEnBD(String rutaArchivo) {

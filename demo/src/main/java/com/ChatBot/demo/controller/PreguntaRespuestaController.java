@@ -1,6 +1,6 @@
 package com.ChatBot.demo.controller;
 
-import com.ChatBot.demo.model.PreguntaRespuesta;
+import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.service.PreguntaRespuestaService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ public class PreguntaRespuestaController {
 
      //obtener todas lasw preguntas
     @GetMapping
-    public List<PreguntaRespuesta> obtenerPreguntas(){
+    public List<QA> obtenerPreguntas(){
         return pregResp.getPreguntaSinRespuesta();
 
     }
@@ -34,8 +34,8 @@ public class PreguntaRespuestaController {
     }
 
     @PatchMapping
-    public PreguntaRespuesta actualizarRespuesta(@RequestBody PreguntaRespuesta preguntaRespuesta) {
-        return pregResp.actualizarRespuesta(preguntaRespuesta);
+    public QA actualizarRespuesta(@RequestBody QA QA) {
+        return pregResp.actualizarRespuesta(QA);
     }
 
 //    @GetMapping("/cargar")
