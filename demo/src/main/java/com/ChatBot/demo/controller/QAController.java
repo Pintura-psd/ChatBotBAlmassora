@@ -8,11 +8,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/preguntarespuesta")
-public class PreguntaRespuestaController {
+public class QAController {
     private final QAService pregResp;
 
 
-    public PreguntaRespuestaController(QAService pregResp){
+    public QAController(QAService pregResp){
         this.pregResp = pregResp;
     }
 
