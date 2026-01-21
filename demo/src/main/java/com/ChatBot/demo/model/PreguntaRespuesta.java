@@ -21,11 +21,11 @@ public class PreguntaRespuesta {
         this.pregunta = pregunta;
     }
 
-    public PreguntaRespuesta(String pregunta, String respuesta, Long tiempoRespuesta, Boolean tieneRespuesta) {
+    public PreguntaRespuesta(String pregunta, String respuesta, Long tiempoRespuesta) {
         this.pregunta = pregunta;
         this.respuesta = respuesta;
         this.tiempoRespuesta = tiempoRespuesta;
-        this.tieneRespuesta = tieneRespuesta;
+
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,11 +50,11 @@ public class PreguntaRespuesta {
     @Column(name = "tiempo_respuesta")
     private Long tiempoRespuesta;
 
-    @Column(name = "tiene_respuesta", nullable = false)
-    private Boolean tieneRespuesta;
+
 
     public boolean hasRespuesta(){
-       return tieneRespuesta;
+     return !respuesta.isBlank();
+
     }
 
 

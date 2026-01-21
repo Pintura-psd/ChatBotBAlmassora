@@ -18,10 +18,6 @@ public class EstadisticaPreguntasController {
         this.service = service;
     }
 
-    @GetMapping
-    public EstadisticasDTO getEstadisticas()  {
-        return service.obtenerEstadisticasCompletas();
-    }
 
 }
 
