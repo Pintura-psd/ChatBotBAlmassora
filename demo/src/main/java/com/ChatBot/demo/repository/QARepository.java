@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface PreguntaRepository extends JpaRepository<QA, Long> {
+public interface QARepository extends JpaRepository<QA, Long> {
     @Query(value = """
         SELECT pregunta, COUNT(*) AS total
         FROM pregunta_respuesta

@@ -1,7 +1,7 @@
 package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.model.QA;
-import com.ChatBot.demo.repository.PreguntaRepository;
+import com.ChatBot.demo.repository.QARepository;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,12 +14,12 @@ import java.util.Map;
 
 @Service
 public class QAService {
-    private final PreguntaRepository preguntaRespuestaRepository;
+    private final QARepository preguntaRespuestaRepository;
     private List<QA> QAS = new ArrayList<>();
     private final RestTemplate restTemplate = new RestTemplate();
     private final EstadisticasService estadisticasService;
 
-    public QAService(PreguntaRepository prRepo, EstadisticasService estadisticasService1) {
+    public QAService(QARepository prRepo, EstadisticasService estadisticasService1) {
         this.preguntaRespuestaRepository = prRepo;
         QAS =prRepo.findAll();
         this.estadisticasService = estadisticasService1;
