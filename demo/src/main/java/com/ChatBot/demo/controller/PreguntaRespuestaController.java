@@ -1,7 +1,7 @@
 package com.ChatBot.demo.controller;
 
 import com.ChatBot.demo.model.QA;
-import com.ChatBot.demo.service.PreguntaRespuestaService;
+import com.ChatBot.demo.service.QAService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,10 +9,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/preguntarespuesta")
 public class PreguntaRespuestaController {
-    private final PreguntaRespuestaService pregResp;
+    private final QAService pregResp;
 
 
-    public PreguntaRespuestaController(PreguntaRespuestaService pregResp){
+    public PreguntaRespuestaController(QAService pregResp){
         this.pregResp = pregResp;
     }
 

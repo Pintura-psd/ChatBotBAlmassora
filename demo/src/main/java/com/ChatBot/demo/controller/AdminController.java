@@ -1,7 +1,7 @@
 package com.ChatBot.demo.controller;
 
 import com.ChatBot.demo.model.QA;
-import com.ChatBot.demo.service.PreguntaRespuestaService;
+import com.ChatBot.demo.service.QAService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,16 +9,16 @@ import java.util.List;
 
 @RestController
 public class AdminController {
-    private final PreguntaRespuestaService preguntaRespuestaService;
+    private final QAService QAService;
 
-    public AdminController(PreguntaRespuestaService preguntaRespuestaService) {
-        this.preguntaRespuestaService = preguntaRespuestaService;
+    public AdminController(QAService QAService) {
+        this.QAService = QAService;
     }
 
     @GetMapping("/admin")
     public List<QA> index(){
 
-        List<QA> preguntaSinRespuesta = preguntaRespuestaService.getPreguntaSinRespuesta();
+        List<QA> preguntaSinRespuesta = QAService.getPreguntaSinRespuesta();
         System.out.println(preguntaSinRespuesta);
         return preguntaSinRespuesta;
     }
