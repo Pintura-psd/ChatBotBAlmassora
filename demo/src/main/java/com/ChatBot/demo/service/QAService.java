@@ -14,33 +14,33 @@ import java.util.Map;
 
 @Service
 public class QAService {
-    private final QARepository preguntaRespuestaRepository;
+    private final QARepository qaRepo;
     private List<QA> QAS = new ArrayList<>();
     private final RestTemplate restTemplate = new RestTemplate();
     private final EstadisticasService estadisticasService;
 
     public QAService(QARepository prRepo, EstadisticasService estadisticasService1) {
-        this.preguntaRespuestaRepository = prRepo;
+        this.qaRepo = prRepo;
         QAS =prRepo.findAll();
         this.estadisticasService = estadisticasService1;
     }
 
     //Crear el objeto pregunta respuesta
     public QA crearPreguntaRespuesta(QA QA){
-        return preguntaRespuestaRepository.save(QA);
+        return qaRepo.save(QA);
     }
     public void crearPreguntaSinRespuesta(String pregunta,String respuesta,long tiempoRespuesta){
         QA p = new QA(pregunta,respuesta,tiempoRespuesta);
 
-        preguntaRespuestaRepository.save(p);
+        qaRepo.save(p);
     }
 
     public List<QA> getPreguntaSinRespuesta(){
-    return preguntaRespuestaRepository.findAll().stream().filter(p->!p.hasRespuesta()).toList();
+    return qaRepo.findAll().stream().filter(p->!p.hasRespuesta()).toList();
     }
 
 
-    public String solicitarRespuesta(String mensaje) {
+    public String getRespuesta(String mensaje) {
         long inicioPregunta = System.currentTimeMillis();
        try{
            HttpHeaders headers = new HttpHeaders();
@@ -71,8 +71,8 @@ public class QAService {
        }
     }
 
-    public QA actualizarRespuesta(QA QA){
-        return preguntaRespuestaRepository.save(QA);
+    public QA updateRespuesta(QA QA){
+        return qaRepo.save(QA);
     }
 
 //    public void cargarJsonEnBD(String rutaArchivo) {

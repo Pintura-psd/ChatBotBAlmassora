@@ -29,13 +29,13 @@ public class QAController {
     public String responderPregunta(@RequestBody String mensaje) {
         // Llama a tu servicio para buscar la respuesta correspondiente
         mensaje = mensaje.replaceAll("^\"|\"$", "");
-       return pregResp.solicitarRespuesta(mensaje);
+       return pregResp.getRespuesta(mensaje);
         // Si no encuentra la pregunta, devuelve mensaje por defecto
     }
 
     @PatchMapping
     public QA actualizarRespuesta(@RequestBody QA QA) {
-        return pregResp.actualizarRespuesta(QA);
+        return pregResp.updateRespuesta(QA);
     }
 
 //    @GetMapping("/cargar")
