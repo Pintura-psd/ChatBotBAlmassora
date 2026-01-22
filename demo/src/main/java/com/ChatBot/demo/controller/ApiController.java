@@ -12,14 +12,13 @@ import java.util.List;
 public class ApiController {
     private final QAService qaService;
 
-
     public ApiController(QAService qaService){
         this.qaService = qaService;
     }
 
-  //crear pregunta respuesta
-
+     //crear pregunta respuesta
      //obtener todas lasw preguntas
+     
     @GetMapping
     public List<QA> obtenerPreguntas(){
         return qaService.getPreguntaSinRespuesta();
@@ -42,15 +41,28 @@ public class ApiController {
         return preguntaSinRespuesta;
     }
 
-    @PatchMapping
-    public ResponseEntity<QA> actualizarRespuesta(@RequestBody QA QA) {
+    @PatchMapping("/")
+    public ResponseEntity<QA> actualizarRespuesta(@RequestBody QA qa) {
         try {
-            qaService.updateRespuesta(QA);
-            return ResponseEntity.ok(QA);
+            qaService.updateRespuesta(qa);
+            return ResponseEntity.ok(qa);
         }catch (Exception e){
+            System.err.println("Error al actualizar respuesta: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(null);
         }
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarPregunta(@PathVariable Long id) {
+        try {
+            qaService.deletePregunta(id);
+            return ResponseEntity.ok("Pregunta eliminada correctamente");
+        } catch (Exception e) {
+            System.err.println("Error al eliminar pregunta: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Error al eliminar la pregunta: " + e.getMessage());
+        }
     }
 
 //    @GetMapping("/cargar")

@@ -71,8 +71,26 @@ public class QAService {
        }
     }
 
-    public QA updateRespuesta(QA QA){
-        return qaRepo.save(QA);
+    public QA updateRespuesta(QA qa){
+        // Buscar la entidad existente por ID
+        QA existente = qaRepo.findById(qa.getId())
+            .orElseThrow(() -> new RuntimeException("Pregunta no encontrada con ID: " + qa.getId()));
+        
+        // Actualizar solo los campos que vienen del frontend
+        if (qa.getRespuesta() != null) {
+            existente.setRespuesta(qa.getRespuesta());
+        }
+        if (qa.getPregunta() != null) {
+            existente.setPregunta(qa.getPregunta());
+        }
+        
+        return qaRepo.save(existente);
+    }
+
+    public void deletePregunta(Long id) {
+        QA existente = qaRepo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Pregunta no encontrada con ID: " + id));
+        qaRepo.delete(existente);
     }
 
 //    public void cargarJsonEnBD(String rutaArchivo) {
