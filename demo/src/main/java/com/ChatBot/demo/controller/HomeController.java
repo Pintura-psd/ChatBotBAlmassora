@@ -9,5 +9,9 @@ public class HomeController {
     public String index(){
         return "chatBotVentana.html";
     }
+    @GetMapping("/admin")
+    public String admin(){
+        return "index.html";
+    }
 
 }

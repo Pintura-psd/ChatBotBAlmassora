@@ -2,18 +2,19 @@ package com.ChatBot.demo.controller;
 
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.service.QAService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/preguntarespuesta")
-public class QAController {
-    private final QAService pregResp;
+@RequestMapping("/api")
+public class ApiController {
+    private final QAService qaService;
 
 
-    public QAController(QAService pregResp){
-        this.pregResp = pregResp;
+    public ApiController(QAService qaService){
+        this.qaService = qaService;
     }
 
   //crear pregunta respuesta
@@ -21,7 +22,7 @@ public class QAController {
      //obtener todas lasw preguntas
     @GetMapping
     public List<QA> obtenerPreguntas(){
-        return pregResp.getPreguntaSinRespuesta();
+        return qaService.getPreguntaSinRespuesta();
 
     }
 
@@ -29,13 +30,27 @@ public class QAController {
     public String responderPregunta(@RequestBody String mensaje) {
         // Llama a tu servicio para buscar la respuesta correspondiente
         mensaje = mensaje.replaceAll("^\"|\"$", "");
-       return pregResp.getRespuesta(mensaje);
+       return qaService.getRespuesta(mensaje);
         // Si no encuentra la pregunta, devuelve mensaje por defecto
     }
 
+    @GetMapping("/admin")
+    public List<QA> index(){
+
+        List<QA> preguntaSinRespuesta = qaService.getPreguntaSinRespuesta();
+        System.out.println(preguntaSinRespuesta);
+        return preguntaSinRespuesta;
+    }
+
     @PatchMapping
-    public QA actualizarRespuesta(@RequestBody QA QA) {
-        return pregResp.updateRespuesta(QA);
+    public ResponseEntity<QA> actualizarRespuesta(@RequestBody QA QA) {
+        try {
+            qaService.updateRespuesta(QA);
+            return ResponseEntity.ok(QA);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(null);
+        }
+
     }
 
 //    @GetMapping("/cargar")

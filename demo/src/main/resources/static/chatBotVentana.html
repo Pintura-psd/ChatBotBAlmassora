@@ -89,7 +89,7 @@
             const chatMensajes = document.getElementById('chatMensajes');
             chatMensajes.scrollTop = chatMensajes.scrollHeight;
 
-            fetch('/api/preguntarespuesta/chat', {
+            fetch('/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
