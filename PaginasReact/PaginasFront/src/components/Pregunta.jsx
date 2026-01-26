@@ -10,7 +10,7 @@ export const Pregunta = ({ pregunta }) => {
         setLoading(true);
         setMensaje('');
         try {
-            const response = await fetch('http://localhost:8080/api/', {
+            const response = await fetch('http://localhost:8080/api', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
