@@ -1,5 +1,6 @@
 package com.ChatBot.demo.model;
 
+import com.ChatBot.demo.dto.entrenarDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,6 +28,7 @@ public class QA {
         this.tiempoRespuesta = tiempoRespuesta;
 
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

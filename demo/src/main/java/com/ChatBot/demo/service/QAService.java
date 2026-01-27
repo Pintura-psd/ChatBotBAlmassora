@@ -1,5 +1,7 @@
 package com.ChatBot.demo.service;
 
+import com.ChatBot.demo.dto.entrenarDTO;
+import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.QARepository;
 import org.springframework.http.HttpEntity;
@@ -8,6 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import tools.jackson.databind.ObjectMapper;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +24,9 @@ public class QAService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final EstadisticasService estadisticasService;
 
+
     public QAService(QARepository prRepo, EstadisticasService estadisticasService1) {
+
         this.qaRepo = prRepo;
         QAS =prRepo.findAll();
         this.estadisticasService = estadisticasService1;
@@ -39,6 +46,9 @@ public class QAService {
     return qaRepo.findAll().stream().filter(p->!p.hasRespuesta()).toList();
     }
 
+    public List<entrenarDTO> getPreguntaConRespuesta(String pregunta){
+        return qaRepo.findAll().stream().filter(QA::hasRespuesta).map(entrenarDTO::new).toList();
+    }
 
     public String getRespuesta(String mensaje) {
         long inicioPregunta = System.currentTimeMillis();
@@ -83,7 +93,8 @@ public class QAService {
         if (qa.getPregunta() != null) {
             existente.setPregunta(qa.getPregunta());
         }
-        
+
+
         return qaRepo.save(existente);
     }
 
@@ -99,7 +110,7 @@ public class QAService {
 //            String linea;
 //            while ((linea = br.readLine()) != null) {
 //                if (linea.trim().isEmpty()) continue;
-//                PreguntaRespuesta pr = mapper.readValue(linea, PreguntaRespuesta.class);
+//                QA pr = mapper.readValue(linea, .class);
 //                // Guardar en BD
 //                preguntaRespuestaRepository.save(pr);
 //            }

@@ -14,7 +14,6 @@ public class EstadisticasService {
     private final QARepository QARepository;
 
     public EstadisticasService(QARepository QARepository) {
-
         this.QARepository = QARepository;
     }
 

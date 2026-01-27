@@ -1,6 +1,8 @@
 package com.ChatBot.demo.controller;
 
+import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
+import com.ChatBot.demo.service.EntrenamientoService;
 import com.ChatBot.demo.service.QAService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +13,13 @@ import java.util.List;
 @RequestMapping("/api")
 public class ApiController {
     private final QAService qaService;
+    private final EntrenamientoService entrenamientoService;
 
-    public ApiController(QAService qaService){
+    public ApiController(QAService qaService, EntrenamientoService entrenamientoService){
         this.qaService = qaService;
+        this.entrenamientoService = entrenamientoService;
     }
 
-     //crear pregunta respuesta
-     //obtener todas lasw preguntas
      
     @GetMapping
     public List<QA> obtenerPreguntas(){
@@ -44,7 +46,7 @@ public class ApiController {
     @PatchMapping("/")
     public ResponseEntity<QA> actualizarRespuesta(@RequestBody QA qa) {
         try {
-            qaService.updateRespuesta(qa);
+            entrenamientoService.save(new Entrenamiento(qaService.updateRespuesta(qa)));
             return ResponseEntity.ok(qa);
         }catch (Exception e){
             System.err.println("Error al actualizar respuesta: " + e.getMessage());
@@ -65,18 +67,18 @@ public class ApiController {
         }
     }
 
-//    @GetMapping("/cargar")
-//    public String cargar() {
-//        try {
-//            // Cambia aquí a la ruta absoluta de tu archivo
-//            String rutaArchivo = "/home/hecencelb/Escritorio/ChatbotAlmazora/preguntas_chatbot.json";
-//            pregResp.cargarJsonEnBD(rutaArchivo);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return "Error cargando JSON: " + e.getMessage();
-//        }
-//        return "JSON cargado correctamente";
-//    }
+    @GetMapping("/cargar")
+    public String cargar() {
+        try {
+            // Cambia aquí a la ruta absoluta de tu archivo
+            String rutaArchivo = "./preguntas_chatbot.json";
+            entrenamientoService.cargarJsonEnBD(rutaArchivo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error cargando JSON: " + e.getMessage();
+        }
+        return "JSON cargado correctamente";
+    }
 
 
 
