@@ -42,15 +42,15 @@ public class PreguntaRespuesta {
     @Column(name = "fecha_creacion", nullable = false)
     private LocalDateTime fechaCreacion;
 
-    @PrePersist
-    public void prePersist() {
-        this.fechaCreacion = LocalDateTime.now();
-    }
-
     @Column(name = "tiempo_respuesta")
     private Long tiempoRespuesta;
 
 
+
+    @PrePersist
+    public void prePersist() {
+        this.fechaCreacion = LocalDateTime.now();
+    }
 
     public boolean hasRespuesta(){
      return !respuesta.isBlank();

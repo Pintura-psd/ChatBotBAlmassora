@@ -15,11 +15,11 @@ const Preguntas = () => {
     },[])
 
     return (
-        <table className="table table-striped">
-            <thead>
+        <table className="table table-striped table-hover align-middle">
+            <thead className="table-dark">
             <tr>
-                <th>Pregunta</th>
-                <th>Acción</th>
+                <th className="w-75">Pregunta</th>
+                <th className="w-25 text-end">Acción</th>
             </tr>
             </thead>
             <tbody>

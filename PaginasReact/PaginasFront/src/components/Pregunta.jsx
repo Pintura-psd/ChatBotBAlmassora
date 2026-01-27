@@ -35,7 +35,7 @@ export const Pregunta = ({ pregunta }) => {
 
     return (
     <tr>
-        <td>
+        <td className="fw-semibold align-top">
             <h5>{pregunta.prompt}</h5>
             <textarea 
                 name="respuesta" 
@@ -47,7 +47,7 @@ export const Pregunta = ({ pregunta }) => {
         </td>
         <td>
             <button 
-                className="btn btn-primary" 
+                className="btn btn-success"
                 onClick={guardarRespuesta}
                 disabled={loading}
             >

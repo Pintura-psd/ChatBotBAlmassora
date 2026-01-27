@@ -1,6 +1,8 @@
 package com.ChatBot.demo.service;
 
+import com.ChatBot.demo.model.Estadisticas;
 import com.ChatBot.demo.model.PreguntaRespuesta;
+import com.ChatBot.demo.repository.EstadisticasRepository;
 import com.ChatBot.demo.repository.PreguntaRepository;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -8,6 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+//import tools.jackson.databind.ObjectMapper;
+//import java.io.BufferedReader;
+//import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +34,8 @@ public class PreguntaRespuestaService {
     public PreguntaRespuesta crearPreguntaRespuesta(PreguntaRespuesta preguntaRespuesta){
         return preguntaRespuestaRepository.save(preguntaRespuesta);
     }
-    public void crearPreguntaSinRespuesta(String pregunta,String respuesta,long tiempoRespuesta){
-        PreguntaRespuesta p = new PreguntaRespuesta(pregunta,respuesta,tiempoRespuesta);
+    public void crearPreguntaSinRespuesta(String pregunta,String respuesta,Boolean tieneRespuesta,long tiempoRespuesta){
+        PreguntaRespuesta p = new PreguntaRespuesta(pregunta,respuesta,tiempoRespuesta,tieneRespuesta);
 
         preguntaRespuestaRepository.save(p);
     }
@@ -41,6 +46,7 @@ public class PreguntaRespuestaService {
 
 
     public String solicitarRespuesta(String mensaje) {
+        Boolean tieneRespuesta = false;
         long inicioPregunta = System.currentTimeMillis();
        try{
            HttpHeaders headers = new HttpHeaders();
@@ -60,10 +66,12 @@ public class PreguntaRespuestaService {
 
            String respuesta = responseBody.get("answer").toString();
            if(respuesta.equals("No consta en el dataset.")){
-               crearPreguntaSinRespuesta(mensaje,"",tiempoRespuesta);
+               crearPreguntaSinRespuesta(mensaje,"",tieneRespuesta,tiempoRespuesta);
            }else{
-               crearPreguntaSinRespuesta(mensaje,respuesta,tiempoRespuesta);
+               tieneRespuesta = true;
+               crearPreguntaSinRespuesta(mensaje,respuesta,tieneRespuesta,tiempoRespuesta);
            }
+            estadisticasService.anyadirEstadisticas(tieneRespuesta);
            return respuesta;
 
        }catch (Exception e){
