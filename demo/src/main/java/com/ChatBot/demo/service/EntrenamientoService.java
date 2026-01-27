@@ -2,9 +2,12 @@ package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.repository.EntrenamientoRepository;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.ObjectMapper;
 
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -12,8 +15,11 @@ import java.util.List;
 @Service
 public class EntrenamientoService {
     private final EntrenamientoRepository entrenamientoRepository;
-    public EntrenamientoService(EntrenamientoRepository entrenamientoRepository) {
+    private final ResourceLoader resourceLoader;
+    
+    public EntrenamientoService(EntrenamientoRepository entrenamientoRepository, ResourceLoader resourceLoader) {
         this.entrenamientoRepository = entrenamientoRepository;
+        this.resourceLoader = resourceLoader;
     }
 
     public void save(Entrenamiento entrenamiento){
@@ -25,27 +31,25 @@ public class EntrenamientoService {
     public List<Entrenamiento> findAll(){
         return entrenamientoRepository.findAll();
     }
-    public void cargarJsonEnBD(String rutaArchivo) {
-
+    public void cargarJsonEnBD(String nombreArchivo) {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            // Leemos todas las líneas del archivo
-            List<String> lineas = Files.readAllLines(Path.of(rutaArchivo));
-
-            for (String linea : lineas) {
-                if (linea.trim().isEmpty()) continue;
-
-                // Convertimos cada línea en objeto Entrenamiento
-                Entrenamiento entrenamiento = mapper.readValue(linea, Entrenamiento.class);
-
-                // Guardamos en la base de datos
-                entrenamientoRepository.save(entrenamiento);
+            // Cargamos el archivo del classpath
+            Resource resource = resourceLoader.getResource("classpath:" + nombreArchivo);
+            
+            if (!resource.exists()) {
+                throw new IllegalArgumentException("Archivo no encontrado en classpath: " + nombreArchivo);
             }
-
+            
+            // Leemos todas las líneas del archivo
+            List<String> lineas = Files.readAllLines(resource.getFile().toPath(), StandardCharsets.UTF_8);
+            List<Entrenamiento> entrenamientos = lineas.stream().map(l -> mapper.readValue(l, Entrenamiento.class)).toList();
+            saveAll(entrenamientos);
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException("Error al cargar JSON: " + e.getMessage(), e);
         }
     }
     //    public void cargarJsonEnBD(String rutaArchivo) {
@@ -58,7 +62,7 @@ public class EntrenamientoService {
 //                // Guardar en BD
 //                preguntaRespuestaRepository.save(pr);
 //            }
-//        } catch (Exception e) {
+//        } catch (Exception e) { 
 //            e.printStackTrace();
 //        }
 //    }

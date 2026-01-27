@@ -70,9 +70,8 @@ public class ApiController {
     @GetMapping("/cargar")
     public String cargar() {
         try {
-            // Cambia aquí a la ruta absoluta de tu archivo
-            String rutaArchivo = "./preguntas_chatbot.json";
-            entrenamientoService.cargarJsonEnBD(rutaArchivo);
+            // Carga el archivo desde el classpath (src/main/resources/)
+            entrenamientoService.cargarJsonEnBD("preguntas_chatbot.jsonl");
         } catch (Exception e) {
             e.printStackTrace();
             return "Error cargando JSON: " + e.getMessage();
