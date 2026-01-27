@@ -5,7 +5,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import {Button, Navbar} from 'react-bootstrap';
-import {Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Admin} from "./paginas/Admin.jsx";
 import {MainLayout} from "./layouts/MainLayout.jsx";
 
@@ -13,13 +13,13 @@ function App() {
     
 
   return (
-      <>
-      <Routes>
-          <Route element={MainLayout}>
-             <Route path="/admin" element={<Admin />} />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/admin" element={<Admin />} />
           </Route>
-      </Routes>
-      </>
+        </Routes>
+      </BrowserRouter>
   )
 }
 
