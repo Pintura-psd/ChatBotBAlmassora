@@ -1,7 +1,7 @@
 package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
-import com.ChatBot.demo.repository.PreguntaRepository;
+import com.ChatBot.demo.repository.QARepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,11 +11,10 @@ import java.util.List;
 @Service
 public class EstadisticasService {
 
-    private final PreguntaRepository preguntaRepository;
+    private final QARepository QARepository;
 
-    public EstadisticasService(PreguntaRepository preguntaRepository) {
-
-        this.preguntaRepository = preguntaRepository;
+    public EstadisticasService(QARepository QARepository) {
+        this.QARepository = QARepository;
     }
 
     // Top 5 preguntas última hora
@@ -23,7 +22,7 @@ public class EstadisticasService {
         LocalDateTime fin = LocalDateTime.now();
         LocalDateTime inicio = fin.minusHours(1);
 
-        return preguntaRepository.top5Preguntas(inicio, fin)
+        return QARepository.top5Preguntas(inicio, fin)
                 .stream()
                 .map(r -> new PreguntaFrecuenciaDTO(
                         (String) r[0],

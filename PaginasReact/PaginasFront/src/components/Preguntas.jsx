@@ -6,7 +6,7 @@ const Preguntas = () => {
 
     useEffect(() => {
         // Fetch questions from backend API when component mounts
-        fetch("http://localhost:8080/admin")
+        fetch("http://localhost:8080/api/admin")
             .then(response => response.json())
             .then(data => {
                 // Update state with fetched questions

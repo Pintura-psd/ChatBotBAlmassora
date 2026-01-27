@@ -1,5 +1,6 @@
 package com.ChatBot.demo.model;
 
+import com.ChatBot.demo.dto.entrenarDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,17 +17,18 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name="pregunta_respuesta")
-public class PreguntaRespuesta {
-    public PreguntaRespuesta(String pregunta) {
+public class QA {
+    public QA(String pregunta) {
         this.pregunta = pregunta;
     }
 
-    public PreguntaRespuesta(String pregunta, String respuesta, Long tiempoRespuesta) {
+    public QA(String pregunta, String respuesta, Long tiempoRespuesta) {
         this.pregunta = pregunta;
         this.respuesta = respuesta;
         this.tiempoRespuesta = tiempoRespuesta;
 
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,15 +1,14 @@
 package com.ChatBot.demo.repository;
 
-import com.ChatBot.demo.model.PreguntaRespuesta;
+import com.ChatBot.demo.model.QA;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
-public interface PreguntaRepository extends JpaRepository<PreguntaRespuesta, Long> {
+public interface QARepository extends JpaRepository<QA, Long> {
     @Query(value = """
         SELECT pregunta, COUNT(*) AS total
         FROM pregunta_respuesta
