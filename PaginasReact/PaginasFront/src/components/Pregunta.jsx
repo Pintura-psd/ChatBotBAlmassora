@@ -4,12 +4,14 @@ export const Pregunta = ({ pregunta }) => {
     const [respuesta, setRespuesta] = useState(pregunta.response);
     const [loading, setLoading] = useState(false);
     const [mensaje, setMensaje] = useState('');
+    const [preguntaBorrada, setPreguntaBorrada] = useState(false);
+
 
     const guardarRespuesta = async () => {
         setLoading(true);
         setMensaje('');
         try {
-            const response = await fetch('http://localhost:8080/api/preguntarespuesta', {
+            const response = await fetch('http://localhost:8080/api/', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,8 +34,30 @@ export const Pregunta = ({ pregunta }) => {
             setLoading(false);
         }
     }
+    const borrarPregunta = async () => {
+        setLoading(true);
+        setMensaje('');
+        try {
+            const response = await fetch(`http://localhost:8080/api/${pregunta.id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                setMensaje('Pregunta eliminada correctamente');
+                setPreguntaBorrada(true);
+            } else {
+                setMensaje('Error al eliminar la pregunta');
+            }
+        } catch (error) {
+            setMensaje('Error de conexión: ' + error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
+    preguntaBorrada ? <td colSpan="2" className="text-center text-muted">Pregunta eliminada</td>
+    :
     <tr>
         <td className="fw-semibold align-top">
             <h5>{pregunta.prompt}</h5>
@@ -53,7 +77,7 @@ export const Pregunta = ({ pregunta }) => {
             >
                 {loading ? 'Guardando...' : 'Guardar'}
             </button>
-            <button className="btn btn-danger mt-2">Eliminar</button>
+            <button onClick={borrarPregunta} className="btn btn-danger mt-2">Eliminar</button>
         </td>
     </tr>
   )
