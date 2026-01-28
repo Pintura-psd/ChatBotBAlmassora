@@ -5,6 +5,7 @@ export const Pregunta = ({ pregunta }) => {
     const [loading, setLoading] = useState(false);
     const [mensaje, setMensaje] = useState('');
     const [preguntaBorrada, setPreguntaBorrada] = useState(false);
+    const [preguntaGuardada, setPreguntaGuardada] = useState(false);
 
 
     const guardarRespuesta = async () => {
@@ -25,6 +26,7 @@ export const Pregunta = ({ pregunta }) => {
 
             if (response.ok) {
                 setMensaje('Respuesta guardada correctamente');
+                setPreguntaGuardada(true);
             } else {
                 setMensaje('Error al guardar la respuesta');
             }
@@ -56,6 +58,8 @@ export const Pregunta = ({ pregunta }) => {
     }
 
     return (
+    preguntaGuardada ? <td colSpan="2" className="text-center text-success">Respuesta guardada</td>
+    :
     preguntaBorrada ? <td colSpan="2" className="text-center text-muted">Pregunta eliminada</td>
     :
     <tr>
