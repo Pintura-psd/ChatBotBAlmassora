@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import 'animate.css';
 
-const AlmassoraWebsite = () => {
+const Almassora = () => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -817,4 +817,4 @@ const Footer = () => {
   );
 };
 
-export default AlmassoraWebsite;
+export default Almassora;
