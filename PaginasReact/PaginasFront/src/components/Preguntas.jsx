@@ -12,7 +12,7 @@ const Preguntas = () => {
                 // Update state with fetched questions
                 setQuestions(data);
             })
-    },[])
+    },[]);
 
     return (
         <table className="table table-striped table-hover align-middle">

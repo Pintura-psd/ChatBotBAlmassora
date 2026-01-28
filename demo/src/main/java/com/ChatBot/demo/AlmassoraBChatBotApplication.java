@@ -28,14 +28,11 @@ public class AlmassoraBChatBotApplication {
 
 			@Override
 			public void addResourceHandlers(ResourceHandlerRegistry registry) {
-				// Excluir /api/** del manejo de recursos estáticos
-				registry.addResourceHandler("/static/**")
-					.addResourceLocations("classpath:/static/");
-				registry.addResourceHandler("/**")
-					.addResourceLocations("classpath:/static/")
-					.resourceChain(true);
+			// Serve static resources only from /static/**
+			registry.addResourceHandler("/static/**")
+				.addResourceLocations("classpath:/static/");
 			}
+
 		};
 	}
-
 }
