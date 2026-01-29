@@ -431,8 +431,7 @@ const Almassora = () => {
       `}</style>
 
       <main>
-        {/* Navbar */}
-        <Navbar />
+        {/* Navbar is now handled by MainLayout */}
 
         {/* Portada Section */}
         <Portada currentBgIndex={currentBgIndex} backgrounds={backgrounds} />
@@ -494,8 +493,8 @@ const Portada = ({ currentBgIndex, backgrounds }) => {
       ></div>
       
       <div className="menu-portada">
-        <div className="container">
-          <div className="row g-4">
+        <div className="container-fluid" style={{padding: 0}}>
+          <div className="row g-4" style={{margin: 0}}>
             <MenuColumn 
               title="AJUNTAMENT"
               className="ayto-img"
@@ -651,8 +650,8 @@ const NewsSection = () => {
   ];
 
   return (
-    <div className="section" style={{backgroundColor: '#eeeeee'}}>
-      <div className="container">
+    <div className="section" style={{backgroundColor: '#eeeeee', padding: '3rem 2rem'}}>
+      <div className="container-fluid" style={{padding: 0}}>
         <h1 className="main-header">Notícies</h1>
         <div className="row">
           {news.map((item, index) => (
@@ -676,8 +675,8 @@ const NewsSection = () => {
 
 const AgendaSection = () => {
   return (
-    <div className="section" style={{backgroundColor: '#ffffff'}}>
-      <div className="container">
+    <div className="section" style={{backgroundColor: '#ffffff', padding: '3rem 2rem'}}>
+      <div className="container-fluid" style={{padding: 0}}>
         <h1 className="main-header">Agenda</h1>
         <div className="row">
           <div className="col-lg-6">
@@ -768,8 +767,8 @@ const AgendaSection = () => {
 
 const MapSection = () => {
   return (
-    <div className="section" style={{backgroundColor: '#eeeeee'}}>
-      <div className="container">
+    <div className="section" style={{backgroundColor: '#eeeeee', padding: '3rem 2rem'}}>
+      <div className="container-fluid" style={{padding: 0}}>
         <h1 className="main-header">Situació</h1>
         <div id="mapa1" className="animate__animated animate__fadeIn">
           <p>Mapa interactiu d'Almassora<br/><small className="text-muted">(Integrar Leaflet o Google Maps aquí)</small></p>
@@ -781,8 +780,8 @@ const MapSection = () => {
 
 const Footer = () => {
   return (
-    <footer>
-      <div className="container">
+    <footer style={{padding: '2rem 2rem 1rem'}}>
+      <div className="container-fluid" style={{padding: 0}}>
         <div className="row">
           <div className="col-lg-3 col-md-6 mb-4">
             <a href="#" className="logo">

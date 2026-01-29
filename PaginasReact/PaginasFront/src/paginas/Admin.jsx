@@ -1,10 +1,14 @@
 import Preguntas from "../components/Preguntas.jsx";
-import {Navbar} from "react-bootstrap";
+import {Container, Navbar} from "react-bootstrap";
 
 export const Admin =()=> {
     return(
-        <>
-            <Preguntas/>
-        </>
+        
+            <div className="min-vh-100">
+                <Container >
+                    <Preguntas/>
+                </Container>
+           </div>
+        
     )
 }

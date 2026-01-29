@@ -11,8 +11,6 @@ import Almassora from "./paginas/Almassora.jsx";
 import {MainLayout} from "./layouts/MainLayout.jsx";
 
 function App() {
-    
-
   return (
       <BrowserRouter>
         <Routes>
