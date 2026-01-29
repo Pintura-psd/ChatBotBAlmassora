@@ -3,6 +3,7 @@ package com.ChatBot.demo.service;
 import com.ChatBot.demo.dto.entrenarDTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
+import com.ChatBot.demo.repository.EntrenamientoRepository;
 import com.ChatBot.demo.repository.QARepository;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,10 +24,10 @@ public class QAService {
     private List<QA> QAS = new ArrayList<>();
     private final RestTemplate restTemplate = new RestTemplate();
     private final EstadisticasService estadisticasService;
+    private final EntrenamientoRepository entrenamientoRepo;
 
-
-    public QAService(QARepository prRepo, EstadisticasService estadisticasService1) {
-
+    public QAService(QARepository prRepo, EstadisticasService estadisticasService1, EntrenamientoRepository entrenamientoRepo) {
+        this.entrenamientoRepo = entrenamientoRepo;
         this.qaRepo = prRepo;
         QAS =prRepo.findAll();
         this.estadisticasService = estadisticasService1;
@@ -48,6 +49,30 @@ public class QAService {
 
     public List<entrenarDTO> getPreguntaConRespuesta(String pregunta){
         return qaRepo.findAll().stream().filter(QA::hasRespuesta).map(entrenarDTO::new).toList();
+    }
+
+    public void entrenarPreguntaRespuesta() {
+        List<Entrenamiento>preguntasEntrenadas=entrenamientoRepo.findAll();
+
+        List<Map<String, String>> qaList = preguntasEntrenadas.stream()
+                .map(e -> Map.of(
+                        "question",  e.getPrompt(),
+                        "answer", e.getResponse()
+                ))
+                .toList();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, Object> body = Map.of("qa", qaList);
+
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+
+        restTemplate.postForEntity(
+                "https://chatbot.valenciainformada.com/api/chat/train/batch",
+                request,
+                Void.class
+        );
     }
 
     public String getRespuesta(String mensaje) {
