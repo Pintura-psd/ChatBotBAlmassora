@@ -10,11 +10,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class entrenarDTO {
+public class EntrenarDTO {
     private String prompt;
     private String response;
 
-    public entrenarDTO(QA qa){
+    public EntrenarDTO(QA qa){
         this.prompt = qa.getPregunta();
         this.response = qa.getRespuesta();
     }
