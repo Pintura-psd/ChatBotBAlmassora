@@ -1,6 +1,7 @@
 package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.client.QAClient;
+import com.ChatBot.demo.client.Answer;
 import com.ChatBot.demo.dto.EntrenarDTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
@@ -79,16 +80,16 @@ public class QAService {
         long inicioPregunta = System.currentTimeMillis();
        try{
            Map<String, String> request = Map.of("question", mensaje);
-           Map<String, Object> respuestaMap = qaClient.getRespuesta(request);
+           Answer respuesta = qaClient.getRespuesta(request);
            long tiempoRespuesta = System.currentTimeMillis() - inicioPregunta;
            
-           String respuesta = respuestaMap.get("answer").toString();
+           //String respuesta = respuestaMap.get("answer").toString();
            if(respuesta.equals("No consta en el dataset.")){
                almacenarRespuestas(mensaje,"",tiempoRespuesta);
            }else{
-               almacenarRespuestas(mensaje,respuesta,tiempoRespuesta);
+               almacenarRespuestas(mensaje,respuesta.getAnswer(),tiempoRespuesta);
            }
-           return respuesta;
+           return respuesta.getAnswer();
 
        }catch (Exception e){
          return e.toString();

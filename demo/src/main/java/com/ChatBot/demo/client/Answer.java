@@ -1,4 +1,9 @@
 package com.ChatBot.demo.client;
 
-public class Response {
+import lombok.Data;
+
+@Data
+public class Answer {
+    String answer;
 }
+me cago en tus muertos en camioneta hijo de l a gran p
