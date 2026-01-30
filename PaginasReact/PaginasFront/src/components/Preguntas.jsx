@@ -16,21 +16,14 @@ const Preguntas = () => {
     },[]);
 
     return (
-        <div className="rounded-4 overflow-hidden">
-             <Table striped bordered hover variant="dark">
-                <thead>
-                <tr>
-                    <th className="w-75">Pregunta</th>
-                    <th className="w-25 text-end">Acción</th>
-                </tr>
-                </thead>
-                <tbody>
-                {questions.map((pregunta) => (
+
+        <>
+
+            {questions.map((pregunta) => (
                 <Pregunta key={pregunta.id} pregunta={pregunta} />
-                ))}
-                </tbody>
-            </Table>
-        </div>
+            ))}
+            
+        </>
     );
 }
 

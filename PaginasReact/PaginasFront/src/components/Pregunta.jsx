@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Card, FloatingLabel, Form, Button } from 'react-bootstrap';
 
 export const Pregunta = ({ pregunta }) => {
     const [respuesta, setRespuesta] = useState(pregunta.response);
@@ -36,6 +37,7 @@ export const Pregunta = ({ pregunta }) => {
             setLoading(false);
         }
     }
+    
     const borrarPregunta = async () => {
         setLoading(true);
         setMensaje('');
@@ -57,32 +59,53 @@ export const Pregunta = ({ pregunta }) => {
         }
     }
 
+    if (preguntaGuardada) {
+        return <div className="text-center text-success p-3">Respuesta guardada</div>;
+    }
+
+    if (preguntaBorrada) {
+        return <div className="text-center text-muted p-3">Pregunta eliminada</div>;
+    }
+
     return (
-    preguntaGuardada ? <td colSpan="2" className="text-center text-success">Respuesta guardada</td>
-    :
-    preguntaBorrada ? <td colSpan="2" className="text-center text-muted">Pregunta eliminada</td>
-    :
-    <tr>
-        <td className="fw-semibold align-top">
-            <h5>{pregunta.prompt}</h5>
-            <textarea 
-                name="respuesta" 
-                id={`res-${pregunta.id}`} 
-                value={respuesta}
-                onChange={(e) => setRespuesta(e.target.value)}
-                ></textarea>
-            {mensaje && <small className="d-block mt-2">{mensaje}</small>}
-        </td>
-        <td>
-            <button 
-                className="btn btn-success"
-                onClick={guardarRespuesta}
-                disabled={loading}
-            >
-                {loading ? 'Guardando...' : 'Guardar'}
-            </button>
-            <button onClick={borrarPregunta} className="btn btn-danger mt-2">Eliminar</button>
-        </td>
-    </tr>
-  )
+        <Card className="mb-3">
+            <Card.Header className="fw-semibold">
+                {pregunta.prompt}
+            </Card.Header>
+            <Card.Body>
+                <FloatingLabel
+                    controlId={`res-${pregunta.id}`}
+                    label="Respuesta"
+                    className="mb-3"
+                >
+                    <Form.Control
+                        as="textarea"
+                        placeholder="Escribe la respuesta aquí"
+                        value={respuesta}
+                        onChange={(e) => setRespuesta(e.target.value)}
+                        style={{ height: '150px' }}
+                    />
+                </FloatingLabel>
+                
+                {mensaje && <small className="d-block mb-3 text-info">{mensaje}</small>}
+                
+                <div className="d-flex gap-2">
+                    <Button
+                        variant="success"
+                        onClick={guardarRespuesta}
+                        disabled={loading}
+                    >
+                        {loading ? 'Guardando...' : 'Guardar'}
+                    </Button>
+                    <Button
+                        variant="danger"
+                        onClick={borrarPregunta}
+                        disabled={loading}
+                    >
+                        Eliminar
+                    </Button>
+                </div>
+            </Card.Body>
+        </Card>
+    );
 }
