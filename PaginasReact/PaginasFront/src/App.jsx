@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {Button, Navbar} from 'react-bootstrap';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Admin} from "./paginas/Admin.jsx";
-import Almassora from "./paginas/Almassora.jsx";
+import AlmassoraBT from "./paginas/AlmassoraBT.jsx";
 import {MainLayout} from "./layouts/MainLayout.jsx";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<Almassora />} />
+            <Route index element={<AlmassoraBT />} />
             <Route path="admin" element={<Admin />} />
           </Route>
         </Routes>

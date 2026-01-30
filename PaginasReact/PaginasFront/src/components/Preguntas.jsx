@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Pregunta } from "./Pregunta.jsx";
+import { Table } from "react-bootstrap";
 const Preguntas = () => {
    
     const [questions, setQuestions] = useState([]);
@@ -15,19 +16,21 @@ const Preguntas = () => {
     },[]);
 
     return (
-        <table className="table table-striped table-hover align-middle">
-            <thead className="table-dark">
-            <tr>
-                <th className="w-75">Pregunta</th>
-                <th className="w-25 text-end">Acción</th>
-            </tr>
-            </thead>
-            <tbody>
-            {questions.map((pregunta) => (
-              <Pregunta key={pregunta.id} pregunta={pregunta} />
-            ))}
-            </tbody>
-        </table>
+        <div className="rounded-4 overflow-hidden">
+             <Table striped bordered hover variant="dark">
+                <thead>
+                <tr>
+                    <th className="w-75">Pregunta</th>
+                    <th className="w-25 text-end">Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                {questions.map((pregunta) => (
+                <Pregunta key={pregunta.id} pregunta={pregunta} />
+                ))}
+                </tbody>
+            </Table>
+        </div>
     );
 }
 

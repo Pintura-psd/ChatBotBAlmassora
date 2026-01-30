@@ -1,5 +1,5 @@
 import {Outlet} from "react-router-dom";
-import Navbar from "../components/Navbar.jsx";
+import NavbarBT from "../components/NavbarBT.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const MainLayout = () => {
@@ -7,11 +7,12 @@ export const MainLayout = () => {
     return(
          <div className="min-vh-100">
             <div>
-                <Navbar/>
+                <NavbarBT/>
             </div>
-            <div style={{flex: '1', overflow: 'auto', width: '100%', height: '100%'}}>
-                <Outlet/>
+            <div className="bg-white">
+                  <Outlet/>
             </div>
+          
         </div>
     )
 }
