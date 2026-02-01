@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./ChatWindow.css";
 
 const ChatBot = () => {
   const [chatOpen, setChatOpen] = useState(false);
@@ -11,6 +12,22 @@ const ChatBot = () => {
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  //Funcion de abertura y cierre del chat.
+
+    const [closing, setClosing] = useState(false);
+
+    const toggleChat = () => {
+    if (chatOpen) {
+    setClosing(true);
+    setTimeout(() => {
+    setChatOpen(false);
+    setClosing(false);
+    }, 400); // Debe coincidir con la animación CSS
+    } else {
+    setChatOpen(true);
+    }
+    };  
 
   useEffect(() => {
     scrollToBottom();
@@ -24,6 +41,10 @@ const ChatBot = () => {
     setMensajes((prev) => [...prev, { texto, tipo: "usuario" }]);
     setInput("");
 
+    // Mensaje de loading
+    const loadingId = Date.now(); // ID único
+    setMensajes((prev) => [...prev, { id: loadingId, tipo: "loading" }]);
+    
     // Llamada al backend
     fetch("http://localhost:8080/api/chat", {
       method: "POST",
@@ -34,7 +55,12 @@ const ChatBot = () => {
     })
       .then((res) => res.text())
       .then((respuesta) => {
-        setMensajes((prev) => [...prev, { texto: respuesta, tipo: "bot" }]);
+        // Reemplaza el mensaje de loading por la respuesta
+        setMensajes((prev) => 
+             prev.map((m) =>
+                    m.id === loadingId ? { id: loadingId, texto: respuesta, tipo: "bot" } : m
+            )  
+        );
       })
       .catch((err) => {
         console.error("Error al enviar mensaje:", err);
@@ -53,8 +79,8 @@ const ChatBot = () => {
     <>
       {/* Botón flotante */}
       <button
-        onClick={() => setChatOpen(!chatOpen)}
-        className="btn btn-primary shadow"
+        onClick={toggleChat}
+        className="btn btn-dark shadow"
         style={{
           position: "fixed",
           bottom: "20px",
@@ -69,22 +95,20 @@ const ChatBot = () => {
       </button>
 
       {/* Ventana del chat */}
-      {chatOpen && (
-        <div
-          className="shadow p-3 mb-5 bg-white rounded-4"
+        <div className={`chat-offcanvas ${chatOpen ? "open" : ""} ${closing ? "closing" : ""} p-3 bg-white rounded-4 border border-dark`}
           style={{
             position: "fixed",
             bottom: "90px",
             right: "20px",
-            width: "300px",
-            height: "380px",
+            width: "350px",
+            height: "420px",
             zIndex: 2000,
             display: "flex",
             flexDirection: "column",
           }}
         >
-          <div className="card-header bg-primary text-white text-center  mb-2 rounded-4">
-            Chat
+          <div className="card-header bg-dark text-white text-center  mb-2 rounded-4">
+            <strong>Ayuntamiento de Almassora</strong>
           </div>
 
           <div
@@ -92,41 +116,51 @@ const ChatBot = () => {
             style={{ flex: 1, overflowY: "auto" }}
           >
             {mensajes.map((msg, index) => (
-              <div
-                key={index}
-                className={`mb-2 ${
-                  msg.tipo === "usuario"
-                    ? "text-end"
-                    : msg.tipo === "bot"
-                    ? "text-start"
-                    : "text-start"
-                }`}
-              >
-                <span
+                <div
+                    key={index}
+                    className={`mb-2 ${
+                    msg.tipo === "usuario"
+                        ? "text-end"
+                        : msg.tipo === "bot" || msg.tipo === "loading"
+                        ? "text-start"
+                        : "text-start"
+                    }`}
+                >
+                    <span
                     className={`badge ${
                         msg.tipo === "usuario"
-                        ? "bg-primary"
+                        ? "bg-dark"
                         : msg.tipo === "bot"
                         ? "bg-secondary"
-                        : "bg-danger"
+                        : msg.tipo === "error"
+                        ? "bg-danger"
+                        : "bg-light text-dark"
                     }`}
                     style={{
-                        display: "inline-block",      
-                        maxWidth: "90%",               
-                        whiteSpace: "normal",          
-                        wordBreak: "break-word",       
+                        display: "inline-block",
+                        maxWidth: "90%",
+                        whiteSpace: "normal",
+                        wordBreak: "break-word",
                         textAlign: "start",
                     }}
                     >
-                  {msg.texto}
-                </span>
-              </div>
-            ))}
+                    {msg.tipo === "loading" ? (
+                        <span className="loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        </span>
+                    ) : (
+                        msg.texto
+                    )}
+                    </span>
+                </div>
+                ))}
             <div ref={chatEndRef} />
           </div>
 
           <div className="card-footer">
-            <div className="input-group shadow">
+            <div className="input-group border border-dark rounded-3">
               <input
                 type="text"
                 className="form-control"
@@ -135,13 +169,12 @@ const ChatBot = () => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
               />
-              <button className="btn btn-primary" onClick={enviarMensaje}>
+              <button className="btn btn-dark" onClick={enviarMensaje}>
                 Enviar
               </button>
             </div>
           </div>
         </div>
-      )}
     </>
   );
 };
