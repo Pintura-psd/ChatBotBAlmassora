@@ -68,37 +68,38 @@ export const Pregunta = ({ pregunta }) => {
     }
 
     return (
-        <Card className="mb-3">
-            <Card.Header className="fw-semibold">
+        <Card className="mb-3 rounded-3 overflow-hidden border border-dark p-0">
+            <Card.Header className="bg-dark text-white fw-semibold px-4 py-3 border-0">
                 {pregunta.prompt}
             </Card.Header>
-            <Card.Body>
+            <Card.Body className="p-4">
                 <FloatingLabel
                     controlId={`res-${pregunta.id}`}
-                    label="Respuesta"
+                    label="Escribe la respuesta aquí."
                     className="mb-3"
                 >
                     <Form.Control
                         as="textarea"
-                        placeholder="Escribe la respuesta aquí"
+                        className="border-1 border-dark"
+                        placeholder="Respuesta"
                         value={respuesta}
                         onChange={(e) => setRespuesta(e.target.value)}
-                        style={{ height: '150px' }}
+                        style={{ height: '100px' }}
                     />
                 </FloatingLabel>
                 
                 {mensaje && <small className="d-block mb-3 text-info">{mensaje}</small>}
                 
-                <div className="d-flex gap-2">
+                <div className="d-flex justify-content-end gap-2">
                     <Button
-                        variant="success"
+                        variant="outline-success"
                         onClick={guardarRespuesta}
                         disabled={loading}
                     >
                         {loading ? 'Guardando...' : 'Guardar'}
                     </Button>
                     <Button
-                        variant="danger"
+                        variant="outline-danger"
                         onClick={borrarPregunta}
                         disabled={loading}
                     >
