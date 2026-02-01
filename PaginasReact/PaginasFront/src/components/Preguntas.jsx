@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Pregunta } from "./Pregunta.jsx";
-import { Table } from "react-bootstrap";
+import "./Pregunta.css"; 
 const Preguntas = () => {
    
     const [questions, setQuestions] = useState([]);
@@ -22,7 +22,7 @@ const Preguntas = () => {
             {questions.map((pregunta) => (
                 <Pregunta key={pregunta.id} pregunta={pregunta} />
             ))}
-            
+
         </>
     );
 }

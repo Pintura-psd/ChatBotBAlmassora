@@ -1,0 +1,60 @@
+.pregunta-wrapper {
+    position: relative;
+    overflow: hidden;
+    margin: 10px 0;
+    transition: height 0.5s ease; 
+    height: auto; 
+}
+
+.pregunta-wrapper.save,
+.pregunta-wrapper.delete {
+    height: 50px; /* altura final del div */
+}
+
+.pregunta-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white; 
+    z-index: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+
+    opacity: 0;
+    transition: background-color 0.8s ease, opacity 0.3s ease;
+}
+
+.pregunta-wrapper.show-message .pregunta-background {
+    opacity: 1;
+}
+
+.pregunta-wrapper.save .pregunta-background {
+    background-color: #4caf50; 
+}
+
+.pregunta-wrapper.delete .pregunta-background {
+    background-color: #f44336; 
+}
+
+.pregunta-card {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.pregunta-wrapper.save .pregunta-card {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.pregunta-wrapper.delete .pregunta-card {
+    transform: translateX(100%);
+    opacity: 0;
+}
