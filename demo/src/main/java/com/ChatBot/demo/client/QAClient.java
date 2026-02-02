@@ -13,7 +13,7 @@ public interface QAClient {
 
     @PostExchange("/chat")
     Answer getRespuesta(@RequestBody Map<String, String> request);
-    @GetExchange("/health/{id}")
-    Map<String, Object> health(@RequestBody Map<String, String> request, @PathVariable Long id);
+
+
 
 }
