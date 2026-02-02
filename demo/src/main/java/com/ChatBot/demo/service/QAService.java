@@ -2,7 +2,7 @@ package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.client.QAClient;
 import com.ChatBot.demo.client.Answer;
-import com.ChatBot.demo.dto.EntrenarDTO;
+//import com.ChatBot.demo.dto.EntrenarDTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.EntrenamientoRepository;
@@ -48,9 +48,9 @@ public class QAService {
     return qaRepo.findAll().stream().filter(p->!p.hasRespuesta()).toList();
     }
 
-    public List<EntrenarDTO> getPreguntaConRespuesta(String pregunta){
-        return qaRepo.findAll().stream().filter(QA::hasRespuesta).map(EntrenarDTO::new).toList();
-    }
+//    public List<EntrenarDTO> getPreguntaConRespuesta(String pregunta){
+//        return qaRepo.findAll().stream().filter(QA::hasRespuesta).map(EntrenarDTO::new).toList();
+//    }
 
     public void entrenarPreguntaRespuesta() {
         List<Entrenamiento>preguntasEntrenadas=entrenamientoRepo.findAll();
@@ -80,16 +80,16 @@ public class QAService {
         long inicioPregunta = System.currentTimeMillis();
        try{
            Map<String, String> request = Map.of("question", mensaje);
-           Answer respuesta = qaClient.getRespuesta(request);
+           String respuesta = qaClient.getRespuesta(request).getAnswer();
            long tiempoRespuesta = System.currentTimeMillis() - inicioPregunta;
            
            //String respuesta = respuestaMap.get("answer").toString();
            if(respuesta.equals("No consta en el dataset.")){
                almacenarRespuestas(mensaje,"",tiempoRespuesta);
            }else{
-               almacenarRespuestas(mensaje,respuesta.getAnswer(),tiempoRespuesta);
+               almacenarRespuestas(mensaje,respuesta,tiempoRespuesta);
            }
-           return respuesta.getAnswer();
+           return respuesta;
 
        }catch (Exception e){
          return e.toString();
