@@ -48,7 +48,7 @@ export default function Almassora() {
             {[1, 2, 3, 4].map((i) => (
               <div className="col-md-6 col-lg-3" key={i}>
                 <div className="card h-100 shadow-sm">
-                  <img className="card-img-top" src="https://picsum.photos/400/300" />
+                  <img className="card-img-top" src="https://picsum.photos/400/300" alt={`Notícia destacada ${i}`}/>
                   <div className="card-body">
                     <small className="text-muted">26 gener 2026</small>
                     <h6 className="mt-2">Notícia destacada {i}</h6>
