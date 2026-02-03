@@ -160,19 +160,26 @@ const ChatBot = () => {
           </div>
 
           <div className="card-footer">
-            <div className="input-group border border-dark rounded-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Escribe..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-              />
-              <button className="btn btn-dark" onClick={enviarMensaje}>
-                Enviar
-              </button>
-            </div>
+              <label htmlFor="mensaje" className="visually-hidden">
+                  Mensaje
+              </label>
+              <div className="input-group border border-dark rounded-3">
+
+
+
+                  <input
+                      id="mensaje"
+                      type="text"
+                      className="form-control border-dark"
+                      placeholder="Escribe..."
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                  />
+                  <button className="btn btn-dark" onClick={enviarMensaje}>
+                      Enviar
+                  </button>
+              </div>
           </div>
         </div>
     </>

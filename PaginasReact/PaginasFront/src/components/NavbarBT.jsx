@@ -33,7 +33,10 @@ const Navbar = () => {
               <a className="nav-link" href="#">Notícies</a>
             </li>
             <li className="nav-item">
-              <input className="form-control" placeholder="Buscar…" />
+                <label htmlFor="buscar" className="visually-hidden">
+                    Buscar
+                </label>
+              <input id="buscar"className="form-control" placeholder="Buscar…" />
             </li>
             <li className="nav-item">
               <span className="nav-link active">VA</span>

@@ -1,6 +1,7 @@
 package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
+import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.QARepository;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public class EstadisticasService {
 
     private final QARepository QARepository;
-
+    QAService QAService;
     public EstadisticasService(QARepository QARepository) {
         this.QARepository = QARepository;
     }
@@ -30,7 +31,22 @@ public class EstadisticasService {
                 ))
                 .toList();
     }
-
+    public int totalPreguntas() {
+        return QARepository.findAll().size();
+    }
+    public int preguntasSinRespuesta() {
+        return QAService.getPreguntaSinRespuesta().size();
+    }
+    public int preguntasConRespuesta() {
+        int preguntasConRespuesta=0;
+        List<QA> preguntas = QARepository.findAll();
+       for (QA pregunta : preguntas) {
+           if (pregunta.getRespuesta() != null && !pregunta.getRespuesta().isBlank()) {
+               preguntasConRespuesta++;
+           }
+       }
+        return preguntasConRespuesta;
+    }
 
 
 }

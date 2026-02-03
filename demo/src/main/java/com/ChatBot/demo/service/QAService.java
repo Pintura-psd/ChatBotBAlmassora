@@ -40,7 +40,6 @@ public class QAService {
     }
     public void almacenarRespuestas(String pregunta, String respuesta, long tiempoRespuesta){
         QA p = new QA(pregunta,respuesta,tiempoRespuesta);
-
         qaRepo.save(p);
     }
 
