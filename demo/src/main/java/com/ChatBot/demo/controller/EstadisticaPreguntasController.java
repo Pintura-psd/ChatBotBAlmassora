@@ -1,11 +1,12 @@
 package com.ChatBot.demo.controller;
 
+import com.ChatBot.demo.dto.EntrenarDTO;
 import com.ChatBot.demo.dto.EstadisticasDTO;
 import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
+import com.ChatBot.demo.service.EntrenamientoService;
 import com.ChatBot.demo.service.EstadisticasService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,11 @@ import java.util.List;
 @RequestMapping("/estadisticas")
 public class EstadisticaPreguntasController {
     private final EstadisticasService service;
+    private final EntrenamientoService entrenamientoService;
 
-    public EstadisticaPreguntasController(EstadisticasService service) {
+    public EstadisticaPreguntasController(EstadisticasService service, EntrenamientoService entrenamientoService) {
         this.service = service;
+        this.entrenamientoService = entrenamientoService;
     }
 
     @GetMapping("/preguntasfrecuentes")
@@ -36,6 +39,10 @@ public class EstadisticaPreguntasController {
         return service.preguntasConRespuesta();
     }
 
-
+    @PostMapping("/entrenar")
+    public ResponseEntity<Void> entrenar(){
+    entrenamientoService.entrenarChatbot();
+    return ResponseEntity.ok().build();
+    }
 }
 

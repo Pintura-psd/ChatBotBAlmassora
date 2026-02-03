@@ -1,5 +1,6 @@
 package com.ChatBot.demo.dto;
 
+import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +18,10 @@ public class EntrenarDTO {
     public EntrenarDTO(QA qa){
         this.prompt = qa.getPregunta();
         this.response = qa.getRespuesta();
+    }
+    public EntrenarDTO(Entrenamiento entrenamiento){
+        this.prompt = entrenamiento.getPrompt();
+        this.response = entrenamiento.getResponse();
     }
 
 }
