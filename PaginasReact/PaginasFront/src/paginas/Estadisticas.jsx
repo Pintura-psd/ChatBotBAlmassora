@@ -1,12 +1,12 @@
-import Preguntas from "../components/Preguntas.jsx";
+import Pie from "../components/Pie/Pie.jsx";
 import {Container} from "react-bootstrap";
 
-export const Admin =()=> {
+export const Estadisticas =()=> {
     return(
         
             <div className="min-vh-100 p-3 ">
                 <Container >
-                    <Preguntas/>
+                    <Pie/>
                 </Container>
            </div>
         

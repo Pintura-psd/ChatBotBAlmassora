@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, FloatingLabel, Form, Button } from 'react-bootstrap';
 import './Pregunta.css';
 
-export const Pregunta = ({ pregunta, onRemove }) => {
+export const Pregunta = ({ pregunta}) => {
     const [respuesta, setRespuesta] = useState(pregunta.response);
     const [loading, setLoading] = useState(false);
     const [action, setAction] = useState(''); // "" | "save" | "delete"
