@@ -3,6 +3,7 @@ package com.ChatBot.demo.controller;
 import com.ChatBot.demo.dto.EntrenarDTO;
 import com.ChatBot.demo.dto.EstadisticasDTO;
 import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
+import com.ChatBot.demo.dto.RespuestaEntrenamientoDTO;
 import com.ChatBot.demo.service.EntrenamientoService;
 import com.ChatBot.demo.service.EstadisticasService;
 import org.springframework.http.ResponseEntity;
@@ -40,9 +41,8 @@ public class EstadisticaPreguntasController {
     }
 
     @PostMapping("/entrenar")
-    public ResponseEntity<Void> entrenar(){
-    entrenamientoService.entrenarChatbot();
-    return ResponseEntity.ok().build();
+    public ResponseEntity<RespuestaEntrenamientoDTO> entrenar(){
+        return entrenamientoService.entrenarChatbot();
     }
 }
 

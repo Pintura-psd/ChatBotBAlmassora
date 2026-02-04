@@ -2,10 +2,12 @@ package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.client.QAClient;
 import com.ChatBot.demo.dto.EntrenarDTO;
+import com.ChatBot.demo.dto.RespuestaEntrenamientoDTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.repository.EntrenamientoRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.ObjectMapper;
 
@@ -56,10 +58,11 @@ public class EntrenamientoService {
             throw new RuntimeException("Error al cargar JSON: " + e.getMessage(), e);
         }
     }
-    public void entrenarChatbot(){
+    public ResponseEntity<RespuestaEntrenamientoDTO> entrenarChatbot(){
         List<EntrenarDTO> listaEntrenamiento= findAll().stream().map(EntrenarDTO::new).toList();
-        String respuesta = qaClient.train(listaEntrenamiento);
-        System.out.println(respuesta);
+        ResponseEntity<RespuestaEntrenamientoDTO> respuesta = qaClient.train(listaEntrenamiento);
+        System.out.println(respuesta.getStatusCode());
+        return respuesta;
     }
 
     //    public void cargarJsonEnBD(String rutaArchivo) {
@@ -72,7 +75,7 @@ public class EntrenamientoService {
 //                // Guardar en BD
 //                preguntaRespuestaRepository.save(pr);
 //            }
-//        } catch (Exception e) { 
+//        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //    }
