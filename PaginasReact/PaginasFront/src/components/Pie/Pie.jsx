@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 export default function Pie() {
-  const [estadisticas, setEstadisticas] = useState(null);
+  const [estadisticas, setEstadisticas] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -71,18 +71,12 @@ export default function Pie() {
       },
     },
     animation: {
-      duration: 800,
+      duration: 1800,
       easing: "easeOutQuart",
     },
   };
 
   return (
-    <div className="container mt-4">
-      <div className="row justify-content-center">
-        <div className="col-lg-6">
-            <Doughnut data={data} options={options} />
-        </div>
-      </div>
-    </div>
+    <Doughnut data={data} options={options} />
   );
 }
