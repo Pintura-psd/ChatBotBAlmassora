@@ -1,6 +1,7 @@
 package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.client.QAClient;
+import com.ChatBot.demo.dto.BarrasDTO;
 import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.QARepository;
@@ -30,6 +31,21 @@ public class EstadisticasService {
 
     }
 
+    //Barras
+    public BarrasDTO getBarras() {
+        List<QA> listaDePreguntas = QARepository.findAll();
+        BarrasDTO barrasDTO = new BarrasDTO();
+        int[] numerosMeses = new int [12];
+
+        listaDePreguntas.stream().map(QA::getFechaCreacion).forEach(f -> {
+            int mes = f.getMonthValue()-1;
+            numerosMeses[mes]++;
+        });
+
+        barrasDTO.setPreguntasMes(numerosMeses);
+
+        return barrasDTO;
+    }
     public int totalPreguntas() {
         return QARepository.findAll().size();
     }
@@ -37,6 +53,7 @@ public class EstadisticasService {
     public int preguntasConRespuesta() {
         int preguntasConRespuesta=0;
         List<QA> preguntas = QARepository.findAll();
+
        for (QA pregunta : preguntas) {
            if (pregunta.getRespuesta() != null && !pregunta.getRespuesta().isBlank()) {
                preguntasConRespuesta++;
