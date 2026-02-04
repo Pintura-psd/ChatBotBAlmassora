@@ -1,5 +1,6 @@
 package com.ChatBot.demo.repository;
 
+import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
 import com.ChatBot.demo.model.QA;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +18,5 @@ public interface QARepository extends JpaRepository<QA, Long> {
         ORDER BY total DESC
         LIMIT 5
     """, nativeQuery = true)
-    List<Object[]> top5Preguntas(@Param("inicio") LocalDateTime inicio, @Param("fin") LocalDateTime fin);
+    List<PreguntaFrecuenciaDTO> top5Preguntas(@Param("inicio") LocalDateTime inicio, @Param("fin") LocalDateTime fin);
 }

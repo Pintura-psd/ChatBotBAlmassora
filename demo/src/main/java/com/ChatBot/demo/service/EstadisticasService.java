@@ -26,14 +26,10 @@ public class EstadisticasService {
         LocalDateTime fin = LocalDateTime.now();
         LocalDateTime inicio = fin.minusHours(1);
 
-        return QARepository.top5Preguntas(inicio, fin)
-                .stream()
-                .map(r -> new PreguntaFrecuenciaDTO(
-                        (String) r[0],
-                        ((Number) r[1]).longValue()
-                ))
-                .toList();
+        return QARepository.top5Preguntas(inicio, fin);
+
     }
+
     public int totalPreguntas() {
         return QARepository.findAll().size();
     }
