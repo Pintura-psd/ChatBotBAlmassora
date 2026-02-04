@@ -13,7 +13,6 @@ import java.util.List;
 public class EstadisticasService {
 
     private final QARepository QARepository;
-    QAService QAService;
     public EstadisticasService(QARepository QARepository) {
         this.QARepository = QARepository;
     }
@@ -34,9 +33,7 @@ public class EstadisticasService {
     public int totalPreguntas() {
         return QARepository.findAll().size();
     }
-    public int preguntasSinRespuesta() {
-        return QAService.getPreguntaSinRespuesta().size();
-    }
+    
     public int preguntasConRespuesta() {
         int preguntasConRespuesta=0;
         List<QA> preguntas = QARepository.findAll();
