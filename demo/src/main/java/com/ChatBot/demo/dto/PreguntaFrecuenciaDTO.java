@@ -1,5 +1,8 @@
 package com.ChatBot.demo.dto;
 
+import lombok.Data;
+
+@Data
 public class PreguntaFrecuenciaDTO {
 
     private String pregunta;
