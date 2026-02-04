@@ -1,4 +1,6 @@
 package com.ChatBot.demo.dto;
 
-public class QueueDTO {
+import java.util.List;
+
+public record QueueDTO(List<String> jobs, int count) {
 }

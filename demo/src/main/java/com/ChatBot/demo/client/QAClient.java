@@ -1,6 +1,7 @@
 package com.ChatBot.demo.client;
 
 import com.ChatBot.demo.dto.EntrenarDTO;
+import com.ChatBot.demo.dto.QueueDTO;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.service.annotation.GetExchange;
@@ -23,8 +24,8 @@ public interface QAClient {
     }
     )
     String train(@RequestBody List<EntrenarDTO> request);
-//    @GetExchange("/train/queue")
 
-
+    @GetExchange ("/train/queue")
+    QueueDTO getQueue();
 
 }

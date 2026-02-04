@@ -1,5 +1,6 @@
 package com.ChatBot.demo.service;
 
+import com.ChatBot.demo.client.QAClient;
 import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.QARepository;
@@ -13,8 +14,11 @@ import java.util.List;
 public class EstadisticasService {
 
     private final QARepository QARepository;
-    public EstadisticasService(QARepository QARepository) {
+    QAService QAService;
+    QAClient qaclient;
+    public EstadisticasService(QARepository QARepository, QAClient qaclient) {
         this.QARepository = QARepository;
+        this.qaclient = qaclient;
     }
 
     // Top 5 preguntas última hora
@@ -33,7 +37,7 @@ public class EstadisticasService {
     public int totalPreguntas() {
         return QARepository.findAll().size();
     }
-    
+
     public int preguntasConRespuesta() {
         int preguntasConRespuesta=0;
         List<QA> preguntas = QARepository.findAll();
@@ -44,7 +48,9 @@ public class EstadisticasService {
        }
         return preguntasConRespuesta;
     }
-
+    public int queue(){
+        return qaclient.getQueue().count();
+    }
 
 }
 
