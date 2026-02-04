@@ -1,5 +1,6 @@
 package com.ChatBot.demo.service;
 
+import com.ChatBot.demo.client.QAClient;
 import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.QARepository;
@@ -14,8 +15,10 @@ public class EstadisticasService {
 
     private final QARepository QARepository;
     QAService QAService;
-    public EstadisticasService(QARepository QARepository) {
+    QAClient qaclient;
+    public EstadisticasService(QARepository QARepository, QAClient qaclient) {
         this.QARepository = QARepository;
+        this.qaclient = qaclient;
     }
 
     // Top 5 preguntas última hora
@@ -23,20 +26,14 @@ public class EstadisticasService {
         LocalDateTime fin = LocalDateTime.now();
         LocalDateTime inicio = fin.minusHours(1);
 
-        return QARepository.top5Preguntas(inicio, fin)
-                .stream()
-                .map(r -> new PreguntaFrecuenciaDTO(
-                        (String) r[0],
-                        ((Number) r[1]).longValue()
-                ))
-                .toList();
+        return QARepository.top5Preguntas(inicio, fin);
+
     }
+
     public int totalPreguntas() {
         return QARepository.findAll().size();
     }
-    public int preguntasSinRespuesta() {
-        return QAService.getPreguntaSinRespuesta().size();
-    }
+
     public int preguntasConRespuesta() {
         int preguntasConRespuesta=0;
         List<QA> preguntas = QARepository.findAll();
@@ -47,7 +44,9 @@ public class EstadisticasService {
        }
         return preguntasConRespuesta;
     }
-
+    public int queue(){
+        return qaclient.getQueue().count();
+    }
 
 }
 

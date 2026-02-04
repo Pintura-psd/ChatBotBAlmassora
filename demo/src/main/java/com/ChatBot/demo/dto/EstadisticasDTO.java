@@ -12,11 +12,13 @@ public class EstadisticasDTO {
     private int preguntasBien;
     private int preguntasSinRespuesta;
     private List<PreguntaFrecuenciaDTO> top5Preguntas;
+    private int count;
 
-    public EstadisticasDTO(int total, int bien, int sinRespuesta, List<PreguntaFrecuenciaDTO> top5) {
+    public EstadisticasDTO(int total, int bien, int sinRespuesta, List<PreguntaFrecuenciaDTO> top5, int count) {
         this.totalPreguntas = total;
         this.preguntasBien = bien;
         this.preguntasSinRespuesta = sinRespuesta;
         this.top5Preguntas = top5;
+        this.count = count;
     }
 }
