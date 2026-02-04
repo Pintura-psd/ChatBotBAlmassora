@@ -1,7 +1,7 @@
 package com.ChatBot.demo.client;
 
 import com.ChatBot.demo.dto.EntrenarDTO;
-import com.ChatBot.demo.dto.RespuestaEntrenamientoDTO;
+import com.ChatBot.demo.dto.QueueDTO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +24,9 @@ public interface QAClient {
             headers = { "Authorization=Basic ZXF1aXBvMTpwYXNzMQ=="
     }
     )
-    ResponseEntity<RespuestaEntrenamientoDTO> train(@RequestBody List<EntrenarDTO> request);
-//    @GetExchange("/train/queue")
+    String train(@RequestBody List<EntrenarDTO> request);
 
-
+    @GetExchange ("/train/queue")
+    QueueDTO getQueue();
 
 }
