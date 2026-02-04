@@ -1,0 +1,16 @@
+.top5card-card {
+  transform: translate(0, 0) scale(1);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  will-change: transform, box-shadow;
+}
+
+.top5card-card:hover {
+  transform: translate(8px, -6px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}

@@ -18,7 +18,6 @@ const Preguntas = () => {
     return (
 
         <>
-
             {questions.map((pregunta) => (
                 <Pregunta key={pregunta.id} pregunta={pregunta} />
             ))}
