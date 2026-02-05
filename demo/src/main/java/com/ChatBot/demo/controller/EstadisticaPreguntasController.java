@@ -1,5 +1,6 @@
 package com.ChatBot.demo.controller;
 
+import com.ChatBot.demo.dto.BarrasDTO;
 import com.ChatBot.demo.dto.EstadisticasDTO;
 import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
 import com.ChatBot.demo.dto.RespuestaEntrenamientoDTO;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5175")
+@CrossOrigin(origins = "http://localhost:5176")
 @RestController
 @RequestMapping("/estadisticas")
 public class EstadisticaPreguntasController {
@@ -58,5 +59,14 @@ public class EstadisticaPreguntasController {
         return entrenamientoService.entrenarChatbot();
     }
 
+    @GetMapping("/barras")
+    public ResponseEntity<BarrasDTO> barras(){
+        try {
+            return ResponseEntity.ok(service.getBarras());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
