@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, Badge, ListGroup } from "react-bootstrap";
 import './Top5Preguntas.css';
+import LoadingDisc from "./LoadingDisc.jsx";
 
 export default function Top5Preguntas() {
   const [estadisticas, setEstadisticas] = useState(null);
@@ -27,7 +28,7 @@ export default function Top5Preguntas() {
     fetchEstadisticas();
   }, []);
 
-  if (loading) return <p>Cargando preguntas frecuentes...</p>;
+  if (loading) return <div className="d-flex justify-content-center align-items-center" style={{ height: '350px' }}><LoadingDisc/></div>;
 
   const top5 = estadisticas?.top5Preguntas || [];
 

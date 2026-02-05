@@ -1,0 +1,29 @@
+/* BASE DEL SWITCH */
+.secondary-switch .form-check-input {
+  background-color: #ffffff;              /* fondo blanco */
+  border-color: #ced4da;
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+/* CÍRCULO (thumb) */
+.secondary-switch .form-check-input::before {
+  background-color: #212529;               /* dark */
+}
+
+/* ESTADO ENCENDIDO */
+.secondary-switch .form-check-input:checked {
+  background-color: #6c757d;               /* gris oscuro custom (más claro que dark) */
+  border-color: #6c757d;
+}
+
+/* CÍRCULO ENCENDIDO */
+.secondary-switch .form-check-input:checked::before {
+  background-color: #ffffff;               /* círculo blanco */
+}
+
+/* FOCUS (accesibilidad) */
+.secondary-switch .form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.35);
+}
+
