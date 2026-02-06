@@ -15,7 +15,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:5176")
 @RestController
-@RequestMapping("/estadisticas")
+@RequestMapping("/api/estadisticas")
 public class EstadisticaPreguntasController {
     private final QAService qAservice;
     private final EstadisticasService service;

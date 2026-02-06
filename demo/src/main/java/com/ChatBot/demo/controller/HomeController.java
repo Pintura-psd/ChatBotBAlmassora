@@ -8,11 +8,15 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(){
-        return "chatBotVentana.html";
+        return "index.html";
     }
 
     @GetMapping("/admin")
     public String admin(){
+        return "index.html";
+    }
+    @GetMapping("/estadisticas")
+    public String getestadisticas(){
         return "index.html";
     }
 
