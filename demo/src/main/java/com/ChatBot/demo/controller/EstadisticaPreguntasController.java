@@ -1,9 +1,6 @@
 package com.ChatBot.demo.controller;
 
-import com.ChatBot.demo.dto.BarrasDTO;
-import com.ChatBot.demo.dto.EstadisticasDTO;
-import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
-import com.ChatBot.demo.dto.RespuestaEntrenamientoDTO;
+import com.ChatBot.demo.dto.*;
 import com.ChatBot.demo.service.EntrenamientoService;
 import com.ChatBot.demo.service.EstadisticasService;
 import com.ChatBot.demo.service.QAService;
@@ -50,8 +47,8 @@ public class EstadisticaPreguntasController {
         int bien = service.preguntasConRespuesta();
         int sinRespuesta = qAservice.getPreguntaSinRespuesta().size();
         List<PreguntaFrecuenciaDTO> top5 = service.top5UltimaHora();
-        int count = service.queue();
-        return new EstadisticasDTO(total, bien, sinRespuesta, top5, count);
+
+        return new EstadisticasDTO(total, bien, sinRespuesta, top5);
     }
 
     @PostMapping("/entrenar")
@@ -67,6 +64,11 @@ public class EstadisticaPreguntasController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping("/queue")
+    public ResponseEntity<QueueDTO> getQueueDTO() {
+        return ResponseEntity.ok(service.queue());
     }
 }
 
