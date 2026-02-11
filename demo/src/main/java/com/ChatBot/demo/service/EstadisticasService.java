@@ -63,18 +63,11 @@ public class EstadisticasService {
        }
         return preguntasConRespuesta;
     }
-    public QueueDTO queue(){
-        try {
-            ResponseEntity<QueueDTO> response = qaclient.getQueue();
-            if (response != null && response.getBody() != null) {
-                return response.getBody();
-            }
-            return new QueueDTO(List.of(), 0);
-        } catch (Exception e) {
-            System.err.println("Error al obtener cola: " + e.getMessage());
-            e.printStackTrace();
-            return new QueueDTO(List.of(), 0);
-        }
+    public ResponseEntity<QueueDTO> queue(){
+
+            return qaclient.getQueue();
+
+
     }
 
 }
