@@ -28,6 +28,6 @@ public interface QAClient {
     ResponseEntity<RespuestaEntrenamientoDTO> train(@RequestBody List<EntrenarDTO> request);
 
     @GetExchange ("/train/queue")
-    QueueDTO getQueue();
+    ResponseEntity<QueueDTO> getQueue();
 
 }

@@ -3,8 +3,10 @@ package com.ChatBot.demo.service;
 import com.ChatBot.demo.client.QAClient;
 import com.ChatBot.demo.dto.BarrasDTO;
 import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
+import com.ChatBot.demo.dto.QueueDTO;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.QARepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -61,8 +63,18 @@ public class EstadisticasService {
        }
         return preguntasConRespuesta;
     }
-    public int queue(){
-        return qaclient.getQueue().count();
+    public QueueDTO queue(){
+        try {
+            ResponseEntity<QueueDTO> response = qaclient.getQueue();
+            if (response != null && response.getBody() != null) {
+                return response.getBody();
+            }
+            return new QueueDTO(List.of(), 0);
+        } catch (Exception e) {
+            System.err.println("Error al obtener cola: " + e.getMessage());
+            e.printStackTrace();
+            return new QueueDTO(List.of(), 0);
+        }
     }
 
 }

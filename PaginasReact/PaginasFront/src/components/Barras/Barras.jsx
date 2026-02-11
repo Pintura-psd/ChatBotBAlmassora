@@ -31,7 +31,7 @@ export default function Barras() {
 
     const fetchEstadisticas = async () => {
       try {
-        const response = await fetch("http://localhost:8080/estadisticas/barras");
+        const response = await fetch("http://localhost:8080/api/estadisticas/barras");
 
         if (!response.ok) {
           throw new Error("Error al obtener estadísticas");
