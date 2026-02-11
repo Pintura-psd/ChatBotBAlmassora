@@ -68,7 +68,7 @@ public class EstadisticaPreguntasController {
 
     @GetMapping("/queue")
     public ResponseEntity<QueueDTO> getQueueDTO() {
-        return ResponseEntity.ok(service.queue());
+        return service.queue();
     }
 }
 
