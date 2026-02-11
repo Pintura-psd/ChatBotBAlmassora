@@ -112,7 +112,6 @@ export default function LineaMensual() {
       },
       title: {
         display: true,
-        text: "Evolución mensual de preguntas",
       },
     },
     scales: {

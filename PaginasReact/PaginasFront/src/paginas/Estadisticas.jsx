@@ -5,6 +5,7 @@ import Top5Preguntas from "../components/Top5Preguntas.jsx";
 import "./Estadisticas.css";
 import { Container, Card, Form } from "react-bootstrap";
 import { useState } from "react";
+import TrainingBtn from "../components/TrainingBtm.jsx";
 
 export const Estadisticas = () => {
     const [mostrarBarrasGradiante, setMostrarBarrasGradiante] = useState(false);
@@ -52,10 +53,12 @@ export const Estadisticas = () => {
             </div>
 
             <div className="row p-2">
-                <div className="col-lg-8 p-2">
+                <div className="col-lg-8 p-2 bg-dark rounded-3 border border-dark p-2">
+                    
                 </div>
 
-                <div className="col-lg-4 p-0">
+                <div className="col-lg-4">
+                    <TrainingBtn />
                 </div>
             </div>
         </section>
