@@ -5,7 +5,7 @@ const Preguntas = () => {
 
     const [questions, setQuestions] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const questionsPerPage = 20;
+    const questionsPerPage = 10;
 
 
     useEffect(() => {
@@ -39,14 +39,15 @@ const Preguntas = () => {
                 {Array.from({ length: totalPages }, (_, index) => (
                     <button
                         key={index}
-                        className="btn btn-outline-dark mx-1"
+                        className={`btn mx-1 ${currentPage === index + 1 ? "btn-dark" : "btn-outline-dark"
+                            }`}
                         onClick={() => setCurrentPage(index + 1)}
                     >
                         {index + 1}
                     </button>
                 ))}
             </div>
-            
+
         </>
     );
 }
