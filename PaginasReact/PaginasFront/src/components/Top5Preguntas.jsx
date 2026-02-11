@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, Badge, ListGroup } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 import './Top5Preguntas.css';
 import LoadingDisc from "./LoadingDisc.jsx";
 

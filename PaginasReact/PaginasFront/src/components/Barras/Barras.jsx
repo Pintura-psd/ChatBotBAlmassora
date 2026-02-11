@@ -103,7 +103,6 @@ export default function Barras() {
       },
       title: {
         display: true,
-        text: "Entrada de tráfico mensual",
       },
     },
     scales: {

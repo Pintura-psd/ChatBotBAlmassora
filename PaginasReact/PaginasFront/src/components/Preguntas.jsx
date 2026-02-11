@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Pregunta } from "./Pregunta.jsx";
-import "./Pregunta.css"; 
+import "./Pregunta.css";
 const Preguntas = () => {
-   
+
     const [questions, setQuestions] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const questionsPerPage = 10;
+
 
     useEffect(() => {
         // Fetch questions from backend API when component mounts
@@ -13,14 +16,37 @@ const Preguntas = () => {
                 // Update state with fetched questions
                 setQuestions(data);
             })
-    },[]);
+    }, []);
+
+    const indexOfLastQuestion = currentPage * questionsPerPage;
+    const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
+
+    const currentQuestions = questions.slice(
+        indexOfFirstQuestion,
+        indexOfLastQuestion
+    );
+
+    const totalPages = Math.ceil(questions.length / questionsPerPage);
 
     return (
 
         <>
-            {questions.map((pregunta) => (
+            {currentQuestions.map((pregunta) => (
                 <Pregunta key={pregunta.id} pregunta={pregunta} />
             ))}
+
+            <div className="d-flex justify-content-center mt-3">
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                        key={index}
+                        className={`btn mx-1 ${currentPage === index + 1 ? "btn-dark" : "btn-outline-dark"
+                            }`}
+                        onClick={() => setCurrentPage(index + 1)}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
 
         </>
     );
