@@ -27,18 +27,6 @@ jobs:
     - name: Build frontend
       run: npm run build
       working-directory: PaginasReact/PaginasFront
-    
-    - name: Copy frontend build to backend static folder
-      run: |
-        rm -rf demo/src/main/resources/static/*
-        cp -r PaginasReact/PaginasFront/dist/* demo/src/main/resources/static/
-    
-    - name: Upload Frontend Artifacts
-      uses: actions/upload-artifact@v4
-      if: success()
-      with:
-        name: frontend-dist
-        path: PaginasReact/PaginasFront/dist
 
   build-backend:
     runs-on: ubuntu-latest
@@ -47,11 +35,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Download Frontend Artifacts
-      uses: actions/download-artifact@v4
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
       with:
-        name: frontend-dist
-        path: demo/src/main/resources/static/
+        node-version: '22'
+        cache: 'npm'
+        cache-dependency-path: 'PaginasReact/PaginasFront/package-lock.json'
+    
+    - name: Build frontend
+      run: npm run build
+      working-directory: PaginasReact/PaginasFront
     
     - name: Set up JDK 21
       uses: actions/setup-java@v4
