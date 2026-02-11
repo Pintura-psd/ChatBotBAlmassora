@@ -1,0 +1,23 @@
+/* Forzar texto blanco en todos los items de Pagination dark */
+.pagination .page-link {
+    color: white !important; /* texto de items normales */
+}
+
+.pagination .page-item.active .page-link {
+    color: white !important; /* texto del item activo */
+    background-color: #000 !important; /* fondo de item activo */
+    border-color: #333 !important; /* borde item activo */
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #aaa !important; /* color gris para disabled */
+}
+
+.deleted-messages-container {
+    position: relative;
+}
+
+.deleted-message {
+    transition: opacity 0.5s ease;
+    font-weight: 600;
+}

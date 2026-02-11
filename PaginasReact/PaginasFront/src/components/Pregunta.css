@@ -1,23 +1,25 @@
+/* Contenedor de la pregunta, controla la altura para animación */
 .pregunta-wrapper {
     position: relative;
     overflow: hidden;
     margin: 10px 0;
-    transition: height 0.5s ease; 
+    transition: height 0.5s ease;
     height: auto; 
 }
 
+/* Clase que se aplica al guardar o borrar */
 .pregunta-wrapper.save,
 .pregunta-wrapper.delete {
-    height: 50px; /* altura final del div */
+    height: 50px; /* altura final de animación */
 }
 
+/* Fondo de mensaje */
 .pregunta-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: white; 
     z-index: 0;
 
     display: flex;
@@ -35,6 +37,7 @@
     opacity: 1;
 }
 
+/* Colores para guardar o borrar */
 .pregunta-wrapper.save .pregunta-background {
     background-color: #4caf50; 
 }
@@ -43,18 +46,24 @@
     background-color: #f44336; 
 }
 
+/* Tarjeta de la pregunta */
 .pregunta-card {
     position: relative;
     z-index: 1;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+/* Animación al guardar */
 .pregunta-wrapper.save .pregunta-card {
     transform: translateX(-100%);
     opacity: 0;
 }
 
-.pregunta-wrapper.delete .pregunta-card {
+/* Animación al borrar (individual o múltiple) */
+.pregunta-wrapper.delete .pregunta-card,
+.pregunta-card.delete {
     transform: translateX(100%);
     opacity: 0;
 }
+
+

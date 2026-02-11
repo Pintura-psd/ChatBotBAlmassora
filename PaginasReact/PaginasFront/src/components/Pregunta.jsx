@@ -2,87 +2,65 @@ import React, { useState } from 'react';
 import { Card, FloatingLabel, Form, Button } from 'react-bootstrap';
 import './Pregunta.css';
 
-export const Pregunta = ({ pregunta}) => {
+export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
     const [respuesta, setRespuesta] = useState(pregunta.response);
     const [loading, setLoading] = useState(false);
-    const [action, setAction] = useState(''); // "" | "save" | "delete"
-    const [mensaje, setMensaje] = useState(''); // mensaje que se muestra en el div
-    const [showMessage, setShowMessage] = useState(false); // controla la visibilidad del mensaje
+    const [action, setAction] = useState('');
 
     const guardarRespuesta = async () => {
         setLoading(true);
-        setAction('save'); 
-
+        setAction('save');
         try {
-            const response = await fetch('http://localhost:8080/api/', {
+            const res = await fetch('http://localhost:8080/api/', {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    id: pregunta.id,
-                    prompt: pregunta.prompt,
-                    response: respuesta
-                })
+                body: JSON.stringify({ id: pregunta.id, prompt: pregunta.prompt, response: respuesta })
             });
-
-            if (response.ok) {
-                // Mostramos la card deslizando
-                setTimeout(() => {
-                    setMensaje('Se ha guardado correctamente');
-                    setShowMessage(true); // muestra el mensaje en el fondo
-                }, 300); // espera a que la card se deslice
-            } else {
-                setAction('');
-            }
+            if (res.ok) {
+                pregunta.showMessage = true;
+                pregunta.mensaje = "Se ha guardado correctamente";
+            } else setAction('');
         } catch (error) {
             console.error(error);
             setAction('');
-        } finally {
-            setLoading(false);
-        }
-    }
+        } finally { setLoading(false); }
+    };
 
     const borrarPregunta = async () => {
         setLoading(true);
-        setAction('delete'); 
-
+        setAction('delete');
         try {
-            const response = await fetch(`http://localhost:8080/api/${pregunta.id}`, {
-                method: 'DELETE',
-            });
-
-            if (response.ok || response.status === 404) {
-                setTimeout(() => {
-                    setMensaje('Se ha eliminado correctamente');
-                    setShowMessage(true);
-                }, 300);
-            } else {
-                setAction('');
-            }
+            const res = await fetch(`http://localhost:8080/api/${pregunta.id}`, { method: 'DELETE' });
+            if (res.ok || res.status === 404) {
+                pregunta.showMessage = true;
+                pregunta.deleting = true;
+                pregunta.mensaje = "Se ha eliminado correctamente";
+            } else setAction('');
         } catch (error) {
             console.error(error);
             setAction('');
-        } finally {
-            setLoading(false);
-        }
-    }
+        } finally { setLoading(false); }
+    };
 
     return (
-        <div className={`pregunta-wrapper ${action} ${showMessage ? 'show-message' : ''}`}>
+        <div className={`pregunta-wrapper ${action} ${pregunta.deleting ? 'delete' : ''} ${pregunta.showMessage ? 'show-message' : ''}`}>
             <div className="pregunta-background rounded-3 text-white">
-                {showMessage && <p>{mensaje}</p>}
+                {pregunta.showMessage && <p>{pregunta.mensaje}</p>}
             </div>
 
-            {/* La card siempre está mientras hay acción o no */}
-            <Card className={`mb-3 rounded-3 overflow-hidden border border-dark p-0 pregunta-card ${action ? 'animating' : ''}`}>
-                <Card.Header className="bg-dark text-white fw-semibold px-4 py-3 border-0">
-                    {pregunta.prompt}
+            <Card className="mb-3 rounded-3 overflow-hidden border border-dark p-0 pregunta-card">
+                <Card.Header className="bg-dark text-white fw-semibold px-4 py-3 border-0 d-flex justify-content-between align-items-center">
+                    <span>{pregunta.prompt}</span>
+                    <Form.Check
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => toggleSelect(pregunta.id)}
+                        className="text-white"
+                    />
                 </Card.Header>
+
                 <Card.Body className="p-4">
-                    <FloatingLabel
-                        controlId={`res-${pregunta.id}`}
-                        label="Escribe la respuesta aquí."
-                        className="mb-3"
-                    >
+                    <FloatingLabel controlId={`res-${pregunta.id}`} label="Escribe la respuesta aquí." className="mb-3">
                         <Form.Control
                             as="textarea"
                             className="border-1 border-dark"
@@ -105,4 +83,4 @@ export const Pregunta = ({ pregunta}) => {
             </Card>
         </div>
     );
-}
+};
