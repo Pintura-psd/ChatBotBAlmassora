@@ -26,6 +26,21 @@ export default function LineaMensual() {
   const [loading, setLoading] = useState(true);
   const [chartData, setChartData] = useState(null);
 
+  const createGradient = (ctx, chartArea) => {
+    const gradient = ctx.createLinearGradient(
+      0,
+      chartArea.bottom,
+      0,
+      chartArea.top
+    );
+
+    gradient.addColorStop(0, "rgba(40, 167, 69, 0.1)");
+    gradient.addColorStop(0.5, "rgba(40, 167, 69, 0.4)");
+    gradient.addColorStop(1, "rgba(40, 167, 69, 0.8)");
+
+    return gradient;
+  };
+
   useEffect(() => {
     let timer = null;
     let mounted = true;
@@ -79,25 +94,7 @@ export default function LineaMensual() {
   if (loading) return <div className="d-flex justify-content-center align-items-center" style={{ height: '350px' }}><LoadingDisc/></div>;
   if (!chartData) return <p>No hay datos</p>;
 
-  const labels = [
-    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-  ];
-
-  const createGradient = (ctx, chartArea) => {
-    const gradient = ctx.createLinearGradient(
-      0,
-      chartArea.bottom,
-      0,
-      chartArea.top
-    );
-
-    gradient.addColorStop(0, "rgba(40, 167, 69, 0.1)");
-    gradient.addColorStop(0.5, "rgba(40, 167, 69, 0.4)");
-    gradient.addColorStop(1, "rgba(40, 167, 69, 0.8)");
-
-    return gradient;
-  };
+  
 
   // `chartData` se inicializa en el efecto (ceros) y se actualiza tras 1s para la animación
   // Usamos `chartData` en el render en lugar de construir `data` aquí.

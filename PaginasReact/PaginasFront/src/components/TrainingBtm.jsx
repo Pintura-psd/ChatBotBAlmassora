@@ -1,29 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
 
 
 export default function TrainingBtn() {
   const [entrenamientos, setEntrenamientos] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [isTraining, setIsTraining] = useState(false);
-
-  // 🔹 Cargar lista de entrenamientos
-  const fetchEntrenamientos = async () => {
-    try {
-      const response = await fetch("http://localhost:8080/entrenamientos");
-      if (!response.ok) throw new Error("Error al cargar entrenamientos");
-      const data = await response.json();
-      setEntrenamientos(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchEntrenamientos();
-  }, []);
 
   // 🔹 Botón entrenar
   const handleEntrenar = async () => {
@@ -53,13 +34,6 @@ export default function TrainingBtn() {
       setIsTraining(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center" style={{ height: 350 }}>
-      </div>
-    );
-  }
 
   return (
     <div>
