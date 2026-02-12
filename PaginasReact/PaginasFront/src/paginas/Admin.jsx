@@ -1,4 +1,4 @@
-import Preguntas from "../components/Preguntas.jsx";
+import Preguntas from "../components/Preguntas/Preguntas.jsx";
 import {Container} from "react-bootstrap";
 
 export const Admin =()=> {

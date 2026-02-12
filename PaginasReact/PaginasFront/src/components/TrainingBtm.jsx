@@ -7,7 +7,6 @@ export default function TrainingBtn() {
   const [loading, setLoading] = useState(true);
   const [isTraining, setIsTraining] = useState(false);
 
-  // 🔹 Cargar lista de entrenamientos
   const fetchEntrenamientos = async () => {
     try {
       const response = await fetch("http://localhost:8080/entrenamientos");
@@ -25,7 +24,6 @@ export default function TrainingBtn() {
     fetchEntrenamientos();
   }, []);
 
-  // 🔹 Botón entrenar
   const handleEntrenar = async () => {
     setIsTraining(true);
 
@@ -41,11 +39,7 @@ export default function TrainingBtn() {
 
       const nuevoEntrenamiento = await response.json();
 
-      // ✅ OPCIÓN 1: añadir directamente a la lista
       setEntrenamientos((prev) => [...prev, nuevoEntrenamiento]);
-
-      // ✅ OPCIÓN 2 (más segura): recargar lista
-      // await fetchEntrenamientos();
 
     } catch (error) {
       console.error(error);

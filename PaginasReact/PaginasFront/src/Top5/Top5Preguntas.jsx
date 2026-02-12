@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import './Top5Preguntas.css';
-import LoadingDisc from "./LoadingDisc.jsx";
+import LoadingDisc from "../components/LoadingDisc.jsx";
 
 export default function Top5Preguntas() {
   const [estadisticas, setEstadisticas] = useState(null);

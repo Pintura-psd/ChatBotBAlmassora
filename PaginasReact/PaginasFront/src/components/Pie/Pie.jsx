@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
-import LoadingDisc from "../LoadingDisc";
+import LoadingDisc from "../LoadingDisc.jsx";
 
 export default function Pie() {
   const [estadisticas, setEstadisticas] = useState(null);
