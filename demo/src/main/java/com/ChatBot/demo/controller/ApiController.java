@@ -36,6 +36,17 @@ public class ApiController {
         // Si no encuentra la pregunta, devuelve mensaje por defecto
     }
 
+    @PostMapping("/chat_fast")
+    public ResponseEntity<String> responderPreguntaFast(@RequestBody String mensaje) {
+       try{
+           mensaje = mensaje.replaceAll("^\"|\"$", "");
+           return ResponseEntity.ok(qaService.getRespuestaFast(mensaje));
+
+       }catch(Exception e){
+           return ResponseEntity.badRequest().body(e.getMessage());
+       }
+    }
+
     @GetMapping("/admin")
     public List<QA> index(){
 

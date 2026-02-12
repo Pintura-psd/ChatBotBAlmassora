@@ -3,6 +3,9 @@ package com.ChatBot.demo.service;
 import com.ChatBot.demo.client.QAClient;
 import com.ChatBot.demo.client.Answer;
 //import com.ChatBot.demo.dto.EntrenarDTO;
+import com.ChatBot.demo.client.QAFastClient;
+import com.ChatBot.demo.dto.FastChatAnswerDTO;
+import com.ChatBot.demo.dto.FastChatDTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.EntrenamientoRepository;
@@ -25,13 +28,15 @@ public class QAService {
     private final EstadisticasService estadisticasService;
     private final EntrenamientoRepository entrenamientoRepo;
     private final QAClient qaClient;
+    private final QAFastClient qaFastClient;
 
-    public QAService(QARepository prRepo, EstadisticasService estadisticasService1, EntrenamientoRepository entrenamientoRepo, QAClient qaClient) {
+    public QAService(QARepository prRepo, EstadisticasService estadisticasService1, EntrenamientoRepository entrenamientoRepo, QAClient qaClient, QAFastClient qaFastClient) {
         this.entrenamientoRepo = entrenamientoRepo;
         this.qaRepo = prRepo;
         QAS =prRepo.findAll();
         this.estadisticasService = estadisticasService1;
         this.qaClient = qaClient;
+        this.qaFastClient = qaFastClient;
     }
 
     //Crear el objeto pregunta respuesta
@@ -74,7 +79,7 @@ public class QAService {
                 Void.class
         );
     }
-
+//version 1.0
     public String getRespuesta(String mensaje) {
         long inicioPregunta = System.currentTimeMillis();
        try{
@@ -94,7 +99,30 @@ public class QAService {
          return e.toString();
        }
     }
+//version 2.0
+    public String getRespuestaFast(String mensaje) throws Exception{
+        try{
+            FastChatDTO request = new FastChatDTO();
+            request.setPrompt(mensaje);
+            request.setSystem("Responde en español, claro y breve.");
+            request.setMax_new_tokens(120);
+            request.setTemperature(0.2);
+            request.setTop_p(0.9);
+            request.setRag(true);
 
+            FastChatAnswerDTO respuesta = qaFastClient.getRespuestaFast(request);
+            if (respuesta == null || "No consta en el dataset.".equalsIgnoreCase(respuesta.getText())) {
+                assert respuesta != null;
+                almacenarRespuestas(mensaje, "", respuesta.getLatency_ms());
+            } else {
+                almacenarRespuestas(mensaje, respuesta.getText(), respuesta.getLatency_ms()
+                );
+            }
+            return respuesta.getText();
+        }catch (Exception e){
+            throw  new RuntimeException(e);
+        }
+    }
     public QA updateRespuesta(QA qa){
         // Buscar la entidad existente por ID
         QA existente = qaRepo.findById(qa.getId())
