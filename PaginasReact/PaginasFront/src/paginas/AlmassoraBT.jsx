@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Chat from "../components/Chat.jsx";
+import Chat from "../components/Chat/Chat.jsx";
 
 export default function Almassora() {
   const backgrounds = [

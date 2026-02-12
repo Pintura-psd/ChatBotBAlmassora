@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Pregunta } from "./Pregunta.jsx";
+import { Pregunta } from "../../Pregunta/Pregunta.jsx";
 import Pagination from "react-bootstrap/Pagination";
 import { Button } from "react-bootstrap";
-import "./Pregunta.css";
+import "../../Pregunta/Pregunta.css";
 import "./Preguntas.css";
 
 const Preguntas = () => {

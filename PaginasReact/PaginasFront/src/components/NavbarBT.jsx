@@ -30,7 +30,9 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="nav">
           <ul className="navbar-nav ms-auto align-items-lg-center gap-3">
             <li className="nav-item">
-              <a className="nav-link" href="#">Notícies</a>
+              <a className="nav-link" href="/menu">
+                Menu
+              </a>
             </li>
             <li className="nav-item">
                 <label htmlFor="buscar" className="visually-hidden">

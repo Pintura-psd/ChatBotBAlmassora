@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import LoadingDisc from "../LoadingDisc";
+import LoadingDisc from "../LoadingDisc.jsx";
 
 ChartJS.register(
   CategoryScale,
