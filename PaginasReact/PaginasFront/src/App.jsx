@@ -11,6 +11,7 @@ import { Estadisticas } from './paginas/Estadisticas.jsx';
 import AlmassoraBT from "./paginas/AlmassoraBT.jsx";
 import {MainLayout} from "./layouts/MainLayout.jsx";
 import Menu from "./paginas/Menu.jsx";
+import Login from "./paginas/Login.jsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="estadisticas" element={<Estadisticas />} />
             <Route path="menu" element={<Menu />} />
           </Route>
+             <Route path="login" element={<Login />} />
         </Routes>
       </BrowserRouter>
   )
