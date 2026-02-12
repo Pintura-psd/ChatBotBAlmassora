@@ -1,6 +1,5 @@
 import React from 'react'
-import './App.css'
-import './App.css';
+import Preguntas from "./components/Preguntas.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './chartConfig';
 

@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
 
 
 export default function TrainingBtn() {
   const [entrenamientos, setEntrenamientos] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [isTraining, setIsTraining] = useState(false);
 
   const fetchEntrenamientos = async () => {
@@ -47,13 +46,6 @@ export default function TrainingBtn() {
       setIsTraining(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center" style={{ height: 350 }}>
-      </div>
-    );
-  }
 
   return (
     <div>
