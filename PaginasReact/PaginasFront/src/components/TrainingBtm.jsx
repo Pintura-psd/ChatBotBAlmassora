@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Spinner } from "react-bootstrap";
 
 
@@ -15,7 +15,7 @@ export default function TrainingBtn() {
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setIsTraining(false);
     }
   };
 
