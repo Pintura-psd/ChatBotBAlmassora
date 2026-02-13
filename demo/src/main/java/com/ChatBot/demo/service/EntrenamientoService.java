@@ -1,12 +1,16 @@
 package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.client.QAClient;
+import com.ChatBot.demo.client.QAFastClient;
 import com.ChatBot.demo.dto.EntrenarDTO;
+import com.ChatBot.demo.dto.FastResponseDTO;
+import com.ChatBot.demo.dto.FastTrainingDTO;
 import com.ChatBot.demo.dto.RespuestaEntrenamientoDTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.repository.EntrenamientoRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.ObjectMapper;
@@ -21,11 +25,13 @@ public class EntrenamientoService {
     private final EntrenamientoRepository entrenamientoRepository;
     private final ResourceLoader resourceLoader;
     private final QAClient qaClient;
+    private final QAFastClient fastClient;
     
-    public EntrenamientoService(EntrenamientoRepository entrenamientoRepository, ResourceLoader resourceLoader, QAClient qaClient) {
+    public EntrenamientoService(EntrenamientoRepository entrenamientoRepository, ResourceLoader resourceLoader, QAClient qaClient,  QAFastClient fastClient) {
         this.entrenamientoRepository = entrenamientoRepository;
         this.resourceLoader = resourceLoader;
         this.qaClient = qaClient;
+        this.fastClient = fastClient;
     }
 
     public void save(Entrenamiento entrenamiento){
@@ -58,12 +64,25 @@ public class EntrenamientoService {
             throw new RuntimeException("Error al cargar JSON: " + e.getMessage(), e);
         }
     }
+
     public ResponseEntity<RespuestaEntrenamientoDTO> entrenarChatbot(){
         List<EntrenarDTO> listaEntrenamiento= findAll().stream().map(EntrenarDTO::new).toList();
         ResponseEntity<RespuestaEntrenamientoDTO> respuesta = qaClient.train(listaEntrenamiento);
         System.out.println(respuesta.getStatusCode());
         return respuesta;
     }
+//    public ResponseEntity<RespuestaEntrenamientoDTO>entrenarChatbotFast(){
+//
+//        entrenamientoRepository.findAll()
+//                .stream()
+//                .map(FastTrainingDTO::new)
+//                .map(fastClient::train)
+//                .map(p-> p.getStatusCode() != HttpStatus.OK || !p.getBody().getDetail().isBlank())
+//
+//
+//    }
+
+
 
     //    public void cargarJsonEnBD(String rutaArchivo) {
 //        ObjectMapper mapper = new ObjectMapper();

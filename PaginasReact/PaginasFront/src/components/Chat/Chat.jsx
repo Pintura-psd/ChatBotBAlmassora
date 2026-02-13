@@ -46,7 +46,7 @@ const ChatBot = () => {
     setMensajes((prev) => [...prev, { id: loadingId, tipo: "loading" }]);
     
     // Llamada al backend
-    fetch("http://localhost:8080/api/chat", {
+    fetch("http://localhost:8080/api/chat_fast", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

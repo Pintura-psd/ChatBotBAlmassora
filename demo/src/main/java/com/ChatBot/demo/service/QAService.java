@@ -105,7 +105,7 @@ public class QAService {
             FastChatDTO request = new FastChatDTO();
             request.setPrompt(mensaje);
             request.setSystem("Responde en español, claro y breve.");
-            request.setMax_new_tokens(120);
+            request.setMax_new_tokens(100);
             request.setTemperature(0.2);
             request.setTop_p(0.9);
             request.setRag(true);
@@ -113,9 +113,9 @@ public class QAService {
             FastChatAnswerDTO respuesta = qaFastClient.getRespuestaFast(request);
             if (respuesta == null || "No consta en el dataset.".equalsIgnoreCase(respuesta.getText())) {
                 assert respuesta != null;
-                almacenarRespuestas(mensaje, "", respuesta.getLatency_ms());
+                almacenarRespuestas(mensaje, "", respuesta.getLatencyMs());
             } else {
-                almacenarRespuestas(mensaje, respuesta.getText(), respuesta.getLatency_ms()
+                almacenarRespuestas(mensaje, respuesta.getText(), respuesta.getLatencyMs()
                 );
             }
             return respuesta.getText();

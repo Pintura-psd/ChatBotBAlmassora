@@ -1,5 +1,4 @@
 import React from 'react'
-import Preguntas from "./components/Preguntas.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './chartConfig';
 
