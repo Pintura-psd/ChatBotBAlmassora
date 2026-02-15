@@ -8,9 +8,12 @@
 }
 
 /* Clase que se aplica al guardar o borrar */
-.pregunta-wrapper.save,
+.pregunta-wrapper.save {
+    height: 50px;
+}
+
 .pregunta-wrapper.delete {
-    height: 50px; /* altura final de animación */
+    height: 50px;
 }
 
 /* Fondo de mensaje */
@@ -30,7 +33,7 @@
     color: white;
 
     opacity: 0;
-    transition: background-color 0.8s ease, opacity 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .pregunta-wrapper.show-message .pregunta-background {
@@ -59,9 +62,8 @@
     opacity: 0;
 }
 
-/* Animación al borrar (individual o múltiple) */
-.pregunta-wrapper.delete .pregunta-card,
-.pregunta-card.delete {
+/* Animación al borrar - solo la tarjeta se desliza, el fondo se queda */
+.pregunta-wrapper.delete .pregunta-card {
     transform: translateX(100%);
     opacity: 0;
 }

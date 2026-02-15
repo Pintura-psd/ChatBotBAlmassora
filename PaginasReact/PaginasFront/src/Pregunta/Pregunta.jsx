@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, FloatingLabel, Form, Button } from 'react-bootstrap';
 import './Pregunta.css';
 
-export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
+export const Pregunta = ({ pregunta, isSelected, toggleSelect, onDeleteComplete }) => {
     const [respuesta, setRespuesta] = useState(pregunta.response);
     const [loading, setLoading] = useState(false);
     const [action, setAction] = useState('');
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    // Cuando se está eliminando, no remover del DOM - solo mostrar la animación
+    useEffect(() => {
+        // No necesitamos hacer nada - la pregunta se queda ahí con el mensaje rojo visible
+    }, []);
 
     const guardarRespuesta = async () => {
         setLoading(true);
@@ -32,8 +38,7 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
         try {
             const res = await fetch(`http://localhost:8080/api/${pregunta.id}`, { method: 'DELETE' });
             if (res.ok || res.status === 404) {
-                pregunta.showMessage = true;
-                pregunta.deleting = true;
+                setIsDeleting(true); // Activar la animación de eliminación
                 pregunta.mensaje = "Se ha eliminado correctamente";
             } else setAction('');
         } catch (error) {
@@ -43,9 +48,9 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
     };
 
     return (
-        <div className={`pregunta-wrapper ${action} ${pregunta.deleting ? 'delete' : ''} ${pregunta.showMessage ? 'show-message' : ''}`}>
+        <div className={`pregunta-wrapper ${action} ${action ? 'show-message' : ''}`}>
             <div className="pregunta-background rounded-3 text-white">
-                {pregunta.showMessage && <p>{pregunta.mensaje}</p>}
+                {action && <p>{pregunta.mensaje}</p>}
             </div>
 
             <Card className="mb-3 rounded-3 overflow-hidden border border-dark p-0 pregunta-card">

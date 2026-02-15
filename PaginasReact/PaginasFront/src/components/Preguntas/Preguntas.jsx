@@ -38,6 +38,11 @@ const Preguntas = () => {
         );
     };
 
+    // Manejar la eliminación completada de una pregunta individual
+    const handleDeleteComplete = (id) => {
+        setQuestions(prev => prev.filter(q => q.id !== id));
+    };
+
     // Borrar preguntas seleccionadas pero mantener divs rojos
     const borrarSeleccionadas = () => {
         if (selectedQuestions.length === 0) return;
@@ -89,6 +94,7 @@ const Preguntas = () => {
                     pregunta={pregunta}
                     isSelected={selectedQuestions.includes(pregunta.id)}
                     toggleSelect={toggleSelect}
+                    onDeleteComplete={handleDeleteComplete}
                 />
             ))}
 

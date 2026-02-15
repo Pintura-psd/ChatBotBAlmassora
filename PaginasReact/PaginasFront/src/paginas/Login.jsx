@@ -9,6 +9,11 @@ const Login = () => {
     setUsername(e.target.value);
   };
 
+  const handleGoogleLogin = () => {
+    // Redirigir al endpoint de Spring Security OAuth2
+    window.location.href = "/oauth2/authorization/google";
+  };
+
   return (
     <div className="bg-white text-dark py-5 min-vh-100">
       <Container>
@@ -20,12 +25,34 @@ const Login = () => {
               style={{ borderRadius: "5px", width: "400px" }}
             >
               <Card.Header className="bg-dark text-white fw-semibold px-4 py-3 border-0 text-center rounded-top-5">
-                <h3>Login</h3>
+                <h3>Iniciar Sesión</h3>
               </Card.Header>
 
               <Card.Body className="p-4 text-center">
+                <div className="mb-4">
+                  <h5 className="mb-3 text-muted">Inicia sesión con Google</h5>
+                  <Button
+                    onClick={handleGoogleLogin}
+                    className="btn btn-light border border-dark w-100"
+                    style={{ padding: "12px 24px" }}
+                  >
+                    <img
+                      src="https://www.svgrepo.com/show/475656/google-color.svg"
+                      alt="Google"
+                      style={{ height: "20px", marginRight: "10px" }}
+                    />
+                    Acceder con Google
+                  </Button>
+                </div>
+
+                <div className="divider my-3">
+                  <hr />
+                  <span className="text-muted small">O</span>
+                  <hr />
+                </div>
+
                 <Form.Group controlId="username">
-                  <Form.Label>Username</Form.Label>
+                  <Form.Label>Usuario</Form.Label>
                   <InputGroup>
                     <InputGroup.Text>@</InputGroup.Text>
                     <Form.Control
@@ -41,11 +68,11 @@ const Login = () => {
               <Card.Footer className="d-flex justify-content-center border-0">
                 <Button
                   as={Link}
-                  to="/menu"
+                  to="/"
                   variant="outline-dark"
                   className="rounded-pill px-4"
                 >
-                  Ir al Menú
+                  Volver al Inicio
                 </Button>
               </Card.Footer>
             </Card>
