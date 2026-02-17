@@ -14,24 +14,13 @@ import java.util.Arrays;
 @Configuration
 public class SecurityConfig {
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf
-                        // Deshabilitar CSRF para APIs públicas
-                        .ignoringRequestMatchers("/api/chat_fast/**", "/api/chat/**")
-                )
                 .authorizeHttpRequests(auth -> auth
-                        // Recursos públicos - PRIMERO
-                        .requestMatchers("/", "/index.html", "/login", "/login/**").permitAll()
-                        .requestMatchers("/static/**", "/assets/**").permitAll()
-                        // APIs de chat - públicas sin autenticación
-                        .requestMatchers("/api/chat_fast", "/api/chat", "/api/chat/**", "/api/chat_fast/**").permitAll()
-                        // /menu requiere autenticación
-                        .requestMatchers("/menu", "/admin", "/estadisticas").authenticated()
-                        // Resto de APIs requieren autenticación
-                        .anyRequest().authenticated()
+                        // TODO: permitir acceso público a todos los endpoints
+                        .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
