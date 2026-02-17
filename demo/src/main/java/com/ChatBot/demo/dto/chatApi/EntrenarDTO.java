@@ -1,4 +1,4 @@
-package com.ChatBot.demo.dto;
+package com.ChatBot.demo.dto.chatApi;
 
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;

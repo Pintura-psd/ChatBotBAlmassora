@@ -1,4 +1,4 @@
-package com.ChatBot.demo.dto;
+package com.ChatBot.demo.dto.chatApi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

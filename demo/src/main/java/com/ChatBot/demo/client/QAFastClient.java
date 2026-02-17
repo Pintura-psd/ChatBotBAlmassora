@@ -1,13 +1,14 @@
 package com.ChatBot.demo.client;
 
-import com.ChatBot.demo.dto.*;
+import com.ChatBot.demo.dto.chatApi.FastChatAnswerDTO;
+import com.ChatBot.demo.dto.chatApi.FastChatDTO;
+import com.ChatBot.demo.dto.chatApi.FastResponseDTO;
+import com.ChatBot.demo.dto.chatApi.FastTrainingDTO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.annotation.PostExchange;
-
-import java.util.List;
 
 @HttpExchange("https://chatbot.valenciainformada.com/api_fast/")
 public interface QAFastClient {
