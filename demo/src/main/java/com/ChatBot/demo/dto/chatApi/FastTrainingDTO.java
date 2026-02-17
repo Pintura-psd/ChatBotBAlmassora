@@ -1,8 +1,12 @@
-package com.ChatBot.demo.dto;
+package com.ChatBot.demo.dto.chatApi;
 
 import com.ChatBot.demo.model.Entrenamiento;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class FastTrainingDTO {
     @JsonProperty("instruction")
     private String prompt;

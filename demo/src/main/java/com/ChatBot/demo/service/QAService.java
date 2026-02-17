@@ -1,11 +1,10 @@
 package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.client.QAClient;
-import com.ChatBot.demo.client.Answer;
-//import com.ChatBot.demo.dto.EntrenarDTO;
+//import com.ChatBot.demo.dto.chatApi.EntrenarDTO;
 import com.ChatBot.demo.client.QAFastClient;
-import com.ChatBot.demo.dto.FastChatAnswerDTO;
-import com.ChatBot.demo.dto.FastChatDTO;
+import com.ChatBot.demo.dto.chatApi.FastChatAnswerDTO;
+import com.ChatBot.demo.dto.chatApi.FastChatDTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.EntrenamientoRepository;
@@ -13,7 +12,10 @@ import com.ChatBot.demo.repository.QARepository;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -144,6 +146,14 @@ public class QAService {
         QA existente = qaRepo.findById(id)
             .orElseThrow(() -> new RuntimeException("Pregunta no encontrada con ID: " + id));
         qaRepo.delete(existente);
+    }
+    public List<QA> searchPreguntas(String query) {
+        try{
+            return qaRepo.buscarPorTexto(query);
+        }
+        catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
 //    public void cargarJsonEnBD(String rutaArchivo) {

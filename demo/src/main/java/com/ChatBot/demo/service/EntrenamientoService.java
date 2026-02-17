@@ -2,36 +2,38 @@ package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.client.QAClient;
 import com.ChatBot.demo.client.QAFastClient;
-import com.ChatBot.demo.dto.EntrenarDTO;
-import com.ChatBot.demo.dto.FastResponseDTO;
-import com.ChatBot.demo.dto.FastTrainingDTO;
-import com.ChatBot.demo.dto.RespuestaEntrenamientoDTO;
+import com.ChatBot.demo.dto.chatApi.EntrenarDTO;
+import com.ChatBot.demo.dto.chatApi.FastTrainingDTO;
+import com.ChatBot.demo.dto.chatApi.RespuestaEntrenamientoDTO;
 import com.ChatBot.demo.model.Entrenamiento;
+import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.EntrenamientoRepository;
+import com.ChatBot.demo.repository.QARepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.ObjectMapper;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class EntrenamientoService {
     private final EntrenamientoRepository entrenamientoRepository;
     private final ResourceLoader resourceLoader;
     private final QAClient qaClient;
     private final QAFastClient fastClient;
-    
-    public EntrenamientoService(EntrenamientoRepository entrenamientoRepository, ResourceLoader resourceLoader, QAClient qaClient,  QAFastClient fastClient) {
+    private final QARepository qarepository;
+    public EntrenamientoService(QARepository qarepository,EntrenamientoRepository entrenamientoRepository, ResourceLoader resourceLoader, QAClient qaClient,  QAFastClient fastClient) {
         this.entrenamientoRepository = entrenamientoRepository;
         this.resourceLoader = resourceLoader;
         this.qaClient = qaClient;
         this.fastClient = fastClient;
+        this.qarepository = qarepository;
     }
 
     public void save(Entrenamiento entrenamiento){
@@ -71,16 +73,15 @@ public class EntrenamientoService {
         System.out.println(respuesta.getStatusCode());
         return respuesta;
     }
-//    public ResponseEntity<RespuestaEntrenamientoDTO>entrenarChatbotFast(){
+//    public ResponseEntity<RespuestaEntrenamientoDTO> entrenarFastTraining(){
+//        List<QA> preguntas_respuesta=qarepository.findAll();
 //
-//        entrenamientoRepository.findAll()
-//                .stream()
-//                .map(FastTrainingDTO::new)
-//                .map(fastClient::train)
-//                .map(p-> p.getStatusCode() != HttpStatus.OK || !p.getBody().getDetail().isBlank())
+//        List<FastTrainingDTO> entrenamiento= entrenamientoRepository.findAll().stream().map(FastTrainingDTO::new).toList();
 //
 //
 //    }
+
+
 
 
 

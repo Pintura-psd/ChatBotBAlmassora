@@ -1,13 +1,16 @@
 package com.ChatBot.demo.controller;
 
-import com.ChatBot.demo.dto.*;
+import com.ChatBot.demo.dto.chatApi.QueueDTO;
+import com.ChatBot.demo.dto.chatApi.RespuestaEntrenamientoDTO;
+import com.ChatBot.demo.dto.front.BarrasDTO;
+import com.ChatBot.demo.dto.front.EstadisticasDTO;
+import com.ChatBot.demo.dto.front.PreguntaFrecuenciaDTO;
 import com.ChatBot.demo.service.EntrenamientoService;
 import com.ChatBot.demo.service.EstadisticasService;
 import com.ChatBot.demo.service.QAService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -55,6 +58,7 @@ public class EstadisticaPreguntasController {
     public ResponseEntity<RespuestaEntrenamientoDTO> entrenar(){
         return entrenamientoService.entrenarChatbot();
     }
+
 
     @GetMapping("/barras")
     public ResponseEntity<BarrasDTO> barras(){

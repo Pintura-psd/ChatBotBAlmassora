@@ -1,11 +1,10 @@
 package com.ChatBot.demo.client;
 
-import com.ChatBot.demo.dto.EntrenarDTO;
-import com.ChatBot.demo.dto.QueueDTO;
-import com.ChatBot.demo.dto.RespuestaEntrenamientoDTO;
+import com.ChatBot.demo.dto.chatApi.EntrenarDTO;
+import com.ChatBot.demo.dto.chatApi.QueueDTO;
+import com.ChatBot.demo.dto.chatApi.RespuestaEntrenamientoDTO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.annotation.PostExchange;

@@ -1,9 +1,9 @@
 package com.ChatBot.demo.service;
 
 import com.ChatBot.demo.client.QAClient;
-import com.ChatBot.demo.dto.BarrasDTO;
-import com.ChatBot.demo.dto.PreguntaFrecuenciaDTO;
-import com.ChatBot.demo.dto.QueueDTO;
+import com.ChatBot.demo.dto.front.BarrasDTO;
+import com.ChatBot.demo.dto.front.PreguntaFrecuenciaDTO;
+import com.ChatBot.demo.dto.chatApi.QueueDTO;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.QARepository;
 import org.springframework.http.ResponseEntity;

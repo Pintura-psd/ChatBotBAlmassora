@@ -46,6 +46,10 @@ public class QA {
     @Column(name = "tiempo_respuesta")
     private Long tiempoRespuesta;
 
+    @Enumerated(EnumType.STRING)
+    private EstadoPregunta estado;
+
+
 
 
     @PrePersist

@@ -1,4 +1,4 @@
-package com.ChatBot.demo.dto;
+package com.ChatBot.demo.dto.front;
 
 import lombok.Data;
 

@@ -10,7 +10,7 @@ export default function Top5Preguntas() {
   useEffect(() => {
     const fetchEstadisticas = async () => {
       try {
-        const response = await fetch("http://localhost:8080/estadisticas");
+        const response = await fetch("http://localhost:8080/api/estadisticas");
 
         if (!response.ok) {
           throw new Error("Error al obtener estadísticas");

@@ -49,7 +49,6 @@ public class ApiController {
 
     @GetMapping("/admin")
     public List<QA> index(){
-
         List<QA> preguntaSinRespuesta = qaService.getPreguntaSinRespuesta();
         System.out.println(preguntaSinRespuesta);
         return preguntaSinRespuesta;
@@ -90,8 +89,13 @@ public class ApiController {
         }
         return "JSON cargado correctamente";
     }
-
-
-
+    @GetMapping("/search/{query}")
+    public ResponseEntity<List<QA>> obtenerPregunta(@PathVariable String query) {
+        try{
+           return ResponseEntity.ok(qaService.searchPreguntas(query));
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 
 }
