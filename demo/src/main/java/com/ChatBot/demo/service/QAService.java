@@ -6,6 +6,7 @@ import com.ChatBot.demo.client.Answer;
 import com.ChatBot.demo.client.QAFastClient;
 import com.ChatBot.demo.dto.FastChatAnswerDTO;
 import com.ChatBot.demo.dto.FastChatDTO;
+import com.ChatBot.demo.dto.QADTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.EntrenamientoRepository;
@@ -144,6 +145,10 @@ public class QAService {
         QA existente = qaRepo.findById(id)
             .orElseThrow(() -> new RuntimeException("Pregunta no encontrada con ID: " + id));
         qaRepo.delete(existente);
+    }
+
+    public List<QA> getPreguntas (){
+        return qaRepo.findAll();
     }
 
 //    public void cargarJsonEnBD(String rutaArchivo) {

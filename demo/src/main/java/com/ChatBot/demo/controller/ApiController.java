@@ -91,7 +91,15 @@ public class ApiController {
         return "JSON cargado correctamente";
     }
 
-
+    @GetMapping("/getPregunt")
+        public ResponseEntity<List<QA>> getPreguntas(){
+        try {
+            return ResponseEntity.ok(qaService.getPreguntas());
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 
 
 }
