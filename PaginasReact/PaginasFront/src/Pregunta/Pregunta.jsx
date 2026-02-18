@@ -17,7 +17,7 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect, onDeleteComplete 
         setLoading(true);
         setAction('save');
         try {
-            const res = await fetch('http://localhost:8080/api/', {
+            const res = await fetch('/api/', {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: pregunta.id, prompt: pregunta.prompt, response: respuesta })
@@ -36,7 +36,7 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect, onDeleteComplete 
         setLoading(true);
         setAction('delete');
         try {
-            const res = await fetch(`http://localhost:8080/api/${pregunta.id}`, { method: 'DELETE' });
+            const res = await fetch(`api/${pregunta.id}`, { method: 'DELETE' });
             if (res.ok || res.status === 404) {
                 setIsDeleting(true); // Activar la animación de eliminación
                 pregunta.mensaje = "Se ha eliminado correctamente";
