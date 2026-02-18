@@ -1,22 +1,18 @@
-/* Contenedor de la pregunta, controla la altura para animación */
+/* Contenedor de la pregunta */
 .pregunta-wrapper {
     position: relative;
     overflow: hidden;
     margin: 10px 0;
     transition: height 0.5s ease;
-    height: auto; 
 }
 
-/* Clase que se aplica al guardar o borrar */
-.pregunta-wrapper.save {
-    height: 50px;
-}
-
+/* Colapsa el wrapper solo al guardar (slide instantáneo) o tras el slide al borrar */
+.pregunta-wrapper.save,
 .pregunta-wrapper.delete {
-    height: 50px;
+    height: 50px !important;
 }
 
-/* Fondo de mensaje */
+/* Fondo del mensaje */
 .pregunta-background {
     position: absolute;
     top: 0;
@@ -40,32 +36,24 @@
     opacity: 1;
 }
 
-/* Colores para guardar o borrar */
-.pregunta-wrapper.save .pregunta-background {
-    background-color: #4caf50; 
-}
+.pregunta-background.save   { background-color: #4caf50; }
+.pregunta-background.delete { background-color: #f44336; }
 
-.pregunta-wrapper.delete .pregunta-background {
-    background-color: #f44336; 
-}
-
-/* Tarjeta de la pregunta */
+/* Tarjeta: sin desplazamiento por defecto */
 .pregunta-card {
     position: relative;
     z-index: 1;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Animación al guardar */
-.pregunta-wrapper.save .pregunta-card {
+/* Sale por la izquierda al guardar */
+.pregunta-card.slide-out-save {
     transform: translateX(-100%);
     opacity: 0;
 }
 
-/* Animación al borrar - solo la tarjeta se desliza, el fondo se queda */
-.pregunta-wrapper.delete .pregunta-card {
+/* Sale por la derecha al borrar, revelando el fondo rojo */
+.pregunta-card.slide-out-delete {
     transform: translateX(100%);
     opacity: 0;
 }
-
-
