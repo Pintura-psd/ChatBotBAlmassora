@@ -34,8 +34,8 @@ export default function LineaMensual() {
       chartArea.top
     );
 
-    gradient.addColorStop(0, "rgba(40, 167, 69, 0.1)");
-    gradient.addColorStop(0.5, "rgba(40, 167, 69, 0.4)");
+    gradient.addColorStop(0, "rgb(182, 17, 17)");
+    gradient.addColorStop(0.5, "rgb(255, 217, 0)");
     gradient.addColorStop(1, "rgba(40, 167, 69, 0.8)");
 
     return gradient;
