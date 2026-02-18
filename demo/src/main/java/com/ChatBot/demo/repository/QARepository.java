@@ -16,6 +16,7 @@ public interface QARepository extends JpaRepository<QA, Long> {
         WHERE q.fechaCreacion BETWEEN :inicio AND :fin
         GROUP BY q.pregunta
         ORDER BY COUNT(q) DESC
+        LIMIT 5
         """)
     List<PreguntaFrecuenciaDTO> top5Preguntas(@Param("inicio") LocalDateTime inicio, @Param("fin") LocalDateTime fin);
     @Query("""
