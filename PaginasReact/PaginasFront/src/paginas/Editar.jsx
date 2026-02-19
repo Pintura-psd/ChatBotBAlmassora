@@ -1,4 +1,4 @@
-import PreguntasEdit from "../components/PreguntasEdit/PreguntasEdit.jsx";
+import PreguntasEdit from "../components/Administration/PreguntasEdit/PreguntasEdit.jsx";
 import {Container} from "react-bootstrap";
 
 export const Editar =()=> {
