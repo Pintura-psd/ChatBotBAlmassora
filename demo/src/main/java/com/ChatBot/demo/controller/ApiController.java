@@ -28,6 +28,7 @@ public class ApiController {
 
     }
 
+    @Deprecated
     @PostMapping("/chat")
     public ResponseEntity<String> responderPregunta(@RequestBody String mensaje) {
         mensaje = mensaje.replaceAll("^\"|\"$", "");
@@ -94,8 +95,9 @@ public class ApiController {
         }
         return "JSON cargado correctamente";
     }
-    @GetMapping("/search/{query}")
-    public ResponseEntity<List<QA>> obtenerPregunta(@PathVariable String query) {
+
+    @PostMapping("/search")
+    public ResponseEntity<List<QA>> obtenerPregunta(@RequestBody String query) {
         try{
            return ResponseEntity.ok(qaService.searchPreguntas(query));
         }catch(Exception e){

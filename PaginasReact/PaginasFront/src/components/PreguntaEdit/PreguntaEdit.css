@@ -1,0 +1,59 @@
+/* Contenedor de la pregunta */
+.pregunta-wrapper {
+    position: relative;
+    overflow: hidden;
+    margin: 10px 0;
+    transition: height 0.5s ease;
+}
+
+/* Colapsa el wrapper solo al guardar (slide instantáneo) o tras el slide al borrar */
+.pregunta-wrapper.save,
+.pregunta-wrapper.delete {
+    height: 50px !important;
+}
+
+/* Fondo del mensaje */
+.pregunta-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.pregunta-wrapper.show-message .pregunta-background {
+    opacity: 1;
+}
+
+.pregunta-background.save   { background-color: #4caf50; }
+.pregunta-background.delete { background-color: #f44336; }
+
+/* Tarjeta: sin desplazamiento por defecto */
+.pregunta-card {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Sale por la izquierda al guardar */
+.pregunta-card.slide-out-save {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+/* Sale por la derecha al borrar, revelando el fondo rojo */
+.pregunta-card.slide-out-delete {
+    transform: translateX(100%);
+    opacity: 0;
+}

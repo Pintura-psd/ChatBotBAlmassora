@@ -58,7 +58,7 @@ const ChatBot = () => {
         // Reemplaza el mensaje de loading por la respuesta
         setMensajes((prev) => 
              prev.map((m) =>
-                    m.id === loadingId ? { id: loadingId, texto: respuesta, tipo: "bot" } : m
+              m.id === loadingId ? { id: loadingId, texto: respuesta, tipo: "bot" } : m
             )  
         );
       })
