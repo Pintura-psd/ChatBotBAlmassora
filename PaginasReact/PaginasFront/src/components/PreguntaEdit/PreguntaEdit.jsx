@@ -1,13 +1,18 @@
 import React, { useState, useRef } from 'react';
 import { Card, FloatingLabel, Form, Button } from 'react-bootstrap';
-import './Pregunta.css';
+import './PreguntaEdit.css';
 
-export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
+export const Pregunta = ({
+    pregunta,
+    isSelected,
+    toggleSelect,
+    onDeleteComplete
+}) => {
 
     const [respuesta, setRespuesta] = useState(pregunta.response);
     const [loading, setLoading] = useState(false);
 
-    const [action, setAction] = useState('');        // 'save' | 'delete' | ''
+    const [action, setAction] = useState(''); // 'save' | 'delete' | ''
     const [slideOut, setSlideOut] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
 
@@ -18,26 +23,24 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
 
         pregunta.mensaje = mensaje;
 
-        // fijar altura actual
         const height = wrapperRef.current.offsetHeight;
         wrapperRef.current.style.height = `${height}px`;
 
-        // mostrar fondo
         setAction(actionType);
 
-        // disparar slide
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 setSlideOut(true);
             });
         });
 
-        // colapsar después del slide
-        setTimeout(() => setCollapsed(true), 300);
+        setTimeout(() => {
+            setCollapsed(true);
+        }, 300);
     };
 
 
-    // EDITAR (PATCH)
+    // EDITAR
     const editarPregunta = async () => {
 
         setLoading(true);
@@ -45,18 +48,14 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
         try {
 
             const res = await fetch(`/api/${pregunta.id}`, {
-
                 method: 'PATCH',
-
                 headers: {
                     'Content-Type': 'application/json'
                 },
-
                 body: JSON.stringify({
                     prompt: pregunta.prompt,
                     response: respuesta
                 })
-
             });
 
             if (res.ok) {
@@ -68,7 +67,7 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
 
             } else {
 
-                console.error('Error al editar');
+                console.error("Error al editar");
 
             }
 
@@ -85,7 +84,7 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
     };
 
 
-    // ELIMINAR (DELETE)
+    // ELIMINAR
     const eliminarPregunta = async () => {
 
         setLoading(true);
@@ -93,9 +92,7 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
         try {
 
             const res = await fetch(`/api/${pregunta.id}`, {
-
                 method: 'DELETE'
-
             });
 
             if (res.ok || res.status === 404) {
@@ -105,9 +102,14 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
                     'Se ha eliminado correctamente'
                 );
 
+                // Avisar al padre después de animación
+                setTimeout(() => {
+                    onDeleteComplete(pregunta.id);
+                }, 300);
+
             } else {
 
-                console.error('Error al eliminar');
+                console.error("Error al eliminar");
 
             }
 
@@ -183,7 +185,7 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
                             onClick={editarPregunta}
                             disabled={loading}
                         >
-                            {loading ? 'Guardando...' : 'Guardar cambios'}
+                            {loading ? "Guardando..." : "Guardar cambios"}
                         </Button>
 
 
@@ -192,7 +194,7 @@ export const Pregunta = ({ pregunta, isSelected, toggleSelect }) => {
                             onClick={eliminarPregunta}
                             disabled={loading}
                         >
-                            {loading ? 'Eliminando...' : 'Eliminar'}
+                            {loading ? "Eliminando..." : "Eliminar"}
                         </Button>
 
                     </div>

@@ -10,6 +10,7 @@ import AlmassoraBT from "./paginas/AlmassoraBT.jsx";
 import {MainLayout} from "./layouts/MainLayout.jsx";
 import Menu from "./paginas/Menu.jsx";
 import Login from "./paginas/Login.jsx";
+import {Editar} from "./paginas/Editar.jsx"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<AlmassoraBT />} />
             <Route path="admin" element={<Admin />} />
+            <Route path="edit" element={<Editar />} />
             <Route path="estadisticas" element={<Estadisticas />} />
             <Route path="menu" element={<Menu />} />
           </Route>

@@ -1,7 +1,7 @@
 import Pie from "../components/Pie/Pie.jsx";
 import Barras from "../components/Barras/Barras.jsx";
 import BarrasGradiante from "../components/Barras/BarrasGradiante.jsx";
-import Top5Preguntas from "../Top5/Top5Preguntas.jsx";
+import Top5Preguntas from "../components/Top5/Top5Preguntas.jsx";
 import "./Estadisticas.css";
 import { Container, Card, Form } from "react-bootstrap";
 import { useState } from "react";
