@@ -22,7 +22,6 @@ ChartJS.register(
 
 export default function LineaMensual() {
   const chartRef = useRef(null);
-  const [estadisticas, setEstadisticas] = useState(null);
   const [loading, setLoading] = useState(true);
   const [chartData, setChartData] = useState(null);
 
@@ -55,7 +54,7 @@ export default function LineaMensual() {
 
         const data = await response.json();
         if (!mounted) return;
-        setEstadisticas(data);
+        
 
         const labels = [
           "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
