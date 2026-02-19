@@ -6,7 +6,7 @@ const DashboardCards = () => {
     return (
         <div className="bg-secondary text-dark py-5 min-vh-100">
             <Container>
-                <div className="bg-white text-dark min-vh-100 border border-dark rounded-5">   
+                <div className="bg-white text-dark border border-dark rounded-5">   
                     
                     <div className="bg-dark text-white fw-semibold px-4 py-3 border-0 text-center rounded-top-5 pb-4 mb-4">
                         <h1>Selector</h1>

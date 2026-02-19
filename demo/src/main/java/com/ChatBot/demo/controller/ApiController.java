@@ -29,11 +29,16 @@ public class ApiController {
     }
 
     @PostMapping("/chat")
-    public String responderPregunta(@RequestBody String mensaje) {
-        // Llama a tu servicio para buscar la respuesta correspondiente
+    public ResponseEntity<String> responderPregunta(@RequestBody String mensaje) {
         mensaje = mensaje.replaceAll("^\"|\"$", "");
-       return qaService.getRespuesta(mensaje);
-        // Si no encuentra la pregunta, devuelve mensaje por defecto
+        // Llama a tu servicio para buscar la respuesta correspondiente
+        try {
+            // Si no encuentra la pregunta, devuelve mensaje por defecto
+            return ResponseEntity.ok(qaService.getRespuesta(mensaje));
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 
     @PostMapping("/chat_fast")
