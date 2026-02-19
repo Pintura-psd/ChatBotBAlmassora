@@ -9,7 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import LoadingDisc from "../LoadingDisc.jsx";
+import LoadingDisc from "../../LoadingDisc.jsx";
 
 ChartJS.register(
   CategoryScale,
