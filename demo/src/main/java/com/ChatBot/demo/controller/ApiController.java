@@ -1,5 +1,6 @@
 package com.ChatBot.demo.controller;
 
+import com.ChatBot.demo.dto.front.FastQADTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.service.EntrenamientoService;
@@ -104,6 +105,14 @@ public class ApiController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+    @GetMapping("/fast")
+    public List<FastQADTO>  obtenerPreguntasFast() {
+        return entrenamientoService.getFastQAS();
+    }
+//    @PatchMapping("/fast")
+//    public FastQADTO actualizarPreguntaFast(@RequestBody FastQADTO fastQADTO) {
+//
+//    }
 //    @GetMapping("/edit")
 //    public ResponseEntity<List<QA>> editarlista(){
 //        return ResponseEntity.ok(qaService.get);

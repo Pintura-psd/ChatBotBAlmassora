@@ -5,7 +5,9 @@ import com.ChatBot.demo.client.QAFastClient;
 import com.ChatBot.demo.dto.chatApi.EntrenarDTO;
 import com.ChatBot.demo.dto.chatApi.FastTrainingDTO;
 import com.ChatBot.demo.dto.chatApi.RespuestaEntrenamientoDTO;
+import com.ChatBot.demo.dto.front.FastQADTO;
 import com.ChatBot.demo.model.Entrenamiento;
+import com.ChatBot.demo.model.EstadoPregunta;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.EntrenamientoRepository;
 import com.ChatBot.demo.repository.QARepository;
@@ -72,6 +74,20 @@ public class EntrenamientoService {
         ResponseEntity<RespuestaEntrenamientoDTO> respuesta = qaClient.train(listaEntrenamiento);
         System.out.println(respuesta.getStatusCode());
         return respuesta;
+    }
+
+    public List<FastQADTO> getFastQAS(){
+        return qarepository.findAll().stream()
+                .filter(p -> !p.getEstado().equals(EstadoPregunta.REFUSED))
+                .map(FastQADTO::new)
+                .toList();
+
+    }
+    public void modificarFastQA(FastQADTO fastQADTO){
+        QA qa = qarepository.findById(fastQADTO.getId()).orElse(null);
+        qa.setPregunta(fastQADTO.getPrompt());
+        qa.setRespuesta(fastQADTO.getResponse());
+        qa.setEstado(EstadoPregunta.TO_TRAIN);
     }
 //    public ResponseEntity<RespuestaEntrenamientoDTO> entrenarFastTraining(){
 //        List<QA> preguntas_respuesta=qarepository.findAll();
