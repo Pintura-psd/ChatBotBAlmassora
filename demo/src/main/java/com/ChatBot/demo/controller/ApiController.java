@@ -104,5 +104,9 @@ public class ApiController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+//    @GetMapping("/edit")
+//    public ResponseEntity<List<QA>> editarlista(){
+//        return ResponseEntity.ok(qaService.get);
+//    }
 
 }

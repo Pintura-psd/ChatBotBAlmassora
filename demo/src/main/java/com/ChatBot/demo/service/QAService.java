@@ -57,7 +57,7 @@ public class QAService {
 //    public List<EntrenarDTO> getPreguntaConRespuesta(String pregunta){
 //        return qaRepo.findAll().stream().filter(QA::hasRespuesta).map(EntrenarDTO::new).toList();
 //    }
-
+    @Deprecated
     public void entrenarPreguntaRespuesta() {
         List<Entrenamiento>preguntasEntrenadas=entrenamientoRepo.findAll();
 
@@ -154,6 +154,9 @@ public class QAService {
         catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+    public List<QA> getPreguntas(){
+        return qaRepo.findAll();
     }
 
 //    public void cargarJsonEnBD(String rutaArchivo) {
