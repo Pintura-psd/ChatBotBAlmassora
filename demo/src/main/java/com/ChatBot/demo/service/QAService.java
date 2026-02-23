@@ -42,8 +42,8 @@ public class QAService {
     }
 
     //Crear el objeto pregunta respuesta
-    public QA crearPreguntaRespuesta(QA QA){
-        return qaRepo.save(QA);
+    public QA crearPreguntaRespuesta(QA qa){
+        return qaRepo.save(qa);
     }
     public void almacenarRespuestas(String pregunta, String respuesta, long tiempoRespuesta){
         QA p = new QA(pregunta,respuesta,tiempoRespuesta);
