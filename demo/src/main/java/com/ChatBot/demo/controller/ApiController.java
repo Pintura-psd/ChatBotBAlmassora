@@ -96,6 +96,15 @@ public class ApiController {
         }
         return "JSON cargado correctamente";
     }
+    @GetMapping("/fast_train")
+    public ResponseEntity<String> entrenarFast(){
+        try {
+            entrenamientoService.entrenarFastTraining();
+            return ResponseEntity.ok("Entrenamiento Fast enviado correctamente");
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Error al entrenar Fast: " + e.getMessage());
+        }
+    }
 
     @PostMapping("/search")
     public ResponseEntity<List<QA>> obtenerPregunta(@RequestBody String query) {

@@ -25,7 +25,7 @@ public class QA {
         this.pregunta = pregunta;
         this.respuesta = respuesta;
         this.tiempoRespuesta = tiempoRespuesta;
-
+        this.estado = EstadoPregunta.TO_REVIEW;
     }
 
     @Id

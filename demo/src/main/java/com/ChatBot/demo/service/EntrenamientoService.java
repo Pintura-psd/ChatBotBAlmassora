@@ -80,8 +80,7 @@ public class EntrenamientoService {
     }
 
     public List<FastQADTO> getFastQAS(){
-        return qarepository.findAll().stream()
-                .filter(p -> !p.getEstado().equals(EstadoPregunta.REFUSED))
+        return qarepository.findAll().stream().filter(qa -> qa.getEstado()!=EstadoPregunta.REFUSED)
                 .map(FastQADTO::new)
                 .toList();
 
@@ -94,6 +93,7 @@ public class EntrenamientoService {
     }
     @Scheduled(cron = "0 0 0 * * *")
     public void entrenarFastTraining(){
+        System.out.println("Entrenando preguntas");
         List<FastResponseDTO> err = new ArrayList<>();
         try {
              qarepository.findByEstado(EstadoPregunta.TO_TRAIN)
