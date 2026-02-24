@@ -1,5 +1,6 @@
 package com.ChatBot.demo.controller;
 
+import com.ChatBot.demo.dto.front.EditQADTO;
 import com.ChatBot.demo.dto.front.FastQADTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.QA;
@@ -118,13 +119,17 @@ public class ApiController {
     public List<FastQADTO>  obtenerPreguntasFast() {
         return entrenamientoService.getFastQAS();
     }
-//    @PatchMapping("/fast")
-//    public FastQADTO actualizarPreguntaFast(@RequestBody FastQADTO fastQADTO) {
-//
-//    }
-//    @GetMapping("/edit")
-//    public ResponseEntity<List<QA>> editarlista(){
-//        return ResponseEntity.ok(qaService.get);
-//    }
+    @PatchMapping("/fast")
+    public ResponseEntity<String> actualizarPreguntaFast(@RequestBody EditQADTO editQADTO) {
+        try {
+             entrenamientoService.modificarFastQA(editQADTO);
+             return ResponseEntity.ok("Pregunta actualizada correctamente");
+         }catch (Exception e){
+             return ResponseEntity.badRequest().body("Error al actualizar pregunta: " + e.getMessage());
+         }
+
+
+    }
+
 
 }

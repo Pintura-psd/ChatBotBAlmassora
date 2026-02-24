@@ -6,6 +6,7 @@ import com.ChatBot.demo.dto.chatApi.EntrenarDTO;
 import com.ChatBot.demo.dto.chatApi.FastResponseDTO;
 import com.ChatBot.demo.dto.chatApi.FastTrainingDTO;
 import com.ChatBot.demo.dto.chatApi.RespuestaEntrenamientoDTO;
+import com.ChatBot.demo.dto.front.EditQADTO;
 import com.ChatBot.demo.dto.front.FastQADTO;
 import com.ChatBot.demo.model.Entrenamiento;
 import com.ChatBot.demo.model.EstadoPregunta;
@@ -24,6 +25,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.swing.text.EditorKit;
 
 @Slf4j
 @Service
@@ -85,10 +88,11 @@ public class EntrenamientoService {
                 .toList();
 
     }
-    public void modificarFastQA(FastQADTO fastQADTO){
-        QA qa = qarepository.findById(fastQADTO.getId()).orElse(null);
-        qa.setPregunta(fastQADTO.getPrompt());
-        qa.setRespuesta(fastQADTO.getResponse());
+    public void modificarFastQA(EditQADTO editQADTO){
+        QA qa = new QA();
+        qa.setId(editQADTO.getId());
+        qa.setPregunta(editQADTO.getPrompt());
+        qa.setRespuesta(editQADTO.getResponse());
         qa.setEstado(EstadoPregunta.TO_TRAIN);
     }
     @Scheduled(cron = "0 0 0 * * *")
