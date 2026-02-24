@@ -1,6 +1,7 @@
 package com.ChatBot.demo.dto.chatApi;
 
 import com.ChatBot.demo.model.Entrenamiento;
+import com.ChatBot.demo.model.QA;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +16,9 @@ public class FastTrainingDTO {
     @JsonProperty("response")
     private String response;
 
-    public FastTrainingDTO(Entrenamiento entrenamiento){
-        this.prompt = entrenamiento.getPrompt();
+    public FastTrainingDTO(QA entrenamiento){
+        this.prompt = entrenamiento.getRespuesta();
         this.input="";
-        this.response = entrenamiento.getResponse();
+        this.response = entrenamiento.getRespuesta();
     }
 }

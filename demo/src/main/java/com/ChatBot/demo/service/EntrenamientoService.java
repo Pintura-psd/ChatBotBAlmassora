@@ -3,6 +3,7 @@ package com.ChatBot.demo.service;
 import com.ChatBot.demo.client.QAClient;
 import com.ChatBot.demo.client.QAFastClient;
 import com.ChatBot.demo.dto.chatApi.EntrenarDTO;
+import com.ChatBot.demo.dto.chatApi.FastResponseDTO;
 import com.ChatBot.demo.dto.chatApi.FastTrainingDTO;
 import com.ChatBot.demo.dto.chatApi.RespuestaEntrenamientoDTO;
 import com.ChatBot.demo.dto.front.FastQADTO;
@@ -14,11 +15,13 @@ import com.ChatBot.demo.repository.QARepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.ObjectMapper;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
@@ -89,13 +92,28 @@ public class EntrenamientoService {
         qa.setRespuesta(fastQADTO.getResponse());
         qa.setEstado(EstadoPregunta.TO_TRAIN);
     }
-//    public ResponseEntity<RespuestaEntrenamientoDTO> entrenarFastTraining(){
-//        List<QA> preguntas_respuesta=qarepository.findAll();
-//
-//        List<FastTrainingDTO> entrenamiento= entrenamientoRepository.findAll().stream().map(FastTrainingDTO::new).toList();
-//
-//
-//    }
+    @Scheduled(cron = "0 0 0 * * *")
+    public void entrenarFastTraining(){
+        List<FastResponseDTO> err = new ArrayList<>();
+        try {
+             qarepository.findByEstado(EstadoPregunta.TO_TRAIN)
+                    .forEach(qa -> {
+                        FastTrainingDTO t = new FastTrainingDTO(qa);
+                        FastResponseDTO r = fastClient.train(t);
+                        if(!r.getDetail().isBlank()) err.add(r);
+                        else {
+                            qa.setEstado(EstadoPregunta.TRAINED);
+                            System.out.println("Entrenada: "+qa);
+                        }
+                        qarepository.save(qa);
+                    });
+             err.forEach(System.err::println);
+
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
+    }
 
 
 

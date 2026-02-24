@@ -19,5 +19,5 @@ public interface QAFastClient {
             headers = { "Authorization=Basic dGVhbTE6dGVhbTE="
             }
     )
-    ResponseEntity<FastResponseDTO> train(@RequestBody FastTrainingDTO request);
+    FastResponseDTO train(@RequestBody FastTrainingDTO request);
 }

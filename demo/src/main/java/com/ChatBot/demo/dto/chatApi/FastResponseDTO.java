@@ -12,4 +12,8 @@ public class FastResponseDTO {
     @JsonProperty("detail")
     private String detail;
 
+    public FastResponseDTO(String detail) {
+        this.detail = detail;
+    }
+
 }

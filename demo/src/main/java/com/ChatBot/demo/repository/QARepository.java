@@ -1,6 +1,7 @@
 package com.ChatBot.demo.repository;
 
 import com.ChatBot.demo.dto.front.PreguntaFrecuenciaDTO;
+import com.ChatBot.demo.model.EstadoPregunta;
 import com.ChatBot.demo.model.QA;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,6 @@ public interface QARepository extends JpaRepository<QA, Long> {
            OR LOWER(q.respuesta) LIKE LOWER(CONCAT('%', :texto, '%'))
         """)
     List<QA> buscarPorTexto(@Param("texto") String texto);
+
+    List<QA> findByEstado(EstadoPregunta estado);
 }
