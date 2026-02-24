@@ -10,13 +10,14 @@ export const Pregunta = ({
     onEditComplete
 }) => {
 
-
+    
     const [respuesta, setRespuesta] = useState(pregunta.response);
     const [loading, setLoading] = useState(false);
 
     const [action, setAction] = useState(''); // 'save' | 'delete' | ''
     const [slideOut, setSlideOut] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
+    const [prompt, setPrompt] = useState(pregunta.prompt);
 
     const wrapperRef = useRef(null);
 
@@ -49,12 +50,13 @@ export const Pregunta = ({
 
         try {
 
-            const res = await fetch(`/api/${pregunta.id}`, {
+            const res = await fetch(`/api/fast$`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    id:pregunta.id,
                     prompt: pregunta.prompt,
                     response: respuesta
                 })
@@ -102,7 +104,7 @@ export const Pregunta = ({
 
         try {
 
-            const res = await fetch(`/api/${pregunta.id}`, {
+            const res = await fetch(`/fast${pregunta.id}`, {
                 method: 'DELETE'
             });
 
@@ -155,15 +157,39 @@ export const Pregunta = ({
 
             <Card className={`mb-3 rounded-3 overflow-hidden border border-dark p-0 pregunta-card ${slideOut ? `slide-out-${action}` : ''}`}>
 
-                <Card.Header className="bg-dark text-white fw-semibold px-4 py-3 border-0 d-flex justify-content-between align-items-center">
+                <Card.Header
+                    className="
+        bg-dark 
+        text-white 
+        fw-semibold 
+        px-4 
+        py-3 
+        border-0 
+        d-flex 
+        justify-content-between 
+        align-items-center
+        gap-3
+    "
+                >
 
-                    <span>{pregunta.prompt}</span>
+                    <Form.Control
+                        as="textarea"
+                        value={prompt}
+                        onChange={(e) => setPrompt(e.target.value)}
+                        className="bg-dark text-white border-light fw-semibold"
+                        style={{
+                            resize: "none",
+                            overflow: "hidden",
+                            minHeight: "38px",
+                            maxHeight: "150px"
+                        }}
+                    />
 
                     <Form.Check
                         type="checkbox"
                         checked={isSelected}
                         onChange={() => toggleSelect(pregunta.id)}
-                        className="text-white"
+                        className="text-white flex-shrink-0"
                     />
 
                 </Card.Header>

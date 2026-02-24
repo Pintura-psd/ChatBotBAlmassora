@@ -1,10 +1,10 @@
 /* Forzar texto blanco en todos los items de Pagination dark */
 .pagination .page-link {
-    color: white !important; /* texto de items normales */
+    color: rgb(3, 3, 3) !important; /* texto de items normales */
 }
 
 .pagination .page-item.active .page-link {
-    color: white !important; /* texto del item activo */
+    color: rgb(255, 255, 255) !important; /* texto del item activo */
     background-color: #000 !important; /* fondo de item activo */
     border-color: #333 !important; /* borde item activo */
 }
