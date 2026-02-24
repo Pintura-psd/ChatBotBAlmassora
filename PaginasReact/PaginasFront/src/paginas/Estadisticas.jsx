@@ -53,15 +53,7 @@ export const Estadisticas = () => {
                 </div>
             </div>
 
-            <div className="row p-2">
-                <div className="col-lg-8 p-2 bg-dark rounded-3 border border-dark p-2">
-                    
-                </div>
-
-                <div className="col-lg-4">
-                    <TrainingBtn />
-                </div>
-            </div>
+            
         </section>
     )
 }
