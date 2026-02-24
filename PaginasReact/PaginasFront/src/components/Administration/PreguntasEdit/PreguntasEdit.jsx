@@ -17,23 +17,17 @@ const Preguntas = () => {
     // FETCH inicial
     useEffect(() => {
 
-        fetch("http://localhost:8080/api/admin")
-
+        fetch("http://localhost:8080/api/fast")
             .then(res => res.json())
-
             .then(data => {
 
                 const initialized = data.map(q => ({
-                    ...q,
-                    deleting: false,
-                    showMessage: false,
-                    mensaje: "",
+                    ...q
                 }));
 
                 setQuestions(initialized);
 
             })
-
             .catch(error => console.error(error));
 
     }, []);
@@ -77,11 +71,34 @@ const Preguntas = () => {
             prev.filter(q => q.id !== id)
         );
 
+        setSelectedQuestions(prev =>
+            prev.filter(x => x !== id)
+        );
+
     };
 
 
 
-    // ELIMINAR SELECCIONADAS (solo frontend por ahora)
+    // EDITAR INDIVIDUAL (nuevo)
+    const handleEditComplete = (id, newPrompt, newResponse) => {
+
+        setQuestions(prev =>
+            prev.map(q =>
+                q.id === id
+                    ? {
+                        ...q,
+                        prompt: newPrompt,
+                        response: newResponse
+                    }
+                    : q
+            )
+        );
+
+    };
+
+
+
+    // ELIMINAR SELECCIONADAS (frontend)
     const borrarSeleccionadas = () => {
 
         if (selectedQuestions.length === 0) return;
@@ -151,6 +168,8 @@ const Preguntas = () => {
                     toggleSelect={toggleSelect}
 
                     onDeleteComplete={handleDeleteComplete}
+
+                    onEditComplete={handleEditComplete}
 
                 />
 

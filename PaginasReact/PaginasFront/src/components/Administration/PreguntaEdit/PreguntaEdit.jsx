@@ -6,8 +6,10 @@ export const Pregunta = ({
     pregunta,
     isSelected,
     toggleSelect,
-    onDeleteComplete
+    onDeleteComplete,
+    onEditComplete
 }) => {
+
 
     const [respuesta, setRespuesta] = useState(pregunta.response);
     const [loading, setLoading] = useState(false);
@@ -65,11 +67,20 @@ export const Pregunta = ({
                     'Se ha editado correctamente'
                 );
 
+                if (onEditComplete) {
+                    onEditComplete(
+                        pregunta.id,
+                        prompt,
+                        respuesta
+                    );
+                }
+
             } else {
 
                 console.error("Error al editar");
 
             }
+
 
         } catch (error) {
 
