@@ -130,6 +130,16 @@ public class ApiController {
 
 
     }
+    @DeleteMapping("/fast/{id}")
+    public ResponseEntity<String> eliminarPreguntaFast(@RequestParam Long id) {
+        try {
+            qaService.deletePregunta(id);
+            return ResponseEntity.ok("Pregunta eliminada correctamente");
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Error al eliminar pregunta: " + e.getMessage());
+        }
+
+    }
 
 
 }
