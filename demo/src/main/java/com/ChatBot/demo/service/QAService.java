@@ -103,29 +103,41 @@ public class QAService {
        }
     }
 //version 2.0
-    public String getRespuestaFast(String mensaje) throws Exception{
-        try{
-            FastChatDTO request = new FastChatDTO();
-            request.setPrompt(mensaje);
-            request.setSystem("Responde en español, claro y breve.");
-            request.setMax_new_tokens(100);
-            request.setTemperature(0.2);
-            request.setTop_p(0.9);
-            request.setRag(true);
+public String getRespuestaFast(String mensaje) throws Exception {
+    try {
+        FastChatDTO request = new FastChatDTO();
+        request.setPrompt(mensaje);
+        request.setSystem("Responde en español, claro y breve.");
+        request.setMax_new_tokens(100);
+        request.setTemperature(0.2);
+        request.setTop_p(0.9);
+        request.setRag(true);
 
-            FastChatAnswerDTO respuesta = qaFastClient.getRespuestaFast(request);
-            if (respuesta == null || "No consta en el dataset.".equalsIgnoreCase(respuesta.getText())) {
-                assert respuesta != null;
-                almacenarRespuestas(mensaje, "", respuesta.getLatencyMs());
-            } else {
-                almacenarRespuestas(mensaje, respuesta.getText(), respuesta.getLatencyMs()
-                );
+        FastChatAnswerDTO respuesta = qaFastClient.getRespuestaFast(request);
+        String texto = "";
+
+        if (respuesta != null && !"No consta en el dataset.".equalsIgnoreCase(respuesta.getText())) {
+            texto = respuesta.getText();
+
+            // Cortar el string en la primera aparición de <|assistant|>
+            int index = texto.indexOf("<|assistant|>");
+            if (index != -1) {
+                texto = texto.substring(0, index).trim();
             }
-            return respuesta.getText();
-        }catch (Exception e){
-            throw  new RuntimeException(e);
+
+            // Limpiar cualquier token de <|user|> restante
+            texto = texto.replaceAll("<\\|user\\|>", "").trim();
+
+            almacenarRespuestas(mensaje, texto, respuesta.getLatencyMs());
+        } else {
+            almacenarRespuestas(mensaje, "", respuesta != null ? respuesta.getLatencyMs() : 0);
         }
+
+        return texto;
+    } catch (Exception e) {
+        throw new RuntimeException(e);
     }
+}
     public QA updateRespuesta(QA qa){
         // Buscar la entidad existente por ID
         QA existente = qaRepo.findById(qa.getId())
