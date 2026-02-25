@@ -76,6 +76,12 @@ public class EstadisticasService {
                 .filter(qa -> EstadoPregunta.REFUSED.equals(qa.getEstado()))
                 .count();
     }
+    public int preguntasToTrain() {
+        return (int) QARepository.findAll()
+                .stream()
+                .filter(qa -> EstadoPregunta.TO_TRAIN.equals(qa.getEstado()))
+                .count();
+    }
 
 }
 

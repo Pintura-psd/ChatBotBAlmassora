@@ -13,14 +13,15 @@ public class EstadisticasDTO {
     private int preguntasSinRespuesta;
     private List<PreguntaFrecuenciaDTO> top5Preguntas;
     private int preguntasRefused ;
+    private int preguntasTrain;
 
 
-    public EstadisticasDTO(int total, int bien, int sinRespuesta, List<PreguntaFrecuenciaDTO> top5, int preguntasRefused) {
+    public EstadisticasDTO(int total, int bien, int sinRespuesta, List<PreguntaFrecuenciaDTO> top5, int preguntasRefused, int preguntasTrain) {
         this.totalPreguntas = total;
         this.preguntasBien = bien;
         this.preguntasSinRespuesta = sinRespuesta;
         this.top5Preguntas = top5;
         this.preguntasRefused = preguntasRefused;
-
+        this.preguntasTrain = preguntasTrain;
     }
 }
