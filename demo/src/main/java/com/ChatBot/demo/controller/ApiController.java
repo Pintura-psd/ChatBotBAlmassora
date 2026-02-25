@@ -115,6 +115,7 @@ public class ApiController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
     @GetMapping("/fast")
     public List<FastQADTO>  obtenerPreguntasFast() {
         return entrenamientoService.getFastQAS();
