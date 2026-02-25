@@ -29,16 +29,17 @@ export default function Pie() {
         // Preparar etiquetas y colores
         const labels = [
           `Preguntas respondidas (${data.preguntasBien})`,
-          `Preguntas sin respuesta (${data.preguntasSinRespuesta})`,
-          `Total de preguntas (${data.totalPreguntas})`,
+          `Preguntas entrenadas (${data.preguntasTrain})`,
+          `Preguntas rechazadas (${data.preguntasRefused})`,
+          
         ];
 
         const baseDataset = {
           label: "Estado de las preguntas",
           backgroundColor: [
             "rgba(40, 167, 69, 0.6)", // verde
-            "rgba(255, 193, 7, 0.6)", // amarillo
-            "rgba(0, 123, 255, 0.6)", // azul
+            "rgba(154, 233, 7, 0.77)", // azul
+            "rgba(220, 53, 69, 0.6)", // colorado
           ],
           borderWidth: 1,
         };
@@ -59,8 +60,8 @@ export default function Pie() {
                 ...baseDataset,
                 data: [
                   data.preguntasBien || 0,
-                  data.preguntasSinRespuesta || 0,
-                  data.totalPreguntas || 0,
+                  data.preguntasTrain || 0,
+                   data.preguntasRefused || 0,
                 ],
               },
             ],
