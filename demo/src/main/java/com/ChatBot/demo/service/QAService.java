@@ -147,6 +147,7 @@ public class QAService {
         QA existente = qaRepo.findById(id)
             .orElseThrow(() -> new RuntimeException("Pregunta no encontrada con ID: " + id));
         existente.setEstado(EstadoPregunta.REFUSED);
+        qaRepo.save(existente);
     }
 
     public List<QA> searchPreguntas(String query) {

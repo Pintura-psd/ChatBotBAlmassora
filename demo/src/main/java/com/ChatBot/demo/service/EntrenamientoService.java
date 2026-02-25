@@ -89,11 +89,11 @@ public class EntrenamientoService {
 
     }
     public void modificarFastQA(EditQADTO editQADTO){
-        QA qa = new QA();
-        qa.setId(editQADTO.getId());
+        QA qa = qarepository.findById(editQADTO.getId()).orElseThrow();
+        qa.setEstado(EstadoPregunta.TO_TRAIN);
         qa.setPregunta(editQADTO.getPrompt());
         qa.setRespuesta(editQADTO.getResponse());
-        qa.setEstado(EstadoPregunta.TO_TRAIN);
+        qarepository.save(qa);
     }
     @Scheduled(cron = "0 0 0 * * *")
     public void entrenarFastTraining(){
