@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<AlmassoraBT />} />
-            <Route path="admin" element={<Admin />} />
+            {/*<Route path="admin" element={<Admin />} /> antiguo editor*/}
             <Route path="edit" element={<Editar />} />
             <Route path="estadisticas" element={<Estadisticas />} />
             <Route path="menu" element={<Menu />} />

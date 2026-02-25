@@ -91,7 +91,8 @@ const DashboardCards = () => {
                             </Card>
                         </Col>
 
-                        {/* Responder Preguntas */}
+                    {/* Antigua gestión, la dejamos por si acaso
+                        
                         <Col md={4} className="mb-4 d-flex justify-content-center">
                             <Card
                                 className="mb-3 border border-dark p-0 rounded-5"
@@ -127,7 +128,8 @@ const DashboardCards = () => {
                                     </Button>
                                 </Card.Footer>
                             </Card>
-                        </Col>
+                        </Col> 
+                        */ }
 
                         {/* Editar Preguntas */}
                         <Col md={4} className="mb-4 d-flex justify-content-center">
