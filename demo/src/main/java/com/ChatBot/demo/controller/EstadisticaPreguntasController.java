@@ -50,8 +50,8 @@ public class EstadisticaPreguntasController {
         int bien = service.preguntasConRespuesta();
         int sinRespuesta = qAservice.getPreguntaSinRespuesta().size();
         List<PreguntaFrecuenciaDTO> top5 = service.top5UltimaHora();
-
-        return new EstadisticasDTO(total, bien, sinRespuesta, top5);
+        int preguntasRefused= service.preguntasRefused();
+        return new EstadisticasDTO(total, bien, sinRespuesta, top5, preguntasRefused);
     }
 
     @PostMapping("/entrenar")

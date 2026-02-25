@@ -4,6 +4,7 @@ import com.ChatBot.demo.client.QAClient;
 import com.ChatBot.demo.dto.front.BarrasDTO;
 import com.ChatBot.demo.dto.front.PreguntaFrecuenciaDTO;
 import com.ChatBot.demo.dto.chatApi.QueueDTO;
+import com.ChatBot.demo.model.EstadoPregunta;
 import com.ChatBot.demo.model.QA;
 import com.ChatBot.demo.repository.QARepository;
 import org.springframework.http.ResponseEntity;
@@ -68,6 +69,12 @@ public class EstadisticasService {
             return qaclient.getQueue();
 
 
+    }
+    public int preguntasRefused() {
+        return (int) QARepository.findAll()
+                .stream()
+                .filter(qa -> EstadoPregunta.REFUSED.equals(qa.getEstado()))
+                .count();
     }
 
 }
