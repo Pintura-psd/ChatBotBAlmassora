@@ -130,6 +130,7 @@ public class ApiController {
 
 
     }
+
     @DeleteMapping("/fast/{id}")
     public ResponseEntity<String> eliminarPreguntaFast(@PathVariable Long id) {
         try {
