@@ -131,7 +131,7 @@ public class ApiController {
 
     }
     @DeleteMapping("/fast/{id}")
-    public ResponseEntity<String> eliminarPreguntaFast(@RequestParam Long id) {
+    public ResponseEntity<String> eliminarPreguntaFast(@PathVariable Long id) {
         try {
             qaService.deletePregunta(id);
             return ResponseEntity.ok("Pregunta eliminada correctamente");

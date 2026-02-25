@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Pregunta } from "../PreguntaEdit/PreguntaEdit.jsx";
 import Pagination from "react-bootstrap/Pagination";
 import { Button } from "react-bootstrap";
@@ -10,6 +10,7 @@ const Preguntas = () => {
     const [questions, setQuestions] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedQuestions, setSelectedQuestions] = useState([]);
+    const preguntasRefs = useRef({});
 
     const questionsPerPage = 10;
 
@@ -64,18 +65,7 @@ const Preguntas = () => {
 
 
 
-    // ELIMINAR INDIVIDUAL
-    const handleDeleteComplete = (id) => {
-
-        setQuestions(prev =>
-            prev.filter(q => q.id !== id)
-        );
-
-        setSelectedQuestions(prev =>
-            prev.filter(x => x !== id)
-        );
-
-    };
+    
 
 
 
@@ -98,19 +88,24 @@ const Preguntas = () => {
 
 
 
-    // ELIMINAR SELECCIONADAS (frontend)
+    // ELIMINAR SELECCIONADAS usando la función de cada pregunta
     const borrarSeleccionadas = () => {
-
         if (selectedQuestions.length === 0) return;
 
-        setQuestions(prev =>
-            prev.filter(q =>
-                !selectedQuestions.includes(q.id)
-            )
-        );
+        // Llamar la función eliminarPregunta de cada Pregunta seleccionada
+        selectedQuestions.forEach(id => {
+            if (preguntasRefs.current[id]) {
+                preguntasRefs.current[id].eliminarPregunta();
+            }
+        });
+    };
 
-        setSelectedQuestions([]);
-
+    // ELIMINAR INDIVIDUAL (desde cada Pregunta)
+    const handleDeleteComplete = (id) => {
+        setQuestions(prev => prev.filter(q => q.id !== id));
+        setSelectedQuestions(prev => prev.filter(x => x !== id));
+        // Limpiar referencia
+        delete preguntasRefs.current[id];
     };
 
 
@@ -156,6 +151,8 @@ const Preguntas = () => {
             {currentQuestions.map((pregunta) => (
 
                 <Pregunta
+
+                    ref={el => preguntasRefs.current[pregunta.id] = el}
 
                     key={pregunta.id}
 

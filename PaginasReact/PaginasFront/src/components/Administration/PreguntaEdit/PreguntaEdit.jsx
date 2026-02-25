@@ -1,14 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, forwardRef, useImperativeHandle } from 'react';
 import { Card, FloatingLabel, Form, Button } from 'react-bootstrap';
 import './PreguntaEdit.css';
 
-export const Pregunta = ({
+export const Pregunta = forwardRef(({
     pregunta,
     isSelected,
     toggleSelect,
     onDeleteComplete,
     onEditComplete
-}) => {
+}, ref) => {
     const [respuesta, setRespuesta] = useState(pregunta.response);
     const [prompt, setPrompt] = useState(pregunta.prompt);
     const [loading, setLoading] = useState(false);
@@ -50,7 +50,7 @@ export const Pregunta = ({
             const res = await fetch(`/api/fast`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: pregunta.id, prompt, response: respuesta })
+                body: JSON.stringify({ id: pregunta.id, prompt: prompt, response: respuesta })
             });
             if (res.ok) {
                 triggerAnimation('save', 'Se ha editado correctamente');
@@ -67,8 +67,8 @@ export const Pregunta = ({
     const eliminarPregunta = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`/fast${pregunta.id}`, { method: 'DELETE' });
-            if (res.ok || res.status === 404) {
+            const res = await fetch(`api/fast/${pregunta.id}`, { method: 'DELETE' });
+            if (res.ok) {
                 triggerAnimation('delete', 'Se ha eliminado correctamente', () => {
                     if (onDeleteComplete) onDeleteComplete(pregunta.id);
                 });
@@ -79,6 +79,11 @@ export const Pregunta = ({
             setLoading(false);
         }
     };
+
+    // Exponer la función eliminarPregunta para que el padre pueda llamarla
+    useImperativeHandle(ref, () => ({
+        eliminarPregunta
+    }));
 
     // Se mantiene renderizado tras la animación para mostrar el fondo
 
@@ -135,4 +140,4 @@ export const Pregunta = ({
             </Card>
         </div>
     );
-};
+});
