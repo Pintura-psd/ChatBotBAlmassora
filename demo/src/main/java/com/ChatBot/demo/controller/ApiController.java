@@ -119,6 +119,7 @@ public class ApiController {
     public List<FastQADTO>  obtenerPreguntasFast() {
         return entrenamientoService.getFastQAS();
     }
+
     @PatchMapping("/fast")
     public ResponseEntity<String> actualizarPreguntaFast(@RequestBody EditQADTO editQADTO) {
         try {
@@ -130,6 +131,7 @@ public class ApiController {
 
 
     }
+
     @DeleteMapping("/fast/{id}")
     public ResponseEntity<String> eliminarPreguntaFast(@PathVariable Long id) {
         try {
