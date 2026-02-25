@@ -102,7 +102,6 @@ const Preguntas = () => {
 
     // ELIMINAR INDIVIDUAL (desde cada Pregunta)
     const handleDeleteComplete = (id) => {
-        setQuestions(prev => prev.filter(q => q.id !== id));
         setSelectedQuestions(prev => prev.filter(x => x !== id));
         // Limpiar referencia
         delete preguntasRefs.current[id];
