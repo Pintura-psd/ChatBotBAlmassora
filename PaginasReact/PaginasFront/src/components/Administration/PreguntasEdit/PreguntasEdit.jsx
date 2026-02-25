@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Pregunta } from "../PreguntaEdit/PreguntaEdit.jsx";
 import Pagination from "react-bootstrap/Pagination";
-import { Button } from "react-bootstrap";
+import { Button, Form, InputGroup } from "react-bootstrap";
 import "../PreguntaEdit/PreguntaEdit.css";
 import "./PreguntasEdit.css";
 
@@ -11,8 +11,8 @@ const Preguntas = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedQuestions, setSelectedQuestions] = useState([]);
     const preguntasRefs = useRef({});
-
     const questionsPerPage = 10;
+    const [query, setQuery] = useState("");
 
 
     // FETCH inicial
@@ -33,6 +33,24 @@ const Preguntas = () => {
 
     }, []);
 
+    // FILTRO
+    const filtrar = async (e) => {
+
+        e.preventDefault();
+
+        const response = await fetch("http://localhost:8080/api/search", {
+            method: "POST",
+            headers: {
+                "Content-Type": "text/plain"
+            },
+            body: query
+        });
+
+        const data = await response.json();
+
+        setQuestions(data);
+
+    }
 
 
     // PAGINACIÓN
@@ -65,7 +83,7 @@ const Preguntas = () => {
 
 
 
-    
+
 
 
 
@@ -146,6 +164,33 @@ const Preguntas = () => {
     return (
 
         <>
+            <Form onSubmit={filtrar}>
+
+                <InputGroup>
+
+                    <InputGroup.Text className="bg-dark text-white">
+                        Buscar pregunta.
+                    </InputGroup.Text>
+
+                    <Form.Control
+                        type="text"
+                        required
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
+
+                    <Button
+                        type="submit"
+                        variant="outline-dark"
+                    >
+                        Enviar
+                    </Button>
+
+                </InputGroup>
+
+                 <hr className="my-3" style={{ borderColor: "#343a40" }} />
+
+            </Form>
 
             {currentQuestions.map((pregunta) => (
 

@@ -4,12 +4,12 @@ import './chartConfig';
 
 
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Admin} from "./paginas/Admin.jsx";
-import { Estadisticas } from './paginas/Estadisticas.jsx';
+import {Admin} from "./paginas/Deprecated/Admin.jsx";
+import { Estadisticas } from './paginas/Estadisticas/Estadisticas.jsx';
 import AlmassoraBT from "./paginas/AlmassoraBT.jsx";
 import {MainLayout} from "./layouts/MainLayout.jsx";
-import Menu from "./paginas/Menu.jsx";
-import Login from "./paginas/Login.jsx";
+import Menu from "./paginas/Menu/Menu.jsx";
+import Login from "./paginas/Deprecated/Login/Login.jsx";
 import {Editar} from "./paginas/Editar.jsx"
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<AlmassoraBT />} />
-            <Route path="admin" element={<Admin />} />
+            {/*<Route path="admin" element={<Admin />} /> antiguo editor*/}
             <Route path="edit" element={<Editar />} />
             <Route path="estadisticas" element={<Estadisticas />} />
             <Route path="menu" element={<Menu />} />

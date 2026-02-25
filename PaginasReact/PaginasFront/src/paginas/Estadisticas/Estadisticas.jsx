@@ -1,11 +1,11 @@
-import Pie from "../components/Estadisticas/Pie/Pie.jsx";
-import Barras from "../components/Estadisticas/Barras/Barras.jsx";
-import BarrasGradiante from "../components/Estadisticas/Barras/BarrasGradiante.jsx";
-import Top5Preguntas from "../components/Estadisticas/Top5/Top5Preguntas.jsx" ;
+import Pie from "../../components/Estadisticas/Pie/Pie.jsx";
+import Barras from "../../components/Estadisticas/Barras/Barras.jsx";
+import BarrasGradiante from "../../components/Estadisticas/Barras/BarrasGradiante.jsx";
+import Top5Preguntas from "../../components/Estadisticas/Top5/Top5Preguntas.jsx" ;
 import "./Estadisticas.css";
 import { Container, Card, Form } from "react-bootstrap";
 import { useState } from "react";
-import TrainingBtn from "../components/TrainingBtn.jsx";
+import TrainingBtn from "../../components/TrainingBtn.jsx";
 
 export const Estadisticas = () => {
     const [mostrarBarrasGradiante, setMostrarBarrasGradiante] = useState(false);
