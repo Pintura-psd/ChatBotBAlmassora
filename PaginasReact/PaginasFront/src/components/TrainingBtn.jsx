@@ -8,7 +8,7 @@ export default function TrainingBtn() {
 
   const fetchEntrenamientos = async () => {
     try {
-      const response = await fetch("http://localhost:8080/entrenamientos");
+      const response = await fetch("/entrenamientos");
       if (!response.ok) throw new Error("Error al cargar entrenamientos");
       const data = await response.json();
       setEntrenamientos(data);
@@ -28,7 +28,7 @@ export default function TrainingBtn() {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/estadisticas/entrenar",
+        "/estadisticas/entrenar",
         { method: "POST" }
       );
 

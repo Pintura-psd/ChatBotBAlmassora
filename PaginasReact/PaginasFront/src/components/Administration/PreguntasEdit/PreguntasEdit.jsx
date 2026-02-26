@@ -18,7 +18,7 @@ const Preguntas = () => {
     // FETCH inicial
     useEffect(() => {
 
-        fetch("http://localhost:8080/api/fast")
+        fetch("/api/fast")
             .then(res => res.json())
             .then(data => {
 
@@ -38,7 +38,7 @@ const Preguntas = () => {
 
         e.preventDefault();
 
-        const response = await fetch("http://localhost:8080/api/search", {
+        const response = await fetch("/api/search", {
             method: "POST",
             headers: {
                 "Content-Type": "text/plain"

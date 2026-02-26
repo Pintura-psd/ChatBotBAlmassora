@@ -13,7 +13,7 @@ const Preguntas = () => {
 
     // Fetch preguntas
     useEffect(() => {
-        fetch("http://localhost:8080/api/admin")
+        fetch("/api/admin")
             .then(res => res.json())
             .then(data => {
                 const initialized = data.map(q => ({

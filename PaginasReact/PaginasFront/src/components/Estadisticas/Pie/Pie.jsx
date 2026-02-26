@@ -3,7 +3,6 @@ import { Doughnut } from "react-chartjs-2";
 import LoadingDisc from "../../LoadingDisc.jsx";
 
 export default function Pie() {
-  const [estadisticas, setEstadisticas] = useState(null);
   const [loading, setLoading] = useState(true);
   const [chartData, setChartData] = useState(null);
 
@@ -13,7 +12,7 @@ export default function Pie() {
 
     const fetchEstadisticas = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/estadisticas");
+        const response = await fetch("/api/estadisticas");
 
         if (!response.ok) {
           throw new Error("Error al obtener estadísticas");
@@ -24,7 +23,6 @@ export default function Pie() {
 
         if (!mounted) return;
 
-        setEstadisticas(data);
 
         // Preparar etiquetas y colores
         const labels = [

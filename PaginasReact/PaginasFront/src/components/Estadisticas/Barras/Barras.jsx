@@ -21,7 +21,6 @@ ChartJS.register(
 );
 
 export default function Barras() {
-  const [estadisticas, setEstadisticas] = useState(null);
   const [loading, setLoading] = useState(true);
   const [chartData, setChartData] = useState(null);
 
@@ -31,7 +30,7 @@ export default function Barras() {
 
     const fetchEstadisticas = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/estadisticas/barras");
+        const response = await fetch("/api/estadisticas/barras");
 
         if (!response.ok) {
           throw new Error("Error al obtener estadísticas");
@@ -40,8 +39,7 @@ export default function Barras() {
         const data = await response.json();
         console.log("Datos recibidos:", data);
 
-        if (!mounted) return;
-        setEstadisticas(data);
+
 
         const labels = [
           "Enero",
