@@ -19,11 +19,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-
-                // Configure CORS
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        // TODO: permitir acceso público a todos los endpoints
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth -> oauth
@@ -40,10 +40,16 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+<<<<<<< HEAD
         configuration.setAllowCredentials(true);
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "https://chat2.valenciainformada.com"));
         configuration.setAllowedMethods(java.util.List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
         configuration.setAllowedHeaders(java.util.List.of("*"));
+=======
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+>>>>>>> main
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
         
